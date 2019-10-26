@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
-  <a class="navbar-brand" href="#">Web App</a>
+  <a class="navbar-brand" [routerLink]="['/explore']">AppartmentBook</a>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#" >Nav link 1</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link"[routerLink]="['/explore']" >Explore</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Nav link 2</a>
+          <a class="nav-link"[routerLink]="['/myapps']" >My Appartments</a>
       </li>
     </ul>
 
@@ -17,6 +17,9 @@
         </a>
 
         <div class="dropdown-menu mt-3" *dropdownMenu>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-user"></i> Edit Profile</a>
+              <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="logout()">
               <i class="fa fa-sign-out"></i> Logout</a>
           </div>

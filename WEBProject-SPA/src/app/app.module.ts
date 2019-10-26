@@ -12,14 +12,18 @@ import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
-
+import { AuthGuard } from './_guards/auth.guard';
+import { ExploreComponent } from './explore/explore.component';
+import { MyAppartmentsComponent } from './my-appartments/my-appartments.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       HomeComponent,
       NavComponent,
-      RegisterComponent
+      RegisterComponent,
+      ExploreComponent,
+      MyAppartmentsComponent
    ],
    imports: [
       BrowserModule,
@@ -31,7 +35,8 @@ import { AlertifyService } from './_services/alertify.service';
    providers: [
       AuthService,
       ErrorInterceptorProvider,
-      AlertifyService
+      AlertifyService,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent
