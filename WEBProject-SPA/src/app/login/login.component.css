@@ -6,10 +6,10 @@ mat-form-field {
     width: 450px;
     border: 1px solid;
     margin: auto;
-    vertical-align: middle;
     background-color: rgba(247, 242, 242, 0.8);
     border: 1px solid rgba(102, 99, 99, 0.5);
     border-radius: 8px;
+    vertical-align: middle;
   
   }
   
@@ -23,3 +23,4 @@ mat-form-field {
   
   }
   
+ 

@@ -44,6 +44,7 @@ namespace WEBProject.API.Data
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.Role = "Guest";
 
             await _context.Users.AddAsync(user);
 
@@ -66,6 +67,15 @@ namespace WEBProject.API.Data
         {
             if (await _context.Users.AnyAsync(x => x.Username == username))
                 return true;
+
+            return false;
+        }
+
+         public bool PasswordMatch(string password1, string password2)
+        {
+            if(password1.Trim() == password2.Trim()) { 
+                return true;
+            }
 
             return false;
         }

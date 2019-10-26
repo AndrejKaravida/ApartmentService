@@ -17,6 +17,14 @@ import { ExploreComponent } from './explore/explore.component';
 import { MyAppartmentsComponent } from './my-appartments/my-appartments.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
+import { LoginComponent } from './login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @NgModule({
    declarations: [
@@ -27,14 +35,21 @@ import { UsersComponent } from './users/users.component';
       ExploreComponent,
       MyAppartmentsComponent,
       ProfileComponent,
-      UsersComponent
+      UsersComponent,
+      LoginComponent
    ],
    imports: [
       BrowserModule,
       FormsModule,
       HttpClientModule,
       AppRoutingModule,
-      BsDropdownModule.forRoot()
+      BsDropdownModule.forRoot(),
+      BrowserAnimationsModule,
+      MatCardModule,
+      MatFormFieldModule,
+      MatDividerModule,
+      MatInputModule,
+      MatButtonModule
    ],
    providers: [
       AuthService,

@@ -1,0 +1,42 @@
+<div>
+    <div>
+      <section class="signup-form">
+        <mat-card style="margin-top: 7%; min-height: 450px">
+          <mat-card-title>
+            <h1>Login</h1>
+            <mat-divider></mat-divider>
+            <br/>
+          </mat-card-title>
+          <div align="center"> 
+
+            <form fxLayout="column" fxLayoutGap="20px" #f="ngForm" (ngSubmit)="login()">
+              <mat-form-field>
+                <input type="text" required matInput placeholder="Username" [(ngModel)]="model.username" name="username" #username="ngModel">
+                <mat-error *ngIf="username.hasError('required')">Field must not be empty.</mat-error>
+                <mat-error *ngIf="!username.hasError('required')">E-Mail is invalid.</mat-error>
+              </mat-form-field>
+           
+              <mat-form-field>
+                <input type="password"  autocomplete="on" matInput placeholder="Your password" required  [(ngModel)]="model.password" name="password" #pwInput="ngModel">
+                <mat-hint align="end">{{ pwInput.value?.length }} / 4</mat-hint>
+                <mat-error>Has to be at least 4 characters long.</mat-error>
+              </mat-form-field>
+        
+              <div>
+                <br/>
+                <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+              </div> 
+                 
+              <br/>
+              <div align="center"> 
+                <br/>
+                <p>Don't have an account?</p>
+                <button mat-raised-button color="primary" routerLink="/register">Sign up</button>
+              </div>      
+            </form>
+           </div>
+        </mat-card>
+      </section>
+    </div>
+  </div>
+  

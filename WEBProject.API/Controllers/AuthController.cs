@@ -32,6 +32,11 @@ namespace WEBProject.API.Controllers
             if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
+            if(!_repo.PasswordMatch(userForRegisterDto.Password, userForRegisterDto.Password2)) 
+            { 
+                return BadRequest("Passwords must match");
+            }
+
             var userToCreate = new User
             {
                 Username = userForRegisterDto.Username

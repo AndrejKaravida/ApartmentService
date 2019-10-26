@@ -1,18 +1,45 @@
-<form #registerForm="ngForm" (ngSubmit)="register()">
-  <h2 class="text-center text-primary">Sign Up</h2>
-  <hr>
+<section class="signup-form">
+    <mat-card fxLayout="column" fxLayoutAlign="center center" style="margin-top: 7%">
+      <mat-card-title>
+        <h1>Sign up</h1>
+        <mat-divider></mat-divider>
+        <br/>
+      </mat-card-title>
 
-  <div class="form-group">
-    <input type="text" class="form-control" name="username" [(ngModel)]="model.username" required placeholder="Username">
-  </div>
+      <div align="center">
+      <form fxLayout="column" fxLayoutGap="20px" #f="ngForm" (ngSubmit)="register()">
+        <mat-form-field>
+          <input matInput placeholder="Username" [(ngModel)]="model.username" name="name" required #nameInput="ngModel" />
+          <mat-error *ngIf="nameInput.hasError('required')">Field must not be empty.</mat-error>
+          <mat-error *ngIf="!nameInput.hasError('required')">Name is invalid.</mat-error>
+        </mat-form-field>
+       
+        <mat-form-field>
+          <input type="password" matInput placeholder="Your password" [(ngModel)]="model.password" name="password" required minlength="6" #pwInput="ngModel" />
+          <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint>
+          <mat-error>Has to be at least 6 characters long.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Confirm password" [(ngModel)]="model.password2" required name="password2" minlength="6" #pw2Input="ngModel" />
+          <mat-hint align="end">{{ pw2Input.value?.length }} / 6</mat-hint>
+          <mat-error>Has to be at least 6 characters long.</mat-error>
+        </mat-form-field>
+        
 
-  <div class="form-group">
-    <input type="password" class="form-control" name="password" [(ngModel)]="model.password" required placeholder="Password">
-  </div>
+        <div>
+          <br/>
+            <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
+              Submit
+            </button>
+        </div>
 
-  <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Register</button>
-    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
-  </div>
+        <br/>
+        <div align="center"> 
+          <p>Already have an account?</p>
+          <button mat-raised-button color="primary" routerLink="/login">Login</button>
+        </div>      
 
-</form> 
+      </form>
+    </div>
+    </mat-card>
+  </section>

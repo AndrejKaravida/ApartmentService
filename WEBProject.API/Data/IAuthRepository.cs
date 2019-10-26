@@ -8,5 +8,6 @@ namespace WEBProject.API.Data
          Task<User> Register(User user, string password);
          Task<User> Login(string username, string password);
          Task<bool> UserExists(string username);
+        bool PasswordMatch(string password1, string password2);
     }
 }
