@@ -15,6 +15,8 @@ import { AlertifyService } from './_services/alertify.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { ExploreComponent } from './explore/explore.component';
 import { MyAppartmentsComponent } from './my-appartments/my-appartments.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
    declarations: [
@@ -23,7 +25,9 @@ import { MyAppartmentsComponent } from './my-appartments/my-appartments.componen
       NavComponent,
       RegisterComponent,
       ExploreComponent,
-      MyAppartmentsComponent
+      MyAppartmentsComponent,
+      ProfileComponent,
+      UsersComponent
    ],
    imports: [
       BrowserModule,

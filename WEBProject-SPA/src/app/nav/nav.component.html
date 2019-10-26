@@ -4,7 +4,7 @@
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link"[routerLink]="['/explore']" >Explore</a>
+        <a class="nav-link" [routerLink]="['/explore']" >Explore</a>
       </li>
       <li class="nav-item">
           <a class="nav-link"[routerLink]="['/myapps']" >My Appartments</a>
@@ -17,9 +17,12 @@
         </a>
 
         <div class="dropdown-menu mt-3" *dropdownMenu>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item"  [routerLink]="['/profile']">
               <i class="fa fa-user"></i> Edit Profile</a>
               <div class="dropdown-divider"></div>
+              <a class="dropdown-item"  [routerLink]="['/users']">
+                <i class="fa fa-user"></i> Manage Users</a>
+                <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="logout()">
               <i class="fa fa-sign-out"></i> Logout</a>
           </div>
