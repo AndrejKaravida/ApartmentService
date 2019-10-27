@@ -50,6 +50,18 @@ namespace WEBProject.API.Data
             _context.SaveChanges();
         }
 
+         public void SeedApartments() 
+        {
+            var apartmentData = System.IO.File.ReadAllText("Data/ApartmentSeedData.json");
+            var apartments = JsonConvert.DeserializeObject<List<Apartment>>(apartmentData);
+            foreach (var apartment in apartments)
+            {
+                _context.Apartments.Add(apartment);
+            }
+
+            _context.SaveChanges();
+        }
+
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512()) 

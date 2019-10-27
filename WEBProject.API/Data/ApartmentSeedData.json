@@ -1,0 +1,47 @@
+[
+    {
+      "Type": "Aparment",
+      "NumberOfRooms": "4",
+      "NumberOfGuests": "7",
+      "PricePerNight": "30",
+      "TimeToArrive": "2 PM",
+      "TimeToLeave": "10 AM",
+      "Status": "Active"
+    },
+    {
+        "Type": "Aparment",
+        "NumberOfRooms": "3",
+        "NumberOfGuests": "5",
+        "PricePerNight": "35",
+        "TimeToArrive": "2 PM",
+        "TimeToLeave": "10 AM",
+        "Status": "Active"
+      },
+      {
+        "Type": "Aparment",
+        "NumberOfRooms": "2",
+        "NumberOfGuests": "4",
+        "PricePerNight": "25",
+        "TimeToArrive": "2 PM",
+        "TimeToLeave": "10 AM",
+        "Status": "Active"
+      },
+      {
+        "Type": "Room",
+        "NumberOfRooms": "1",
+        "NumberOfGuests": "2",
+        "PricePerNight": "18",
+        "TimeToArrive": "2 PM",
+        "TimeToLeave": "10 AM",
+        "Status": "Active"
+      },
+      {
+        "Type": "Room",
+        "NumberOfRooms": "1",
+        "NumberOfGuests": "1",
+        "PricePerNight": "15",
+        "TimeToArrive": "2 PM",
+        "TimeToLeave": "10 AM",
+        "Status": "Active"
+      }
+]

@@ -78,8 +78,9 @@ namespace WEBProject.API
             }
 
            // app.UseHttpsRedirection();
-          //  seeder.SeedUsers();
-         //    seeder.SeedAdmins();
+           // seeder.SeedUsers();
+           // seeder.SeedAdmins();
+           // seeder.SeedApartments();
                   
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();

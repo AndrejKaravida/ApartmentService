@@ -11,5 +11,8 @@ namespace WEBProject.API.Data
          Task<bool> SaveAll();
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
+         Task<IEnumerable<Apartment>> GetActiveApartments();
+         Task<Apartment> GetApartment(int id);
+         Task<IEnumerable<Apartment>> GetActiveApartmentsFromUser(int id);
     }
 }

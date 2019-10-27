@@ -23,6 +23,26 @@ namespace WEBProject.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<IEnumerable<Apartment>> GetActiveApartments()
+        {
+            var apartments = await _context.Apartments.ToArrayAsync();
+
+            return apartments;
+        }
+
+        public async Task<IEnumerable<Apartment>> GetActiveApartmentsFromUser(int id)
+        {
+            var apartments = await _context.Apartments.ToListAsync();
+
+            return apartments;
+        }
+
+        public async Task<Apartment> GetApartment(int id)
+        {
+            var apartment = await _context.Apartments.FirstOrDefaultAsync(a=> a.Id == id);
+            return apartment;
+        }
+
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u=> u.Id == id);
