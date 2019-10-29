@@ -1,6 +1,6 @@
 [
     {
-      "Type": "Aparment",
+      "Type": "Apartment",
       "NumberOfRooms": "4",
       "NumberOfGuests": "7",
       "PricePerNight": "30",
@@ -9,7 +9,7 @@
       "Status": "Active"
     },
     {
-        "Type": "Aparment",
+        "Type": "Apartment",
         "NumberOfRooms": "3",
         "NumberOfGuests": "5",
         "PricePerNight": "35",
@@ -18,7 +18,7 @@
         "Status": "Active"
       },
       {
-        "Type": "Aparment",
+        "Type": "Apartment",
         "NumberOfRooms": "2",
         "NumberOfGuests": "4",
         "PricePerNight": "25",

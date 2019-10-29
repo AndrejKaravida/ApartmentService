@@ -1,35 +1,59 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WEBProject.API.Migrations
 {
-    public partial class AddedUsers : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Gender",
-                table: "Users",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Role",
-                table: "Users",
-                nullable: true);
-
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Addresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Street = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     ZipCode = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    PasswordHash = table.Column<byte[]>(nullable: true),
+                    PasswordSalt = table.Column<byte[]>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Values",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Values", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,7 +61,7 @@ namespace WEBProject.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
                     AddressId = table.Column<int>(nullable: true)
@@ -46,9 +70,9 @@ namespace WEBProject.API.Migrations
                 {
                     table.PrimaryKey("PK_Location", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Location_Address_AddressId",
+                        name: "FK_Location_Addresses_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "Address",
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -58,7 +82,7 @@ namespace WEBProject.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Type = table.Column<string>(nullable: true),
                     NumberOfRooms = table.Column<int>(nullable: false),
                     NumberOfGuests = table.Column<int>(nullable: false),
@@ -68,8 +92,7 @@ namespace WEBProject.API.Migrations
                     TimeToArrive = table.Column<string>(nullable: true),
                     TimeToLeave = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true),
-                    UserId1 = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,12 +109,6 @@ namespace WEBProject.API.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Apartments_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,7 +116,7 @@ namespace WEBProject.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     ApartmentId = table.Column<int>(nullable: true)
                 },
@@ -119,7 +136,7 @@ namespace WEBProject.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuthorId = table.Column<int>(nullable: true),
                     ApartmentId = table.Column<int>(nullable: true),
                     Text = table.Column<string>(nullable: true),
@@ -147,7 +164,7 @@ namespace WEBProject.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AppartmentId = table.Column<int>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     NumberOfNights = table.Column<int>(nullable: false),
@@ -188,11 +205,6 @@ namespace WEBProject.API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Apartments_UserId1",
-                table: "Apartments",
-                column: "UserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comments_ApartmentId",
                 table: "Comments",
                 column: "ApartmentId");
@@ -230,21 +242,19 @@ namespace WEBProject.API.Migrations
                 name: "Reservations");
 
             migrationBuilder.DropTable(
+                name: "Values");
+
+            migrationBuilder.DropTable(
                 name: "Apartments");
 
             migrationBuilder.DropTable(
                 name: "Location");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Users");
 
-            migrationBuilder.DropColumn(
-                name: "Gender",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Role",
-                table: "Users");
+            migrationBuilder.DropTable(
+                name: "Addresses");
         }
     }
 }

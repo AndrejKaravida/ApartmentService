@@ -1,0 +1,11 @@
+<div class="card mb-4">
+  <div class="card-img-wrapper">
+    <img class="card-img-top" src="{{'../../../../assets/placeholder.png" alt="{{apartment.type}}">
+  </div>
+  <span *ngIf="apartment.type == 'Room'" class="aparttype">Room   · {{apartment.numberOfGuests}} Beds</span>
+  <span *ngIf="apartment.type == 'Apartment'" class="aparttype">Entire Apartment  · {{apartment.numberOfGuests}} Beds</span>
+  <span class="card-title">Adresa</span>
+  <span class="price">${{apartment.pricePerNight}}/night</span>
+  <button type="button" class="details" aria-busy="false" [routerLink]="['/explore/', apartment.id]">Details</button>
+
+</div>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEBProject.API.Data;
@@ -9,19 +10,22 @@ using WEBProject.API.Data;
 namespace WEBProject.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191026183242_AddedUsers")]
-    partial class AddedUsers
+    [Migration("20191029165936_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099");
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("WEBProject.API.Models.Address", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City");
 
@@ -31,13 +35,14 @@ namespace WEBProject.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("WEBProject.API.Models.Amentity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("ApartmentId");
 
@@ -53,7 +58,8 @@ namespace WEBProject.API.Migrations
             modelBuilder.Entity("WEBProject.API.Models.Apartment", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("LocationId");
 
@@ -75,15 +81,11 @@ namespace WEBProject.API.Migrations
 
                     b.Property<int?>("UserId");
 
-                    b.Property<int?>("UserId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Apartments");
                 });
@@ -91,7 +93,8 @@ namespace WEBProject.API.Migrations
             modelBuilder.Entity("WEBProject.API.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("ApartmentId");
 
@@ -113,7 +116,8 @@ namespace WEBProject.API.Migrations
             modelBuilder.Entity("WEBProject.API.Models.Location", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("AddressId");
 
@@ -131,7 +135,8 @@ namespace WEBProject.API.Migrations
             modelBuilder.Entity("WEBProject.API.Models.Reservation", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("AppartmentId");
 
@@ -157,9 +162,16 @@ namespace WEBProject.API.Migrations
             modelBuilder.Entity("WEBProject.API.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("FirstName");
 
                     b.Property<string>("Gender");
+
+                    b.Property<string>("LastName");
 
                     b.Property<byte[]>("PasswordHash");
 
@@ -177,7 +189,8 @@ namespace WEBProject.API.Migrations
             modelBuilder.Entity("WEBProject.API.Models.Value", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
@@ -202,10 +215,6 @@ namespace WEBProject.API.Migrations
                     b.HasOne("WEBProject.API.Models.User")
                         .WithMany("ApartmentsForRent")
                         .HasForeignKey("UserId");
-
-                    b.HasOne("WEBProject.API.Models.User")
-                        .WithMany("RentedApartments")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("WEBProject.API.Models.Comment", b =>

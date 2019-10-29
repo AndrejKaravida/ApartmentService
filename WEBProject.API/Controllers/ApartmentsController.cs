@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WEBProject.API.Data;
+using WEBProject.API.Dtos;
 
 namespace WEBProject.API.Controllers
 {
@@ -25,7 +27,9 @@ namespace WEBProject.API.Controllers
         { 
             var apartments = await _repo.GetActiveApartments();
 
-            return Ok(apartments);
+            var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForListDto>>(apartments);
+
+            return Ok(apartmentsToReturn);
         }
         /* 
 

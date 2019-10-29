@@ -8,12 +8,21 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.component';
+import { ApartmentDetailResolver } from './_resolvers/apartment-detail-resolver';
+import { ApartmentListResolver } from './_resolvers/apartment-list-resolver';
+import { UserProfileResolver } from './_resolvers/user-profile-resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]},
+  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard],
+                        resolve: {apartments: ApartmentListResolver}},
+  { path: 'explore/:id', component: ApartmentDetailComponent, canActivate: [AuthGuard],
+                        resolve: {apartment: ApartmentDetailResolver}},
   { path: 'myapps', component: MyAppartmentsComponent , canActivate: [AuthGuard]},
-  { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard]},
+  { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard],
+      resolve: {user: UserProfileResolver}, canDeactivate: [PreventUnsavedChanges]},
   { path: 'users', component: UsersComponent , canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},

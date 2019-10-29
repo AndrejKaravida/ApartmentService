@@ -33,11 +33,11 @@ namespace WEBProject.API
                     opt.SerializerSettings.ReferenceLoopHandling =
                      Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddAutoMapper();
             services.AddTransient<Seed>();
             services.AddScoped<IApartmentBookRepository, ApartmentBookRepository>();
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -78,8 +78,8 @@ namespace WEBProject.API
             }
 
            // app.UseHttpsRedirection();
-           // seeder.SeedUsers();
-           // seeder.SeedAdmins();
+         //   seeder.SeedUsers();
+         //   seeder.SeedAdmins();
            // seeder.SeedApartments();
                   
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());

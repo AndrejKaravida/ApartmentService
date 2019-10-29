@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './_services/auth.service';
@@ -20,10 +19,29 @@ import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatDividerModule} from '@angular/material/divider';
+import { MatInputModule} from '@angular/material/input';
+import { MatButtonModule} from '@angular/material/button';
+import { UserService } from './_services/user.service';
+import { ApartmentService } from './_services/apartment.service';
+import { ApartmentCardComponent } from './apartment-card/apartment-card.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { ApartmentDetailResolver } from './_resolvers/apartment-detail-resolver';
+import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.component';
+import { ApartmentListResolver } from './_resolvers/apartment-list-resolver';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { UserProfileResolver } from './_resolvers/user-profile-resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+
+
+
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 
 @NgModule({
@@ -36,7 +54,9 @@ import {MatButtonModule} from '@angular/material/button';
       MyAppartmentsComponent,
       ProfileComponent,
       UsersComponent,
-      LoginComponent
+      LoginComponent,
+      ApartmentCardComponent,
+      ApartmentDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -49,13 +69,29 @@ import {MatButtonModule} from '@angular/material/button';
       MatFormFieldModule,
       MatDividerModule,
       MatInputModule,
-      MatButtonModule
+      MatButtonModule,
+      MatTableModule,
+      MatIconModule,
+      MatSelectModule,
+      JwtModule.forRoot({
+         config: {
+            tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      })
    ],
    providers: [
       AuthService,
+      ApartmentService,
+      UserService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      ApartmentDetailResolver,
+      ApartmentListResolver,
+      UserProfileResolver,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent

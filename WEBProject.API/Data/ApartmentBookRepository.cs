@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WEBProject.API.Models;
@@ -25,12 +26,12 @@ namespace WEBProject.API.Data
 
         public async Task<IEnumerable<Apartment>> GetActiveApartments()
         {
-            var apartments = await _context.Apartments.ToArrayAsync();
+            var apartments = await _context.Apartments.Where(s => s.Status == "Active").ToListAsync();
 
             return apartments;
         }
 
-        public async Task<IEnumerable<Apartment>> GetActiveApartmentsFromUser(int id)
+        public async Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id)
         {
             var apartments = await _context.Apartments.ToListAsync();
 

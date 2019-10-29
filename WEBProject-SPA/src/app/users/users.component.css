@@ -1,0 +1,43 @@
+.table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .mydiv {
+    height: 100vh;
+  }
+  
+  .mat-row:hover {
+    background-color: rgb(172, 161, 161);
+    cursor: pointer;
+  }
+  
+  .mat-row {
+    height: auto;
+  }
+  
+  .mat-cell {
+    padding: 11px 11px 11px 0;
+  }
+  
+  .mat-header-cell {
+    text-align: center;
+  }
+  
+  th {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  
+  }
+  
+  td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  }
+  
