@@ -3,10 +3,6 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Migrations\20191029165825_InitialCreate.cs" />
-    <Compile Remove="Migrations\20191029165825_InitialCreate.Designer.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

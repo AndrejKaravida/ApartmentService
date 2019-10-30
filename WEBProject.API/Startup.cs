@@ -54,7 +54,7 @@ namespace WEBProject.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -78,13 +78,12 @@ namespace WEBProject.API
             }
 
            // app.UseHttpsRedirection();
-         //   seeder.SeedUsers();
-         //   seeder.SeedAdmins();
-           // seeder.SeedApartments();
-                  
+                           
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
             app.UseMvc();
+
+            InitialData.Initialize(app);
         }
     }
 }

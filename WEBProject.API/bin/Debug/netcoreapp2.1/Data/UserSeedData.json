@@ -1,62 +1,80 @@
 [
-    {
-      "Username": "Bailey",
-      "Gender": "male",
-      "Password": "password",
-      "Role": "Guest"
-    },
-    {
-      "Username": "Ryan",
-      "Gender": "male",
-      "Password": "password",
-      "Role": "Host"
-    },
-    {
-      "Username": "Brown",
-      "Gender": "male",
-      "Password": "password",
-      "Role": "Guest"
-    },
-    {
-      "Username": "Goodwin",
-      "Gender": "male",
-      "Password": "password",
-      "Role": "Host"
-    },
-    {
-      "Username": "Hurst",
-      "Gender": "male",
-      "Password": "password",
-      "Role": "Guest"
-    },
-    {
-        "Username": "Foley",
-        "Gender": "female",
-        "Password": "password",
-        "Role": "Host"
-      },
-      {
-        "Username": "Bishop",
-        "Gender": "female",
-        "Password": "password",
-        "Role": "Guest"
-      },
-      {
-        "Username": "Logan",
-        "Gender": "female",
-        "Password": "password",
-        "Role": "Guest"
-      },
-      {
-        "Username": "Gibbs",
-        "Gender": "female",
-        "Password": "password",
-        "Role": "Guest"
-      },
-      {
-        "Username": "Hebert",
-        "Gender": "female",
-        "Password": "password",
-        "Role": "Host"
-      }
-  ]
+  {
+    "Username": "Bailey",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "Ryan",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "Brown",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "Goodwin",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "Hurst",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "Foley",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "Bishop",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "Logan",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "Gibbs",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "Hebert",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "admin1",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Admin"
+  },
+  {
+    "Username": "admin2",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Admin"
+  },
+  {
+    "Username": "admin3",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Admin"
+  }
+]

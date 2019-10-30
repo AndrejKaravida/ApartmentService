@@ -7,13 +7,12 @@ namespace WEBProject.API.Data
     {
           public DataContext(DbContextOptions<DataContext>  options) : base (options) {}
 
-            public DbSet<Value> Values { get; set; }
             public DbSet<User> Users { get; set; }
-            public DbSet<Apartment> Apartments { get; set; }
             public DbSet<Amentity> Amentities { get; set; }
-            public DbSet<Location> Location { get; set; }
-            public DbSet<Address> Addresses { get; set; }
             public DbSet<Comment> Comments { get; set; }
+            public DbSet<Location> Location { get; set; }
+            public DbSet<Apartment> Apartments { get; set; }
+            public DbSet<Address> Addresses { get; set; }
             public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

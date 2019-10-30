@@ -10,7 +10,7 @@ using WEBProject.API.Data;
 namespace WEBProject.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191029165936_InitialCreate")]
+    [Migration("20191030210518_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,15 +40,12 @@ namespace WEBProject.API.Migrations
 
             modelBuilder.Entity("WEBProject.API.Models.Amentity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ApartmentId");
 
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.HasIndex("ApartmentId");
 
@@ -186,19 +183,6 @@ namespace WEBProject.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WEBProject.API.Models.Value", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Values");
-                });
-
             modelBuilder.Entity("WEBProject.API.Models.Amentity", b =>
                 {
                     b.HasOne("WEBProject.API.Models.Apartment")
@@ -213,7 +197,7 @@ namespace WEBProject.API.Migrations
                         .HasForeignKey("LocationId");
 
                     b.HasOne("WEBProject.API.Models.User")
-                        .WithMany("ApartmentsForRent")
+                        .WithMany("RentedApartments")
                         .HasForeignKey("UserId");
                 });
 
