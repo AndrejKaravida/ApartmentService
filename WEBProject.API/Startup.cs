@@ -36,7 +36,6 @@ namespace WEBProject.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddAutoMapper();
-            services.AddTransient<Seed>();
             services.AddScoped<IApartmentBookRepository, ApartmentBookRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IAuthRepository, AuthRepository>();
