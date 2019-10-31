@@ -1,0 +1,350 @@
+<div class="container">
+  <mat-card class="card">
+    <h5 align="center">Please enter the details below:</h5>
+
+      <mat-horizontal-stepper [linear]="false" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Kind of place</ng-template>
+                  <br/>
+                  <br/>
+                  <span class="headline">What kind of place are you listing?</span>
+                  <br/>
+                  <br/>  
+                  <br/>
+                  <br/>
+                  <label class="headline2">Please choose a property type:</label>
+                  <br/>
+                  <mat-form-field>
+                      <mat-select [(value)]="newApartment.type" required formControlName="firstCtrl">
+                        <mat-option value="Room">Room</mat-option>
+                        <mat-option value="Apartment">Entire apartment</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <div *ngIf="newApartment.type == 'Apartment'">
+                    <br/>
+                    <span class="hint">Apartments are typically located in multi-unit residential buildings or complexes where other people live.</span>
+                  </div>
+                  <div *ngIf="newApartment.type == 'Room'">
+                    <br/>
+                      <span class="hint">Guests have their own private room for sleeping. Other areas could be shared.</span>
+                    </div>
+                  <div>
+                  <br/>
+                    <button mat-raised-button matStepperNext color="primary">Next</button>
+                  </div>
+                </form>
+            </mat-step>
+            
+            <mat-step>
+                
+                  <ng-template matStepLabel>Number of guests</ng-template>
+                  <br/>
+                  <br/>
+                  <span class="headline">How many guests can your place accommodate?</span>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <span class="hint"> Guests: {{newApartment.numberOfGuests}}</span>
+
+                  <mat-slider class="example-margin" [max]="8" [min]="1"
+                   [step]="1" [disabled]="false" [invert]="false" [thumbLabel]="true"
+                   [(ngModel)]="newApartment.numberOfGuests" [vertical]="false">
+                   </mat-slider>
+                 
+                   <div>
+                     <br/>
+                     <span class="headline2">How many bedrooms can guests use?</span>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="outline">
+
+                        <mat-select [(value)]="newApartment.numberOfRooms">
+                            <mat-option value="1">1 bedroom</mat-option>
+                            <mat-option value="2">2 bedrooms</mat-option>
+                            <mat-option value="3">3 bedrooms</mat-option>
+                            <mat-option value="4">4 bedrooms</mat-option>
+                            <mat-option value="5">5 bedrooms</mat-option>
+                            <mat-option value="6">6 bedrooms</mat-option>
+                            <mat-option value="7">7 bedrooms</mat-option>
+                            <mat-option value="8">8 bedrooms</mat-option>
+                            <mat-option value="9">9 bedrooms</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <br/>
+                    </div>
+
+                    <div>
+                        <br/>
+                        <span class="headline2">Time of arrival:</span>
+                       </div>
+
+                    <div>
+
+                      <mat-form-field appearance="outline">
+                          <mat-select [(value)]="newApartment.timeToArrive">
+                              <mat-option value="1">1:00 PM</mat-option>
+                              <mat-option value="1:30">1:30 PM</mat-option>
+                              <mat-option value="2:00">2:00 PM</mat-option>
+                              <mat-option value="2:30">2:30 PM</mat-option>
+                              <mat-option value="3:00">3:00 PM</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <br/>
+                        <span class="headline2">Time for departure: </span>
+                       </div>
+                       
+                    <div>
+                      <mat-form-field appearance="outline">
+                         <mat-select [(value)]="newApartment.timeToLeave">
+                              <mat-option value="9">9:00 AM</mat-option>
+                              <mat-option value="9:30">9:30 AM</mat-option>
+                              <mat-option value="10:00">10:00 AM</mat-option>
+                              <mat-option value="10:30">10:30 AM</mat-option>
+                              <mat-option value="11:00">11:00 AM</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                    </div>
+      
+                    <div class="buttons">
+                    <button mat-raised-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
+                  </div>
+                
+              </mat-step>
+
+              <mat-step [stepControl]="secondFormGroup">
+                  <form [formGroup]="secondFormGroup">
+                      <ng-template matStepLabel>Location</ng-template>
+
+                      <div>
+                        <span class="headline">Where’s your place located?</span>
+                      </div>
+                      <br/>
+
+                      <div>
+                        <label class="headline2">Country / Region</label>
+                        <div>
+                          <mat-form-field appearance="outline">
+                            <input matInput name="country" [(value)]="country">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label class="headline2">Street Address</label>
+                        <div>
+                            <mat-form-field appearance="outline">
+                              <input matInput name="street" [(value)]="street">
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      
+                      <div>
+                        <label class="headline2">Apt, Suite. (optional)</label>
+                        <div>
+                            <mat-form-field appearance="outline">
+                              <input matInput name="apt" [(value)]="apt">
+                            </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div>
+                        <label class="headline2">City</label>
+                        <div>
+                            <mat-form-field appearance="outline">
+                              <input matInput name="city" [(value)]="city">
+                            </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div>
+                        <label class="headline2">ZIP Code</label>
+                        <div>
+                            <mat-form-field appearance="outline">
+                              <input matInput name="zip" [(value)]="zip">
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      
+                                     
+                      <br/>
+                      <div class="buttons">
+                          <button mat-raised-button matStepperPrevious>Back</button>
+                          <button mat-raised-button color="primary" matStepperNext>Next</button>
+                        </div>
+                      
+                    </form>
+                </mat-step>
+
+                <mat-step>
+                    <form >
+                        <ng-template matStepLabel>Amentities</ng-template>
+  
+                        <div>
+                          <span class="headline">What amenities do you offer?</span>
+                        </div>
+                        <br/>
+  
+                        <div>
+                            <mat-checkbox class="example-margin" name = "essential" [(ngModel)]="amentity.essential">
+                          Essentials (Towels, bed sheets, soap, toilet paper, pillows)
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "airconditioning" [(ngModel)]="amentity.airconditioning">
+                           Air conditioning
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "heat" [(ngModel)]="amentity.heat">
+                          Heat
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "hairdryer" [(ngModel)]="amentity.hairdryer">
+                         Hair dryer
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "closet/drawers" [(ngModel)]="amentity.closet">
+                          Closet/drawers
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "iron" [(ngModel)]="amentity.iron">
+                          Iron
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "tv" [(ngModel)]="amentity.tv">
+                          Tv
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "privateentrance" [(ngModel)]="amentity.privateentrance">
+                          Private entrance
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "shampoo" [(ngModel)]="amentity.shampoo">
+                          Shampoo
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "wifi" [(ngModel)]="amentity.wifi">
+                          Wifi
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "desk/workspace" [(ngModel)]="amentity.desk">
+                          Desk/workspace
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "breakfast" [(ngModel)]="amentity.breakfast">
+                          Breakfast, coffee, tea
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <span class="headline2">Safety amenities</span>
+                          </div>
+                          <br/>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "fireextinguisher" [(ngModel)]="amentity.fireextinguisher">
+                          Fire extinguisher
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "carbon" [(ngModel)]="amentity.carbon">
+                          Carbon monoxide detector
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "smoke" [(ngModel)]="amentity.smoke">
+                          Smoke detector
+                        </mat-checkbox>
+                        </div>
+
+                        <div>
+                            <mat-checkbox class="example-margin" name = "firstaidkit" [(ngModel)]="amentity.firstaidkit">
+                         First aid kit
+                        </mat-checkbox>
+                        </div>
+                        
+                                       
+                        <br/>
+                        <div class="buttons">
+                            <button mat-raised-button matStepperPrevious>Back</button>
+                            <button mat-raised-button color="primary" matStepperNext>Next</button>
+                          </div>
+                        
+                      </form>
+                  </mat-step>
+
+                  <mat-step [stepControl]="fourthFormGroup">
+                      <form [formGroup]="fourthFormGroup">
+                          <ng-template matStepLabel>Pricing</ng-template>
+                          <br/><br/>
+                          <span class="headline">How much guests need to pay for the rent?</span>
+                          <br/><br/><br/><br/>
+                          <div>
+                              <label class="headline2">Price per night</label>
+                              <div>
+                                <mat-form-field appearance="outline">
+                                  <input matInput name="price" [(value)]="newApartment.pricePerNight">
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          <br/>
+                          <div class="buttons">
+                              <button mat-raised-button matStepperPrevious>Back</button>
+                              <button mat-raised-button color="primary" matStepperNext>Next</button>
+                            </div>
+                        
+                        </form>
+                    </mat-step>
+
+              <mat-step>
+                  <ng-template matStepLabel>Done</ng-template>
+
+                  <div>
+                      <br/>
+                      <br/>
+                    <span class="headline">You are now done</span>
+                    <br/>
+                    <br/>
+                    <br/>
+                  </div>
+
+                  <div class="buttons2">
+                      <button mat-raised-button color="primary" (click)="addApartment()">Submit home</button>
+                      <br/>
+                  </div>
+
+                  <div class="buttons">
+                    <button mat-raised-button matStepperPrevious>Back</button>
+                    <button mat-raised-button (click)="stepper.reset()" color="warn">Reset</button>
+                  </div>
+                </mat-step>
+      </mat-horizontal-stepper>
+  </mat-card>
+</div>

@@ -151,7 +151,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Take(1).First(), 
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Take(10))
                 },
                 new Apartment
@@ -167,7 +167,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(1).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(5).Take(8))
                 },
                 new Apartment
@@ -183,7 +183,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(2).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(2).Take(8))
                 },
                 new Apartment
@@ -199,7 +199,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(3).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(6).Take(5))
                 },
                 new Apartment
@@ -215,7 +215,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(4).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(4).Take(10))
                 },
                 new Apartment
@@ -231,7 +231,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(5).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(8).Take(5))
                 },
                 new Apartment
@@ -247,7 +247,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(6).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(9).Take(5))
                 },
                 new Apartment
@@ -263,7 +263,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(7).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(4).Take(11))
                 },
                 new Apartment
@@ -279,7 +279,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(8).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(4).Take(8))
                 },
                 new Apartment
@@ -295,7 +295,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(9).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Name)
+                    .OrderBy(a => a.Id)
                     .Skip(2).Take(6))
                 }
             };

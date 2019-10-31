@@ -26,17 +26,12 @@
          <div>
             <mat-form-field>
               <label mat-label> City:</label>
-              <mat-select [(value)]="currentUser.city">
-                <mat-option>None</mat-option>
-                <mat-option value="Zrenjanin">Zrenjanin</mat-option>
-                <mat-option value="Novi Sad">Novi Sad</mat-option>
-                <mat-option value="Beograd">Beograd</mat-option>
-              </mat-select>
+              <input name="city" matInput [(ngModel)]="currentUser.city">
             </mat-form-field>
 
             <mat-form-field>
-              <label mat-label> Country:</label>
-              <input matInput name="country" disabled>Serbia
+              <label mat-label> Gender:</label>
+              <input style="text-transform: capitalize;" name="gender" matInput [(ngModel)]="currentUser.gender">
             </mat-form-field>
           </div>
 
@@ -44,7 +39,113 @@
             <button type="submit" mat-raised-button color="primary">Save</button>
           </div>
         </form>
-      </mat-card>
-    </div>
+    </mat-card>
   </div>
-</div>
+  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+    <mat-card>
+        <h5 style="text-align: center">Add new apartment:</h5>
+        <br />
+
+        <form #apartmentForm="ngForm" (ngSubmit)="addApartment()">
+            <div>
+              <mat-form-field>
+                <label mat-label> Type: </label>
+                <mat-select [(value)]="newApartment.type">
+                    <mat-option value="Room">Room</mat-option>
+                    <mat-option value="Apartment">Entire apartment</mat-option>
+                  </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field *ngIf="newApartment.type !== 'Room'">
+                <label mat-label> Number of rooms: </label>
+                <mat-select [(value)]="newApartment.numberOfRooms">
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="3">3</mat-option>
+                    <mat-option value="4">4</mat-option>
+                    <mat-option value="5">5</mat-option>       
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="newApartment.type == 'Room'">
+                  <label mat-label> Number of rooms:</label>
+                  <input matInput name="numberOfRooms" disabled>1
+             </mat-form-field>
+           
+              <mat-form-field *ngIf="newApartment.type !== 'Room'">
+                  <label mat-label> Number of guests: </label>
+                  <mat-select [(value)]="newApartment.numberOfGuests">
+                      <mat-option value="1">1</mat-option>
+                      <mat-option value="2">2</mat-option>
+                      <mat-option value="3">3</mat-option>
+                      <mat-option value="4">4</mat-option>
+                      <mat-option value="5">5</mat-option>
+                      <mat-option value="6">6</mat-option>
+                      <mat-option value="7">7</mat-option>
+                      <mat-option value="8">8</mat-option>            
+                  </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="newApartment.type == 'Room'">
+                  <label mat-label> Number of guests: </label>
+                  <mat-select [(value)]="newApartment.numberOfGuests">
+                      <mat-option value="1">1</mat-option>
+                      <mat-option value="2">2</mat-option>
+                      <mat-option value="3">3</mat-option>           
+                  </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <label mat-label> Time to arrive: </label>
+                  <mat-select [(value)]="newApartment.timeToArrive">
+                      <mat-option value="1">1:00 PM</mat-option>
+                      <mat-option value="1:30">1:30 PM</mat-option>
+                      <mat-option value="2:00">2:00 PM</mat-option>
+                      <mat-option value="2:30">2:30 PM</mat-option>
+                      <mat-option value="3:00">3:00 PM</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <label mat-label> Time to leave: </label>
+                    <mat-select [(value)]="newApartment.timeToLeave">
+                        <mat-option value="9">9:00 AM</mat-option>
+                        <mat-option value="9:30">9:30 AM</mat-option>
+                        <mat-option value="10:00">10:00 AM</mat-option>
+                        <mat-option value="10:30">10:30 AM</mat-option>
+                        <mat-option value="11:00">11:00 AM</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                 
+                  <label mat-label> Amentities: </label>
+                  <br/>
+                  <mat-checkbox>Wifi</mat-checkbox>
+                  <mat-checkbox>Cable TV</mat-checkbox>
+                  <mat-checkbox>Washer</mat-checkbox>
+                  <mat-checkbox>Air Conditioning</mat-checkbox>
+                  <mat-checkbox>TV</mat-checkbox>
+                  <mat-checkbox>Heating</mat-checkbox>
+                  <mat-checkbox>Ethernet connection</mat-checkbox>
+                  <mat-checkbox>Essentials</mat-checkbox>
+                  <mat-checkbox>Hot water</mat-checkbox>
+                  <mat-checkbox>Iron</mat-checkbox>
+                  <mat-checkbox>Crib</mat-checkbox>
+                  <mat-checkbox>High chair</mat-checkbox>
+                  <mat-checkbox>Room-darkening shades</mat-checkbox>
+                  <mat-checkbox>Travel crib</mat-checkbox>
+                  <mat-checkbox>Window guards</mat-checkbox>
+                  <mat-checkbox>Elevator</mat-checkbox>
+               
+            </div>
+
+            <div align="center">
+                <button type="submit" mat-raised-button color="primary">Save</button>
+              </div>
+            </form>
+    </mat-card>
+  </div>
+  
+  </div>
+  </div>
+

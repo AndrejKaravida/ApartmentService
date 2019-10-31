@@ -7,11 +7,12 @@ import { Apartment } from '../_models/apartment';
   styleUrls: ['./apartment-card.component.css']
 })
 export class ApartmentCardComponent implements OnInit {
-  @Input() apartment: Apartment;
+  @Input() apartment: any;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.apartment);
   }
 
 }
