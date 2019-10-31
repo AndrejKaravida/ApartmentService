@@ -39,9 +39,18 @@ namespace DatingApp.API.Controllers
         {
             var user = await _repo.GetUser(id);
 
-            var userToReturn = _mapper.Map<UserForUpdateDto>(user);
+            var userToReturn = _mapper.Map<UserForListDto>(user);
 
             return Ok(userToReturn);
+        }
+
+        public async Task<IActionResult> GetUserApartments(int id)
+        {
+            var apartments = await _repo.GetApartmentsFromUser(id);
+
+            var apartmentsToReturn = _mapper.Map<ApartmentForListDto>(apartments);
+
+            return Ok(apartmentsToReturn);
         }
 
         [HttpPut("{id}")]

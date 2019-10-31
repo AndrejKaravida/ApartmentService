@@ -26,7 +26,11 @@ namespace WEBProject.API.Data
 
         public async Task<IEnumerable<Apartment>> GetActiveApartments()
         {
-            var apartments = await _context.Apartments.Where(s => s.Status == "Active").ToListAsync();
+            var apartments = await _context.Apartments
+                .Where(s => s.Status == "Active")
+                .Include(l => l.Location)
+                .ThenInclude(a => a.Address)
+                .ToListAsync();
 
             return apartments;
         }
@@ -40,19 +44,45 @@ namespace WEBProject.API.Data
 
         public async Task<Apartment> GetApartment(int id)
         {
-            var apartment = await _context.Apartments.FirstOrDefaultAsync(a=> a.Id == id);
+            var apartment = await _context.Apartments
+                .Include(a => a.Amentities)
+                .Include(r => r.Reservations)
+                .Include(c => c.Comments)
+                .Include(l => l.Location)
+                .ThenInclude(a => a.Address)
+                .FirstOrDefaultAsync(a=> a.Id == id);
             return apartment;
+        }
+
+        public async Task<IEnumerable<Reservation>> GetReservations()
+        {
+            var reservations = await _context.Reservations
+                .Include(a => a.Appartment)
+                .ThenInclude(l => l.Location)
+                .ThenInclude(a => a.Address)
+                .Include(g => g.Guest)
+                .ToListAsync();
+            return reservations;
         }
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u=> u.Id == id);
+            var user = await _context.Users
+                .Include(a => a.RentedApartments)
+                .Include(r => r.Reservations)
+                .FirstOrDefaultAsync(u=> u.Id == id);
             return user;
         }
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users
+                .Include(a => a.RentedApartments)
+                .Include(r => r.Reservations)
+                .ThenInclude(ar => ar.Appartment)
+                .ThenInclude(l => l.Location)
+                .ThenInclude(ad => ad.Address)
+                .ToListAsync();
 
             return users;
         }

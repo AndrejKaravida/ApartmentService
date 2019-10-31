@@ -10,7 +10,6 @@ namespace WEBProject.API.Helpers
         public AutoMapperProfiles() 
         {
             CreateMap<User, UserForListDto>();
-            CreateMap<User, UserForDetailedDto>();
             CreateMap<User, UserForUpdateDto>();
             CreateMap<UserForUpdateDto, User>();
             CreateMap<Apartment, ApartmentForDetailedDto>();

@@ -31,18 +31,7 @@ namespace WEBProject.API.Controllers
 
             return Ok(apartmentsToReturn);
         }
-        /* 
-
-        [HttpGet("{/user/id}")]
-
-        public async Task<IActionResult> GetActiveApartmentsFromUser(int id)
-        { 
-            var apartments = await _repo.GetActiveApartmentsFromUser(id);
-
-            return Ok(apartments);
-        }
-        */
-        
+             
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetApartment(int id) 

@@ -12,7 +12,10 @@ namespace WEBProject.API.Data
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
          Task<IEnumerable<Apartment>> GetActiveApartments();
+         Task<IEnumerable<Reservation>> GetReservations();
          Task<Apartment> GetApartment(int id);
          Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id);
+            
+        
     }
 }

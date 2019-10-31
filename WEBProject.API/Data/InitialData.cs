@@ -21,16 +21,20 @@ namespace WEBProject.API.Data
                 if (context.Apartments != null && context.Apartments.Any())
                     return;
 
+                var users = GetUsers().ToArray();
+                context.Users.AddRange(users);
+                context.SaveChanges();
+
                 var addresses = GetAddresses().ToArray();
                 context.Addresses.AddRange(addresses);
                 context.SaveChanges();
 
-                var locations = GetLocations(context).ToArray();
-                context.Location.AddRange(locations);
-                context.SaveChanges();
-
                 var amentiites = GetAmentities().ToArray();
                 context.Amentities.AddRange(amentiites);
+                context.SaveChanges();
+
+                var locations = GetLocations(context).ToArray();
+                context.Location.AddRange(locations);
                 context.SaveChanges();
 
                 var apartments = GetApartments(context).ToArray();
@@ -44,12 +48,6 @@ namespace WEBProject.API.Data
                 var comments = GetComments(context).ToArray();
                 context.Comments.AddRange(comments);
                 context.SaveChanges();
-
-                var users = GetUsers().ToArray();
-                context.Users.AddRange(users);
-                context.SaveChanges();
-
-                
 
             }
 
@@ -78,16 +76,26 @@ namespace WEBProject.API.Data
         {
             List<Location> locations = new List<Location>()
             {
-                new Location {Latitude = 12.0256, Longitude = 69.3652, Address = db.Addresses.Take(1) as Address},
-                new Location {Latitude = 18.0699, Longitude = 96.3123, Address = db.Addresses.Skip(1).Take(1) as Address},
-                new Location {Latitude = 79.3689, Longitude = 19.6965, Address = db.Addresses.Skip(2).Take(1) as Address},
-                new Location {Latitude = 15.1555, Longitude = 74.2669, Address = db.Addresses.Skip(3).Take(1) as Address},
-                new Location {Latitude = 14.6982, Longitude = 89.3651, Address = db.Addresses.Skip(4).Take(1) as Address},
-                new Location {Latitude = 96.3685, Longitude = 98.3215, Address = db.Addresses.Skip(5).Take(1) as Address},
-                new Location {Latitude = 123.069, Longitude = 69.9874, Address = db.Addresses.Skip(6).Take(1) as Address},
-                new Location {Latitude = 165.695, Longitude = 61.9863, Address = db.Addresses.Skip(7).Take(1) as Address},
-                new Location {Latitude = 11.2669, Longitude = 14.3268, Address = db.Addresses.Skip(8).Take(1) as Address},
-                new Location {Latitude = 156.365, Longitude = 55.6974, Address = db.Addresses.Skip(9).Take(1) as Address},
+                new Location {Latitude = 12.0256, Longitude = 69.3652, 
+                    Address = db.Addresses.OrderBy(a => a.Id).Take(1).First()},
+                new Location {Latitude = 18.0699, Longitude = 96.3123,
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(1).Take(1).First()},
+                new Location {Latitude = 79.3689, Longitude = 19.6965, 
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(2).Take(1).First()},
+                new Location {Latitude = 15.1555, Longitude = 74.2669, 
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(3).Take(1).First()},
+                new Location {Latitude = 14.6982, Longitude = 89.3651,
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(4).Take(1).First()},
+                new Location {Latitude = 96.3685, Longitude = 98.3215,
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(5).Take(1).First()},
+                new Location {Latitude = 123.069, Longitude = 69.9874, 
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(6).Take(1).First()},
+                new Location {Latitude = 165.695, Longitude = 61.9863,
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(7).Take(1).First()},
+                new Location {Latitude = 11.2669, Longitude = 14.3268, 
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(8).Take(1).First()},
+                new Location {Latitude = 156.365, Longitude = 55.6974, 
+                    Address = db.Addresses.OrderBy(a => a.Id).Skip(9).Take(1).First()},
             };                                                                                     
 
             return locations;
@@ -139,8 +147,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
-                    Location = db.Location.Take(1) as Location, 
-                    Amentities = new List<Amentity>(db.Amentities.Take(1).Skip(3).Take(4).Skip(5).Take(3))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Take(1).First(), 
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Take(10))
                 },
                 new Apartment
                 {
@@ -151,8 +163,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "3 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(1).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(3).Skip(2).Take(2).Skip(4).Take(6))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(1).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(5).Take(8))
                 },
                 new Apartment
                 {
@@ -163,8 +179,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "11 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(2).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(2).Skip(2).Take(5).Skip(2).Take(1))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(2).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(2).Take(8))
                 },
                 new Apartment
                 {
@@ -175,8 +195,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "4 PM",
                     TimeToLeave = "9 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(3).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(5).Skip(2).Take(1).Skip(2).Take(3))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(3).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(6).Take(5))
                 },
                 new Apartment
                 {
@@ -187,8 +211,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(4).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(5).Skip(1).Take(1).Skip(3).Take(4))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(4).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(4).Take(10))
                 },
                 new Apartment
                 {
@@ -199,8 +227,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "1 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(5).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(1).Skip(2).Take(3).Skip(3).Take(7))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(5).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(8).Take(5))
                 },
                 new Apartment
                 {
@@ -211,8 +243,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(6).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(5).Skip(1).Take(4).Skip(2).Take(3))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(6).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(9).Take(5))
                 },
                 new Apartment
                 {
@@ -223,8 +259,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(7).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(5).Skip(1).Take(4).Skip(1).Take(6))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(7).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(4).Take(11))
                 },
                 new Apartment
                 {
@@ -235,8 +275,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "11 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(8).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(3).Skip(1).Take(6).Skip(5).Take(1))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(8).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(4).Take(8))
                 },
                 new Apartment
                 {
@@ -247,8 +291,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "1 PM",
                     TimeToLeave = "11 AM",
                     Status = "Active",
-                    Location = db.Location.Skip(9).Take(1) as Location,
-                    Amentities = new List<Amentity>(db.Amentities.Take(1).Skip(3).Take(2).Skip(5).Take(6))
+                    Location = db.Location
+                    .OrderBy(l => l.Id)
+                    .Skip(9).Take(1).First(),
+                    Amentities = new List<Amentity>(db.Amentities
+                    .OrderBy(a => a.Name)
+                    .Skip(2).Take(6))
                 }
             };
 
@@ -259,11 +307,26 @@ namespace WEBProject.API.Data
         {
             List<Reservation> reservations = new List<Reservation>()
             {
-                new Reservation {NumberOfNights = 5, TotalPrice = 30, Status = "Accepted", Guest = db.Users.Take(1) as User, Appartment = db.Apartments.Take(1) as Apartment},
-                new Reservation {NumberOfNights = 2, TotalPrice = 35, Status = "Created", Guest = db.Users.Skip(1).Take(1) as User, Appartment = db.Apartments.Skip(2).Take(1) as Apartment},
-                new Reservation {NumberOfNights = 7, TotalPrice = 60, Status = "Accepted", Guest = db.Users.Skip(2).Take(1) as User, Appartment = db.Apartments.Skip(4).Take(1) as Apartment},
-                new Reservation {NumberOfNights = 3, TotalPrice = 39, Status = "Finished", Guest = db.Users.Skip(3).Take(1) as User, Appartment = db.Apartments.Skip(6).Take(1) as Apartment},
-                new Reservation {NumberOfNights = 4, TotalPrice = 42, Status = "Rejected", Guest = db.Users.Skip(4).Take(1) as User, Appartment = db.Apartments.Skip(8).Take(1) as Apartment},
+                new Reservation {
+                    NumberOfNights = 5, TotalPrice = 30, Status = "Accepted", 
+                    Guest = db.Users.OrderBy(u => u.Id).Take(1).First(), 
+                    Appartment = db.Apartments.OrderBy(a => a.Id).Take(1).First()},
+                new Reservation {
+                    NumberOfNights = 2, TotalPrice = 35, Status = "Created", 
+                    Guest = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(), 
+                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First()},
+                new Reservation {
+                    NumberOfNights = 7, TotalPrice = 60, Status = "Accepted", 
+                    Guest = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(), 
+                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First()},
+                new Reservation {
+                    NumberOfNights = 3, TotalPrice = 39, Status = "Finished", 
+                    Guest = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(), 
+                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First()},
+                new Reservation 
+                {NumberOfNights = 4, TotalPrice = 42, Status = "Rejected", 
+                    Guest = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(), 
+                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First()},
             };
 
             return reservations;
@@ -277,31 +340,31 @@ namespace WEBProject.API.Data
                 " A hidden gem of Novi Sad, with a quite and dreamy church bell as a backround to complete the decor. " +
                 "Jelena was very accomodating and friendly. We would gladly visit again. Thank you!", 
                 Grade = 10, 
-                Author = db.Users.Take(1) as User,
-                Apartment = db.Apartments.Take(1) as Apartment},
+                Author = db.Users.OrderBy(u => u.Id).Take(1).First(),
+                Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First()},
                  new Comment {Text = "Great location! Apartment is beautifully decorated and just enough space in the " +
                  "heart of the city. Jelena and Milan were very accommodating with arrival and check out. Highly recommend" +
                  " this space and would definitely come back again!!!!", 
                 Grade = 9, 
-                Author = db.Users.Skip(1).Take(1) as User,
-                Apartment = db.Apartments.Skip(2).Take(1) as Apartment}, 
+                Author = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(),
+                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First()}, 
                 new Comment {Text = "Super good location. From the balcony, the church is really close and you can see the " +
                 "church roof clearly.",
                 Grade = 10,
-                Author = db.Users.Skip(2).Take(1) as User,
-                Apartment = db.Apartments.Skip(4).Take(1) as Apartment},
+                Author = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(),
+                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First()},
                 new Comment {Text = "As advertised, the location is amazing. With a balcony overlooking a public square," +
                 " I was initially unsure as to whether or not noise levels might make it difficult to sleep, but all was very" +
                 " quiet by 10pm every night. We loved the balcony. This was a great modern, apartment where it was easy to feel at ease. " +
                 "Good communication with hosts too.",
                 Grade = 10,
-                Author = db.Users.Skip(3).Take(1) as User,
-                Apartment = db.Apartments.Skip(6).Take(1) as Apartment}, 
+                Author = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(),
+                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First()}, 
                 new Comment {Text = "Very clean place with great facilities and in the middle of the city. Fantastic view from " +
                 "the terrace. We stayed only one night unfortunately but we would definetly stay longer next time.",
                 Grade = 9,
-                Author = db.Users.Skip(4).Take(1) as User,
-                Apartment = db.Apartments.Skip(8).Take(1) as Apartment},
+                Author = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(),
+                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First()},
 
             };
 
