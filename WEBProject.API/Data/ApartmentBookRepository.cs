@@ -42,6 +42,33 @@ namespace WEBProject.API.Data
             return apartments;
         }
 
+        public Address GetAddress(string street)
+        {
+            var address =  _context.Addresses.FirstOrDefault(a => a.Street == street);
+
+            return address;
+        }
+
+        public Location GetLocation(Address address)
+        {
+            var location = _context.Location.FirstOrDefault(l => l.Address == address);
+
+            return location;
+        }
+
+         public List<Amentity> GetAmentities(List<Amentity> amentitiesIn)
+        {
+            var amentities = new List<Amentity>();
+
+            foreach(var amentity in amentitiesIn)
+            {
+                amentities.Add(_context.Amentities.FirstOrDefault(a => a.Name == amentity.Name.ToLower()));
+            }
+
+            return amentities;
+        }
+
+
         public async Task<Apartment> GetApartment(int id)
         {
             var apartment = await _context.Apartments

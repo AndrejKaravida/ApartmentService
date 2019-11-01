@@ -5,7 +5,6 @@ import { AlertifyService } from '../_services/alertify.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
-import { Apartment } from '../_models/apartment';
 
 @Component({
   selector: 'app-profile',
@@ -15,16 +14,7 @@ import { Apartment } from '../_models/apartment';
 export class ProfileComponent implements OnInit {
   selectedValue = '';
   currentUser: User;
-  newApartment: Apartment = {
-    id: null,
-    type: null,
-    numberOfGuests: null,
-    numberOfRooms: null,
-    pricePerNight: null,
-    timeToArrive: null,
-    timeToLeave: null,
-    status: null
-  };
+ 
   @ViewChild('editForm', {static: false}) editForm: NgForm;
   @HostListener('window:beforeunload', ['$event'])
    unloadNotification($event: any) {
@@ -52,8 +42,5 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  addApartment() {
-
-  }
-
+ 
 }

@@ -20,4 +20,8 @@ export class ApartmentService {
     return this.http.get<Apartment>(this.baseUrl + 'apartments/' + id);
   }
 
+  createApartment(id: number, apartment: Apartment) {
+    return this.http.post(this.baseUrl + 'apartments/' + id, apartment);
+  }
+
 }

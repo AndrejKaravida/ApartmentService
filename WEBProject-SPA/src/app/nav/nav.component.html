@@ -4,14 +4,14 @@
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/explore']" >Explore</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link"[routerLink]="['/myapps']" >My Apartments</a>
+        <a class="nav-link" [routerLink]="['/explore']" >Find a home</a>
       </li>
       <li class="nav-item">
           <a class="nav-link"[routerLink]="['/addnew']" >Host a home</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link"[routerLink]="['/myapps']" >My Apartments</a>
+    </li>
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown" dropdown style="cursor: pointer;">

@@ -15,7 +15,9 @@ namespace WEBProject.API.Data
          Task<IEnumerable<Reservation>> GetReservations();
          Task<Apartment> GetApartment(int id);
          Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id);
-            
-        
+         Address GetAddress(string street);
+         Location GetLocation(Address address);
+         List<Amentity> GetAmentities(List<Amentity> amentitiesIn);
+              
     }
 }

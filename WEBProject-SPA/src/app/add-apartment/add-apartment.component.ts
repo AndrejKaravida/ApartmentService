@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Apartment } from '../_models/apartment';
+import { ApartmentService } from '../_services/apartment.service';
+import { AlertifyService } from '../_services/alertify.service';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-add-apartment',
@@ -11,44 +14,146 @@ export class AddApartmentComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  fourthFormGroup: FormGroup;
-  amentity: any = {};
-  country = '';
-  city = '';
-  street = '';
-  apt = '';
-  zip = -1;
+  amentities = {
+    essential: false,
+    airconditioning: false,
+    heat: false,
+    hairdryer: false,
+    closet: false,
+    iron: false,
+    tv: false,
+    privateentrance: false,
+    shampoo: false,
+    wifi: false,
+    desk: false,
+    breakfast: false,
+    fireextinguisher: false,
+    carbon: false,
+    smoke: false,
+    firstaidkit: false
+  };
 
   newApartment: Apartment = {
     id: null,
     type: null,
-    numberOfGuests: null,
-    numberOfRooms: null,
-    pricePerNight: null,
+    numberOfGuests: 0,
+    numberOfRooms: 0,
+    pricePerNight: 0,
     timeToArrive: null,
     timeToLeave: null,
-    status: 'Unactive'
+    street: '',
+    city: '',
+    country: '',
+    zip: null,
+    apt: null,
+    status: 'Active',
+    amentities: ''
   };
 
-  constructor(private formBuilder: FormBuilder) { }
+  country = '';
+
+  constructor(private formBuilder: FormBuilder, private apartmentService: ApartmentService,
+              private alertify: AlertifyService, private authService: AuthService) { }
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      type: ['', Validators.required]
     });
     this.secondFormGroup = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      numberOfGuests: ['', [Validators.min(1), Validators.required]],
+      numberOfRooms: ['', Validators.required],
+      timeToArrive: ['', Validators.required],
+      timeToLeave: ['', Validators.required]
     });
     this.thirdFormGroup = this.formBuilder.group({
-      thirdCtrl: ['', Validators.required]
-    });
-    this.fourthFormGroup = this.formBuilder.group({
-      fourthCtrl: ['', Validators.required]
+      country: ['', [Validators.required, Validators.minLength(5)]],
+      street: ['', [Validators.required, Validators.minLength(5)]],
+      apt: [''],
+      city: ['', [Validators.required, Validators.minLength(5)]],
+      zip: ['', [Validators.required, Validators.min(1), Validators.max(100000)]]
     });
   }
 
-  addApartment() { 
-    console.log(this.newApartment);
+  addApartment() {
+
+    let amentities = '';
+
+    if (this.amentities.airconditioning) {
+      amentities += 'airconditioning,';
+    }
+    if (this.amentities.breakfast) {
+      amentities += 'breakfast,';
+    }
+    if (this.amentities.carbon) {
+      amentities += 'carbon,';
+    }
+    if (this.amentities.closet) {
+      amentities += 'closet,';
+    }
+    if (this.amentities.desk) {
+      amentities += 'desk,';
+    }
+    if (this.amentities.essential) {
+      amentities += 'essential,';
+    }
+    if (this.amentities.fireextinguisher) {
+      amentities += 'fireextinguisher,';
+    }
+    if (this.amentities.firstaidkit) {
+      amentities += 'firstaidkit,';
+    }
+    if (this.amentities.hairdryer) {
+      amentities += 'hairdryer,';
+    }
+    if (this.amentities.heat) {
+      amentities += 'heat,';
+    }
+    if (this.amentities.iron) {
+      amentities += 'iron,';
+    }
+    if (this.amentities.privateentrance) {
+      amentities += 'privateentrance,';
+    }
+    if (this.amentities.shampoo) {
+      amentities += 'shampoo,';
+    }
+    if (this.amentities.smoke) {
+      amentities += 'smoke,';
+    }
+
+    if (this.amentities.tv) {
+      amentities += 'tv,';
+    }
+
+    if (this.amentities.wifi) {
+      amentities += 'wifi';
+    }
+
+    this.newApartment.numberOfGuests = this.secondFormGroup.get('numberOfGuests').value;
+    this.newApartment.numberOfRooms = +this.secondFormGroup.get('numberOfRooms').value;
+    this.newApartment.timeToArrive = this.secondFormGroup.get('timeToArrive').value;
+    this.newApartment.timeToLeave = this.secondFormGroup.get('timeToLeave').value;
+    this.newApartment.country = this.thirdFormGroup.get('country').value;
+    this.newApartment.street = this.thirdFormGroup.get('street').value;
+    this.newApartment.apt = this.thirdFormGroup.get('apt').value;
+    this.newApartment.zip = this.thirdFormGroup.get('zip').value;
+    this.newApartment.city = this.thirdFormGroup.get('city').value;
+    this.newApartment.amentities = amentities;
+
+    this.apartmentService.createApartment(this.authService.decodedToken.nameid, this.newApartment).subscribe(data => {
+       this.alertify.success('Successfully added apartment!');
+     }, error => {
+       this.alertify.error('There was a problem saving new apartment, please try again');
+     });
+
+  }
+
+  increasePrice() {
+    this.newApartment.pricePerNight++;
+  }
+
+  decreasePrice() {
+    this.newApartment.pricePerNight--;
   }
 
 }

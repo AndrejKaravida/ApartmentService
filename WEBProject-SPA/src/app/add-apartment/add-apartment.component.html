@@ -15,8 +15,8 @@
                   <br/>
                   <label class="headline2">Please choose a property type:</label>
                   <br/>
-                  <mat-form-field>
-                      <mat-select [(value)]="newApartment.type" required formControlName="firstCtrl">
+                  <mat-form-field appearance="outline">
+                      <mat-select [(value)]="newApartment.type" required formControlName="type">
                         <mat-option value="Room">Room</mat-option>
                         <mat-option value="Apartment">Entire apartment</mat-option>
                       </mat-select>
@@ -36,8 +36,8 @@
                 </form>
             </mat-step>
             
-            <mat-step>
-                
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
                   <ng-template matStepLabel>Number of guests</ng-template>
                   <br/>
                   <br/>
@@ -47,9 +47,9 @@
                   <br/>
                   <span class="hint"> Guests: {{newApartment.numberOfGuests}}</span>
 
-                  <mat-slider class="example-margin" [max]="8" [min]="1"
-                   [step]="1" [disabled]="false" [invert]="false" [thumbLabel]="true"
-                   [(ngModel)]="newApartment.numberOfGuests" [vertical]="false">
+                  <mat-slider class="example-margin" [max]="8" [min]="0"
+                   [step]="1" [invert]="false" [thumbLabel]="true"
+                   [(value)]="newApartment.numberOfGuests" [vertical]="false" required formControlName="numberOfGuests">
                    </mat-slider>
                  
                    <div>
@@ -60,16 +60,16 @@
                     <div>
                       <mat-form-field appearance="outline">
 
-                        <mat-select [(value)]="newApartment.numberOfRooms">
-                            <mat-option value="1">1 bedroom</mat-option>
-                            <mat-option value="2">2 bedrooms</mat-option>
-                            <mat-option value="3">3 bedrooms</mat-option>
-                            <mat-option value="4">4 bedrooms</mat-option>
-                            <mat-option value="5">5 bedrooms</mat-option>
-                            <mat-option value="6">6 bedrooms</mat-option>
-                            <mat-option value="7">7 bedrooms</mat-option>
-                            <mat-option value="8">8 bedrooms</mat-option>
-                            <mat-option value="9">9 bedrooms</mat-option>
+                        <mat-select [(value)]="newApartment.numberOfRooms" required formControlName="numberOfRooms">
+                            <mat-option value=1>1 bedroom</mat-option>
+                            <mat-option value=2>2 bedrooms</mat-option>
+                            <mat-option value=3>3 bedrooms</mat-option>
+                            <mat-option value=4>4 bedrooms</mat-option>
+                            <mat-option value=5>5 bedrooms</mat-option>
+                            <mat-option value=6>6 bedrooms</mat-option>
+                            <mat-option value=7>7 bedrooms</mat-option>
+                            <mat-option value=8>8 bedrooms</mat-option>
+                            <mat-option value=9>9 bedrooms</mat-option>
                           </mat-select>
                       </mat-form-field>
                       <br/>
@@ -83,7 +83,7 @@
                     <div>
 
                       <mat-form-field appearance="outline">
-                          <mat-select [(value)]="newApartment.timeToArrive">
+                          <mat-select [(value)]="newApartment.timeToArrive" required formControlName="timeToArrive">
                               <mat-option value="1">1:00 PM</mat-option>
                               <mat-option value="1:30">1:30 PM</mat-option>
                               <mat-option value="2:00">2:00 PM</mat-option>
@@ -99,7 +99,7 @@
                        
                     <div>
                       <mat-form-field appearance="outline">
-                         <mat-select [(value)]="newApartment.timeToLeave">
+                         <mat-select [(value)]="newApartment.timeToLeave" required formControlName="timeToLeave">
                               <mat-option value="9">9:00 AM</mat-option>
                               <mat-option value="9:30">9:30 AM</mat-option>
                               <mat-option value="10:00">10:00 AM</mat-option>
@@ -113,11 +113,11 @@
                     <button mat-raised-button matStepperPrevious>Back</button>
                     <button mat-raised-button color="primary" matStepperNext>Next</button>
                   </div>
-                
+                </form>
               </mat-step>
 
-              <mat-step [stepControl]="secondFormGroup">
-                  <form [formGroup]="secondFormGroup">
+              <mat-step [stepControl]="thirdFormGroup">
+                  <form  [formGroup]="thirdFormGroup">
                       <ng-template matStepLabel>Location</ng-template>
 
                       <div>
@@ -129,7 +129,7 @@
                         <label class="headline2">Country / Region</label>
                         <div>
                           <mat-form-field appearance="outline">
-                            <input matInput name="country" [(value)]="country">
+                            <input matInput name="country" required formControlName="country">
                           </mat-form-field>
                         </div>
                       </div>
@@ -138,7 +138,7 @@
                         <label class="headline2">Street Address</label>
                         <div>
                             <mat-form-field appearance="outline">
-                              <input matInput name="street" [(value)]="street">
+                              <input matInput name="street" required formControlName="street">
                             </mat-form-field>
                           </div>
                       </div>
@@ -147,7 +147,7 @@
                         <label class="headline2">Apt, Suite. (optional)</label>
                         <div>
                             <mat-form-field appearance="outline">
-                              <input matInput name="apt" [(value)]="apt">
+                              <input matInput name="apt" formControlName="apt">
                             </mat-form-field>
                           </div>
                       </div>
@@ -156,7 +156,7 @@
                         <label class="headline2">City</label>
                         <div>
                             <mat-form-field appearance="outline">
-                              <input matInput name="city" [(value)]="city">
+                              <input matInput name="city" required formControlName="city">
                             </mat-form-field>
                           </div>
                       </div>
@@ -165,7 +165,7 @@
                         <label class="headline2">ZIP Code</label>
                         <div>
                             <mat-form-field appearance="outline">
-                              <input matInput name="zip" [(value)]="zip">
+                              <input matInput name="zip" required formControlName="zip"> 
                             </mat-form-field>
                           </div>
                       </div>
@@ -190,73 +190,73 @@
                         <br/>
   
                         <div>
-                            <mat-checkbox class="example-margin" name = "essential" [(ngModel)]="amentity.essential">
+                            <mat-checkbox class="example-margin" name = "essential" [(ngModel)]="amentities.essential">
                           Essentials (Towels, bed sheets, soap, toilet paper, pillows)
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "airconditioning" [(ngModel)]="amentity.airconditioning">
+                            <mat-checkbox class="example-margin" name = "airconditioning" [(ngModel)]="amentities.airconditioning">
                            Air conditioning
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "heat" [(ngModel)]="amentity.heat">
+                            <mat-checkbox class="example-margin" name = "heat" [(ngModel)]="amentities.heat">
                           Heat
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "hairdryer" [(ngModel)]="amentity.hairdryer">
+                            <mat-checkbox class="example-margin" name = "hairdryer" [(ngModel)]="amentities.hairdryer">
                          Hair dryer
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "closet/drawers" [(ngModel)]="amentity.closet">
+                            <mat-checkbox class="example-margin" name = "closet" [(ngModel)]="amentities.closet">
                           Closet/drawers
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "iron" [(ngModel)]="amentity.iron">
+                            <mat-checkbox class="example-margin" name = "iron" [(ngModel)]="amentities.iron">
                           Iron
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "tv" [(ngModel)]="amentity.tv">
+                            <mat-checkbox class="example-margin" name = "tv" [(ngModel)]="amentities.tv">
                           Tv
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "privateentrance" [(ngModel)]="amentity.privateentrance">
+                            <mat-checkbox class="example-margin" name = "privateentrance" [(ngModel)]="amentities.privateentrance">
                           Private entrance
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "shampoo" [(ngModel)]="amentity.shampoo">
+                            <mat-checkbox class="example-margin" name = "shampoo" [(ngModel)]="amentities.shampoo">
                           Shampoo
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "wifi" [(ngModel)]="amentity.wifi">
+                            <mat-checkbox class="example-margin" name = "wifi" [(ngModel)]="amentities.wifi">
                           Wifi
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "desk/workspace" [(ngModel)]="amentity.desk">
+                            <mat-checkbox class="example-margin" name = "desk" [(ngModel)]="amentities.desk">
                           Desk/workspace
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "breakfast" [(ngModel)]="amentity.breakfast">
+                            <mat-checkbox class="example-margin" name = "breakfast" [(ngModel)]="amentities.breakfast">
                           Breakfast, coffee, tea
                         </mat-checkbox>
                         </div>
@@ -267,25 +267,25 @@
                           <br/>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "fireextinguisher" [(ngModel)]="amentity.fireextinguisher">
+                            <mat-checkbox class="example-margin" name = "fireextinguisher" [(ngModel)]="amentities.fireextinguisher">
                           Fire extinguisher
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "carbon" [(ngModel)]="amentity.carbon">
+                            <mat-checkbox class="example-margin" name = "carbon" [(ngModel)]="amentities.carbon">
                           Carbon monoxide detector
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "smoke" [(ngModel)]="amentity.smoke">
+                            <mat-checkbox class="example-margin" name = "smoke" [(ngModel)]="amentities.smoke">
                           Smoke detector
                         </mat-checkbox>
                         </div>
 
                         <div>
-                            <mat-checkbox class="example-margin" name = "firstaidkit" [(ngModel)]="amentity.firstaidkit">
+                            <mat-checkbox class="example-margin" name = "firstaidkit" [(ngModel)]="amentities.firstaidkit">
                          First aid kit
                         </mat-checkbox>
                         </div>
@@ -300,26 +300,35 @@
                       </form>
                   </mat-step>
 
-                  <mat-step [stepControl]="fourthFormGroup">
-                      <form [formGroup]="fourthFormGroup">
+                  <mat-step>
+                      <form >
                           <ng-template matStepLabel>Pricing</ng-template>
                           <br/><br/>
                           <span class="headline">How much guests need to pay for the rent?</span>
                           <br/><br/><br/><br/>
                           <div>
-                              <label class="headline2">Price per night</label>
+                              <label class="headline2">Price per night: </label>
+
+                             
+                                <button class="buttons3" mat-mini-fab color="primary" (click)="decreasePrice()" [disabled]="newApartment.pricePerNight == 0">-</button>
+                                <span class="headline2">{{newApartment.pricePerNight}} $</span>
+                                <button class="buttons3" mat-mini-fab color="primary" (click)="increasePrice()" [disabled]="newApartment.pricePerNight == 100">+</button>
+                             
+                             
                               <div>
-                                <mat-form-field appearance="outline">
-                                  <input matInput name="price" [(value)]="newApartment.pricePerNight">
-                                </mat-form-field>
+                                <mat-slider class="example-margin" [max]="100" [min]="1"
+                                [step]="2" [invert]="false" [thumbLabel]="true"
+                                [(value)]="newApartment.pricePerNight" [vertical]="false">
+                                </mat-slider>
                               </div>
+
+                            
                             </div>
                           <br/>
                           <div class="buttons">
                               <button mat-raised-button matStepperPrevious>Back</button>
                               <button mat-raised-button color="primary" matStepperNext>Next</button>
-                            </div>
-                        
+                            </div>           
                         </form>
                     </mat-step>
 

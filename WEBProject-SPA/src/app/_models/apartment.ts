@@ -7,6 +7,12 @@ export interface Apartment {
     timeToArrive: string;
     timeToLeave: string;
     status: string;
+    amentities?: string;
+    city?: string;
+    country?: string;
+    zip?: number;
+    street?: string;
     location?: string;
+    apt?: string;
     photo?: string;
 }

@@ -105,30 +105,22 @@ namespace WEBProject.API.Data
         {
             List<Amentity> amentities = new List<Amentity>()
             {
-                new Amentity {Name = "Wifi"},
-                new Amentity {Name = "Cable TV"},
-                new Amentity {Name = "Washer"},
-                new Amentity {Name = "Air Conditioning"},
-                new Amentity {Name = "TV"},
-                new Amentity {Name = "Heating"},
-                new Amentity {Name = "Ethernet connection"},
                 new Amentity {Name = "Essentials"},
-                new Amentity {Name = "Hot water"},
+                new Amentity {Name = "AirConditioning"},
+                new Amentity {Name = "Heat"},
+                new Amentity {Name = "HairDryer"},
+                new Amentity {Name = "Closet"},
                 new Amentity {Name = "Iron"},
-                new Amentity {Name = "Crib"},
-                new Amentity {Name = "High chair"},
-                new Amentity {Name = "Room-darkening shades"},
-                new Amentity {Name = "Travel crib"},
-                new Amentity {Name = "Window guards"},
-                new Amentity {Name = "Elevator"},
-                new Amentity {Name = "Parking"},
-                new Amentity {Name = "Single level home"},
-                new Amentity {Name = "Kithen"},
-                new Amentity {Name = "Coffee maker"},
-                new Amentity {Name = "Cooking basics"},
-                new Amentity {Name = "Dishes and silverware"},
-                new Amentity {Name = "Microwave"},
-                new Amentity {Name = "Refrigerator"},
+                new Amentity {Name = "Tv"},
+                new Amentity {Name = "PrivateEntrance"},
+                new Amentity {Name = "Shampoo"},
+                new Amentity {Name = "Wifi"},
+                new Amentity {Name = "Desk"},
+                new Amentity {Name = "Breakfast"},
+                new Amentity {Name = "Fire Extinguisher"},
+                new Amentity {Name = "Carbon"},
+                new Amentity {Name = "Smoke"},
+                new Amentity {Name = "FirstAidKit"}
             };
 
             return amentities;
@@ -168,7 +160,7 @@ namespace WEBProject.API.Data
                     .Skip(1).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(5).Take(8))
+                    .Skip(5).Take(4))
                 },
                 new Apartment
                 {
@@ -216,7 +208,7 @@ namespace WEBProject.API.Data
                     .Skip(4).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(4).Take(10))
+                    .Skip(4).Take(6))
                 },
                 new Apartment
                 {
@@ -232,7 +224,7 @@ namespace WEBProject.API.Data
                     .Skip(5).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(8).Take(5))
+                    .Skip(4).Take(5))
                 },
                 new Apartment
                 {
@@ -248,7 +240,7 @@ namespace WEBProject.API.Data
                     .Skip(6).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(9).Take(5))
+                    .Skip(2).Take(5))
                 },
                 new Apartment
                 {
@@ -264,7 +256,7 @@ namespace WEBProject.API.Data
                     .Skip(7).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(4).Take(11))
+                    .Skip(4).Take(7))
                 },
                 new Apartment
                 {
@@ -280,7 +272,7 @@ namespace WEBProject.API.Data
                     .Skip(8).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(4).Take(8))
+                    .Skip(4).Take(3))
                 },
                 new Apartment
                 {
@@ -296,7 +288,7 @@ namespace WEBProject.API.Data
                     .Skip(9).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(2).Take(6))
+                    .Skip(2).Take(5))
                 }
             };
 

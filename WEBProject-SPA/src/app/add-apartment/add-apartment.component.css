@@ -40,7 +40,7 @@ mat-select {
 }
 
 mat-form-field{ 
-    width: 300px;
+    width: 312px;
 }
 
 .buttons button,
@@ -54,3 +54,9 @@ mat-form-field{
   margin-bottom: 80px;
 }
 
+.buttons3 {
+  
+  margin-left: 8px;
+  margin-right: 8px;
+  
+}
