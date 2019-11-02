@@ -44,14 +44,14 @@ namespace WEBProject.API.Data
 
         public Address GetAddress(string street)
         {
-            var address =  _context.Addresses.FirstOrDefault(a => a.Street == street);
+            var address =  _context.Addresses.FirstOrDefault(a => a.Street == street) ?? null;
 
             return address;
         }
 
-        public Location GetLocation(Address address)
+        public Location GetLocation(int id)
         {
-            var location = _context.Location.FirstOrDefault(l => l.Address == address);
+            var location = _context.Location.FirstOrDefault(l => l.Address.Id == id) ?? null;
 
             return location;
         }
@@ -62,7 +62,7 @@ namespace WEBProject.API.Data
 
             foreach(var amentity in amentitiesIn)
             {
-                amentities.Add(_context.Amentities.FirstOrDefault(a => a.Name == amentity.Name.ToLower()));
+                amentities.Add(_context.Amentities.FirstOrDefault(a => a.Name.ToLower() == amentity.Name.ToLower()));
             }
 
             return amentities;

@@ -49,7 +49,7 @@ namespace WEBProject.API.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> AddApartment(int userId, ApartmentForCreationDto apartmentForCreationDto)
         {
-                var creator = await _repo.GetUser(userId);
+      //          var creatorFromRepo = await _repo.GetUser(userId);
                  
                 Apartment newapartment = new Apartment {Type = apartmentForCreationDto.Type, NumberOfRooms = apartmentForCreationDto.NumberOfRooms,
                 NumberOfGuests = apartmentForCreationDto.NumberOfGuests, PricePerNight = apartmentForCreationDto.PricePerNight, 
@@ -61,23 +61,29 @@ namespace WEBProject.API.Controllers
                     apartmentForCreationDto.Street += ", apt." + apartmentForCreationDto.Apt;
                 }
 
-                Address address = new Address {Street = apartmentForCreationDto.Street,
-                 City = apartmentForCreationDto.City, ZipCode = apartmentForCreationDto.Zip};
+                var addressFromRepo = _repo.GetAddress(apartmentForCreationDto.Street);
 
-                var addressFromRepo = _repo.GetAddress(address.Street);
-
-                if(addressFromRepo.Street.Length == 0){
-                 _repo.Add(address);
-                 await _repo.SaveAll();
+                if(addressFromRepo == null)
+                {
+                      Address address = new Address
+                      {
+                          Street = apartmentForCreationDto.Street,
+                          City = apartmentForCreationDto.City,
+                          ZipCode = apartmentForCreationDto.Zip
+                      };
+                      _repo.Add(address);
+                       await _repo.SaveAll();
+                       addressFromRepo = _repo.GetAddress(address.Street);
                 }
 
-                Location location = new Location {Latitude = 0, Longitude = 0, Address = addressFromRepo};
+                var locationFromRepo = _repo.GetLocation(addressFromRepo.Id);
 
-                var locationFromRepo = _repo.GetLocation(address);
 
-                 if(locationFromRepo.Address.Street.Length == 0){
-                 _repo.Add(location);
-                 await _repo.SaveAll();
+                if(locationFromRepo == null){
+                       Location location = new Location {Latitude = 0, Longitude = 0, Address = addressFromRepo};
+                       _repo.Add(location);
+                       await _repo.SaveAll();
+                       locationFromRepo = _repo.GetLocation(addressFromRepo.Id);
                 }
 
                 newapartment.Location = locationFromRepo;
@@ -96,9 +102,8 @@ namespace WEBProject.API.Controllers
                 var amentitiesFromRepo = _repo.GetAmentities(amentities);
 
                 newapartment.Amentities = amentitiesFromRepo;         
-                /* 
+                
                 _repo.Add(newapartment);
-
 
                 if (await _repo.SaveAll())
                 {
@@ -107,10 +112,7 @@ namespace WEBProject.API.Controllers
                 }
 
                 throw new Exception("Creating the apartment failed on save.");
-                */
-            
-
-            return Ok(newapartment);
+                            
         }
     }
 }
