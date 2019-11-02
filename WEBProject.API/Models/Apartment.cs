@@ -9,6 +9,7 @@ namespace WEBProject.API.Models
         public int NumberOfRooms { get; set; }
         public int NumberOfGuests { get; set; }
         public Location Location { get; set; }
+        public User Host { get; set; }
         public string Photo { get; set; }
         public int PricePerNight { get; set; }
         public string TimeToArrive { get; set; }

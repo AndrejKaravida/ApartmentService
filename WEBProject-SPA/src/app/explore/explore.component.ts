@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Apartment } from '../_models/apartment';
-import { ApartmentService } from '../_services/apartment.service';
-import { AlertifyService } from '../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,8 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ExploreComponent implements OnInit {
   apartments: Apartment[];
 
-  constructor(private apartmentService: ApartmentService, private alertify: AlertifyService,
-              private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

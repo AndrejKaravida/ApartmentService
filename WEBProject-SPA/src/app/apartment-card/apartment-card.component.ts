@@ -12,7 +12,6 @@ export class ApartmentCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.apartment);
   }
 
 }

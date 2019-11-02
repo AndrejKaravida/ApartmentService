@@ -30,14 +30,20 @@ namespace WEBProject.API.Data
                 .Where(s => s.Status == "Active")
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .ToListAsync();
+                .ToListAsync()
+                .ConfigureAwait(false);
 
             return apartments;
         }
 
         public async Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id)
         {
-            var apartments = await _context.Apartments.ToListAsync();
+            var apartments = await _context.Apartments
+                .Where(a => a.Host.Id == id)
+                .Include(l => l.Location)
+                .ThenInclude(a => a.Address)
+                .ToListAsync()
+                .ConfigureAwait(false);
 
             return apartments;
         }
@@ -73,11 +79,12 @@ namespace WEBProject.API.Data
         {
             var apartment = await _context.Apartments
                 .Include(a => a.Amentities)
+                .Include(h => h.Host)
                 .Include(r => r.Reservations)
                 .Include(c => c.Comments)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .FirstOrDefaultAsync(a=> a.Id == id);
+                .FirstOrDefaultAsync(a=> a.Id == id).ConfigureAwait(false);
             return apartment;
         }
 
@@ -100,6 +107,16 @@ namespace WEBProject.API.Data
                 .FirstOrDefaultAsync(u=> u.Id == id);
             return user;
         }
+
+        public User GetUserSync(int id)
+        {
+            var user = _context.Users
+                .Include(a => a.RentedApartments)
+                .Include(r => r.Reservations)
+                .FirstOrDefault(u => u.Id == id);
+            return user;
+        }
+
 
         public async Task<IEnumerable<User>> GetUsers()
         {

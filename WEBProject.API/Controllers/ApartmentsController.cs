@@ -35,21 +35,32 @@ namespace WEBProject.API.Controllers
 
             return Ok(apartmentsToReturn);
         }
-             
+
+        [HttpGet("users/{userId}")]
+        public async Task<IActionResult> GetApartmantsForUser(int userId)
+        {
+            var apartments = await _repo.GetApartmentsFromUser(userId);
+
+            var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForListDto>>(apartments);
+
+            return Ok(apartmentsToReturn);
+        }
+
         [HttpGet("{id}", Name="GetApartment")]
 
         public async Task<IActionResult> GetApartment(int id) 
         { 
             var apartment = await _repo.GetApartment(id);
 
-            return Ok(apartment);
+            var apartmentToReturn =  _mapper.Map<ApartmentForReturnDto>(apartment);
+
+            return Ok(apartmentToReturn);
         }
       
   
         [HttpPost("{id}")]
         public async Task<IActionResult> AddApartment(int userId, ApartmentForCreationDto apartmentForCreationDto)
         {
-      //          var creatorFromRepo = await _repo.GetUser(userId);
                  
                 Apartment newapartment = new Apartment {Type = apartmentForCreationDto.Type, NumberOfRooms = apartmentForCreationDto.NumberOfRooms,
                 NumberOfGuests = apartmentForCreationDto.NumberOfGuests, PricePerNight = apartmentForCreationDto.PricePerNight, 
@@ -60,6 +71,9 @@ namespace WEBProject.API.Controllers
                 {
                     apartmentForCreationDto.Street += ", apt." + apartmentForCreationDto.Apt;
                 }
+
+                var creatorFromRepo = _repo.GetUserSync(userId);
+                newapartment.Host = creatorFromRepo;
 
                 var addressFromRepo = _repo.GetAddress(apartmentForCreationDto.Street);
 

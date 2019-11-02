@@ -16,6 +16,10 @@ export class ApartmentService {
     return this.http.get<Apartment[]>(this.baseUrl + 'apartments/');
   }
 
+  getApartmentsForUser(id: number): Observable<Apartment[]> {
+    return this.http.get<Apartment[]>(this.baseUrl + 'apartments/users/' + id);
+  }
+
   getApartment(id: number): Observable<Apartment> {
     return this.http.get<Apartment>(this.baseUrl + 'apartments/' + id);
   }

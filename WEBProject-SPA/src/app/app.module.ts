@@ -39,6 +39,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AddApartmentComponent } from './add-apartment/add-apartment.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSliderModule} from '@angular/material/slider';
+import { ApartmentForUserResolver } from './_resolvers/apartment-foruser-resolver';
+import { ReservationsComponent } from './reservations/reservations.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -58,6 +60,7 @@ export function tokenGetter() {
       LoginComponent,
       ApartmentCardComponent,
       ApartmentDetailComponent,
+      ReservationsComponent,
       AddApartmentComponent
    ],
    imports: [
@@ -97,6 +100,7 @@ export function tokenGetter() {
       ApartmentDetailResolver,
       ApartmentListResolver,
       UserProfileResolver,
+      ApartmentForUserResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [

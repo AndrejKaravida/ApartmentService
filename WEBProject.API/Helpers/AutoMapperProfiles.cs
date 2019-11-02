@@ -12,10 +12,10 @@ namespace WEBProject.API.Helpers
             CreateMap<User, UserForListDto>();
             CreateMap<User, UserForUpdateDto>();
             CreateMap<UserForUpdateDto, User>();
-            CreateMap<Apartment, ApartmentForDetailedDto>();
             CreateMap<Apartment, ApartmentForListDto>();
             CreateMap<ApartmentForCreationDto, Apartment>();
             CreateMap<ApartmentForCreationDto, Location>();
+
             
         }
     }

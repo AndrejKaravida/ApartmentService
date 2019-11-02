@@ -14,6 +14,8 @@ import { ApartmentListResolver } from './_resolvers/apartment-list-resolver';
 import { UserProfileResolver } from './_resolvers/user-profile-resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AddApartmentComponent } from './add-apartment/add-apartment.component';
+import { ApartmentForUserResolver } from './_resolvers/apartment-foruser-resolver';
+import { ReservationsComponent } from './reservations/reservations.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -21,8 +23,10 @@ const routes: Routes = [
                         resolve: {apartments: ApartmentListResolver}},
   { path: 'explore/:id', component: ApartmentDetailComponent, canActivate: [AuthGuard],
                         resolve: {apartment: ApartmentDetailResolver}},
-  { path: 'myapps', component: MyAppartmentsComponent , canActivate: [AuthGuard]},
+  { path: 'myapps', component: MyAppartmentsComponent , canActivate: [AuthGuard],
+                        resolve: {apartments: ApartmentForUserResolver}},
   { path: 'addnew', component: AddApartmentComponent , canActivate: [AuthGuard]},
+  { path: 'reservations', component: ReservationsComponent , canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard],
       resolve: {user: UserProfileResolver}, canDeactivate: [PreventUnsavedChanges]},
   { path: 'users', component: UsersComponent , canActivate: [AuthGuard]},

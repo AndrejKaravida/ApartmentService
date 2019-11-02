@@ -1,3 +1,7 @@
-<p>
-  my-appartments works!
-</p>
+<div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let apartment of apartments" class="col-lg-3 col-md-6 col-sm-12">
+     <app-apartment-card [apartment]="apartment"></app-apartment-card>
+    </div>
+  </div>
+</div>

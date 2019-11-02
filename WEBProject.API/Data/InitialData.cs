@@ -105,7 +105,7 @@ namespace WEBProject.API.Data
         {
             List<Amentity> amentities = new List<Amentity>()
             {
-                new Amentity {Name = "Essentials"},
+                new Amentity {Name = "Essential"},
                 new Amentity {Name = "AirConditioning"},
                 new Amentity {Name = "Heat"},
                 new Amentity {Name = "HairDryer"},
@@ -139,9 +139,12 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(8).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
-                    .Take(1).First(), 
+                    .Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
                     .Take(10))
@@ -155,6 +158,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "3 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(8).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(1).Take(1).First(),
@@ -171,6 +177,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "11 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(5).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(2).Take(1).First(),
@@ -187,6 +196,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "4 PM",
                     TimeToLeave = "9 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(5).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(3).Take(1).First(),
@@ -203,6 +215,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(7).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(4).Take(1).First(),
@@ -219,6 +234,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "1 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(7).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(5).Take(1).First(),
@@ -235,6 +253,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(6).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(6).Take(1).First(),
@@ -251,6 +272,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(6).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(7).Take(1).First(),
@@ -267,6 +291,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "2 PM",
                     TimeToLeave = "11 AM",
                     Status = "Active",
+                    Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(5).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(8).Take(1).First(),
@@ -283,6 +310,9 @@ namespace WEBProject.API.Data
                     TimeToArrive = "1 PM",
                     TimeToLeave = "11 AM",
                     Status = "Active",
+                     Host = db.Users
+                    .OrderBy(u => u.Id)
+                    .Skip(5).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(9).Take(1).First(),
