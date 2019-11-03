@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WEBProject.API.Helpers;
 using WEBProject.API.Models;
 
 namespace WEBProject.API.Data
@@ -24,16 +25,16 @@ namespace WEBProject.API.Data
             _context.Remove(entity);
         }
 
-        public async Task<IEnumerable<Apartment>> GetActiveApartments()
+        public async Task<PagedList<Apartment>> GetActiveApartments(ApartmentParams apartmentParams)
         {
-            var apartments = await _context.Apartments
+            var apartments = _context.Apartments
                 .Where(s => s.Status == "Active")
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .ToListAsync()
-                .ConfigureAwait(false);
+                .AsQueryable();
+               
 
-            return apartments;
+            return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
         }
 
         public async Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id)

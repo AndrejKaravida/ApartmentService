@@ -8,12 +8,14 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ApartmentListResolver implements Resolve<Apartment[]> {
+    pageNumber = 1;
+    pageSize = 8;
 
     constructor(private apartmentService: ApartmentService,
                 private router: Router, private alertify: AlertifyService) {}
 
      resolve(route: ActivatedRouteSnapshot): Observable<Apartment[]> {
-        return this.apartmentService.getApartments().pipe(
+        return this.apartmentService.getApartments(this.pageNumber, this.pageSize).pipe(
                         catchError(() => {
                             this.alertify.error('Problem retrieving data!');
                             this.router.navigate(['/login']);

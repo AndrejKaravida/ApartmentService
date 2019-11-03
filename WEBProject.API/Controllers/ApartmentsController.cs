@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using WEBProject.API.Data;
 using WEBProject.API.Dtos;
+using WEBProject.API.Helpers;
 using WEBProject.API.Models;
 
 namespace WEBProject.API.Controllers
@@ -27,11 +28,14 @@ namespace WEBProject.API.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> GetActiveApartments()
+        public async Task<IActionResult> GetActiveApartments([FromQuery]ApartmentParams apartmentParams)
         { 
-            var apartments = await _repo.GetActiveApartments();
+            var apartments = await _repo.GetActiveApartments(apartmentParams);
 
             var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForListDto>>(apartments);
+
+            Response.AddPagination(apartments.CurrentPage, apartments.PageSize, 
+            apartments.TotalCount, apartments.TotalPages);
 
             return Ok(apartmentsToReturn);
         }

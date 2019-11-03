@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WEBProject.API.Helpers;
 using WEBProject.API.Models;
 
 namespace WEBProject.API.Data
@@ -11,7 +12,7 @@ namespace WEBProject.API.Data
          Task<bool> SaveAll();
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
-         Task<IEnumerable<Apartment>> GetActiveApartments();
+         Task<PagedList<Apartment>> GetActiveApartments(ApartmentParams apartmentParams);
          Task<IEnumerable<Reservation>> GetReservations();
          Task<Apartment> GetApartment(int id);
          Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id);

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './_services/auth.service';
@@ -72,6 +72,8 @@ export function tokenGetter() {
       AppRoutingModule,
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,
+      PaginationModule.forRoot(),
+      ButtonsModule.forRoot(),
       MatCheckboxModule,
       MatCardModule,
       MatFormFieldModule,
