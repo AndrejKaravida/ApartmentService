@@ -37,16 +37,15 @@ namespace WEBProject.API.Data
             return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
         }
 
-        public async Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id)
+        public async Task<PagedList<Apartment>> GetApartmentsFromUser(int id, ApartmentParams apartmentParams)
         {
-            var apartments = await _context.Apartments
+            var apartments =  _context.Apartments
                 .Where(a => a.Host.Id == id)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .ToListAsync()
-                .ConfigureAwait(false);
+                .AsQueryable();
 
-            return apartments;
+            return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
         }
 
         public Address GetAddress(string street)

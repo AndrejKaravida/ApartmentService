@@ -25,7 +25,7 @@ export class ApartmentService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get<Apartment[]>(this.baseUrl + 'apartments/', {observe: 'response', params}) .pipe(
+    return this.http.get<Apartment[]>(this.baseUrl + 'apartments/', {observe: 'response', params}).pipe(
       map(response => {
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') !== null) {
@@ -36,8 +36,26 @@ export class ApartmentService {
     );
   }
 
-  getApartmentsForUser(id: number): Observable<Apartment[]> {
-    return this.http.get<Apartment[]>(this.baseUrl + 'apartments/users/' + id);
+  getApartmentsForUser(id: number, page?, itemsPerPage?): Observable<PaginatedResult<Apartment[]>> {
+
+    const paginatedResult: PaginatedResult<Apartment[]> = new PaginatedResult<Apartment[]>();
+
+    let params = new HttpParams();
+
+    if (page !== null && itemsPerPage !== null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<Apartment[]>(this.baseUrl + 'apartments/users/' + id, {observe: 'response', params}).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
   }
 
   getApartment(id: number): Observable<Apartment> {

@@ -9,12 +9,15 @@ import { AuthService } from '../_services/auth.service';
 
 @Injectable()
 export class ApartmentForUserResolver implements Resolve<Apartment[]> {
+    pageNumber = 1;
+    pageSize = 8;
 
     constructor(private apartmentService: ApartmentService, private authService: AuthService,
                 private router: Router, private alertify: AlertifyService) {}
 
      resolve(route: ActivatedRouteSnapshot): Observable<Apartment[]> {
-        return this.apartmentService.getApartmentsForUser(this.authService.decodedToken.nameid).pipe(
+        return this.apartmentService.getApartmentsForUser(this.authService.decodedToken.nameid, this.pageNumber,
+             this.pageSize).pipe(
                         catchError(() => {
                             this.alertify.error('Problem retrieving data!');
                             this.router.navigate(['/explore']);

@@ -15,7 +15,7 @@ namespace WEBProject.API.Data
          Task<PagedList<Apartment>> GetActiveApartments(ApartmentParams apartmentParams);
          Task<IEnumerable<Reservation>> GetReservations();
          Task<Apartment> GetApartment(int id);
-         Task<IEnumerable<Apartment>> GetApartmentsFromUser(int id);
+         Task<PagedList<Apartment>> GetApartmentsFromUser(int id, ApartmentParams apartmentParams);
          Address GetAddress(string street);
          Location GetLocation(int id);
          List<Amentity> GetAmentities(List<Amentity> amentitiesIn);

@@ -41,11 +41,14 @@ namespace WEBProject.API.Controllers
         }
 
         [HttpGet("users/{userId}")]
-        public async Task<IActionResult> GetApartmantsForUser(int userId)
+        public async Task<IActionResult> GetApartmantsForUser(int userId, [FromQuery]ApartmentParams apartmentParams)
         {
-            var apartments = await _repo.GetApartmentsFromUser(userId);
+            var apartments = await _repo.GetApartmentsFromUser(userId, apartmentParams);
 
             var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForListDto>>(apartments);
+
+            Response.AddPagination(apartments.CurrentPage, apartments.PageSize, 
+            apartments.TotalCount, apartments.TotalPages);
 
             return Ok(apartmentsToReturn);
         }
