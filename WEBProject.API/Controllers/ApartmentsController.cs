@@ -58,7 +58,7 @@ namespace WEBProject.API.Controllers
         }
       
   
-        [HttpPost("{id}")]
+        [HttpPost("{userId}")]
         public async Task<IActionResult> AddApartment(int userId, ApartmentForCreationDto apartmentForCreationDto)
         {
                  
