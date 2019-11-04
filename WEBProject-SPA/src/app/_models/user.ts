@@ -6,4 +6,6 @@ export interface User {
     city: string;
     gender: string;
     role: string;
+    isblocked: boolean;
+    isdeleted: boolean;
 }

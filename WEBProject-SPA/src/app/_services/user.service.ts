@@ -24,4 +24,16 @@ export class UserService {
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }
 
+  blockUser(id: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/blockuser/' + id);
+  }
+
+  unblockUser(id: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/unblockuser/' + id);
+  }
+
+  deleteUser(id: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/deleteuser/' + id);
+  }
+
 }
