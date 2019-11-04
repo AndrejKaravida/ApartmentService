@@ -72,7 +72,7 @@ namespace WEBProject.API.Controllers
                 Apartment newapartment = new Apartment {Type = apartmentForCreationDto.Type, NumberOfRooms = apartmentForCreationDto.NumberOfRooms,
                 NumberOfGuests = apartmentForCreationDto.NumberOfGuests, PricePerNight = apartmentForCreationDto.PricePerNight, 
                 TimeToArrive = apartmentForCreationDto.TimeToArrive, TimeToLeave = apartmentForCreationDto.TimeToLeave, 
-                Status = apartmentForCreationDto.Status};
+                Status = apartmentForCreationDto.Status, IsDeleted = false};
 
                 if(apartmentForCreationDto.Apt.Length > 0) 
                 {

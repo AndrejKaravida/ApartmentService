@@ -21,6 +21,11 @@ namespace WEBProject.API.Data
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
+            if(user.IsBlocked || user.IsDeleted)
+            {
+                return null;
+            }
+
             return user;
         }
 
@@ -45,6 +50,7 @@ namespace WEBProject.API.Data
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             user.Role = "Guest";
+            user.IsDeleted = false;
 
             await _context.Users.AddAsync(user);
 
@@ -79,5 +85,6 @@ namespace WEBProject.API.Data
 
             return false;
         }
+                
     }
 }

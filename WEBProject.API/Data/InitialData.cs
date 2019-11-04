@@ -57,16 +57,16 @@ namespace WEBProject.API.Data
          {
             List<Address> addresses = new List<Address>()
             {
-                new Address {Street = "Shaftesbury Road", City = "Fredonia", ZipCode = 32586},
-                new Address {Street = "Kestrel Close", City = "Buntingford", ZipCode = 18263},
-                new Address {Street = "Victoria Gardens", City = "Wolverhampton ", ZipCode = 36985},
-                new Address {Street = "Broad Street", City = "East Moline", ZipCode = 45862},
-                new Address {Street = "West Street", City = "Saratoga Springs", ZipCode = 12587},
-                new Address {Street = "Teal Close", City = "New Mills", ZipCode = 98563},
-                new Address {Street = "Railway Street", City = "Dronfield", ZipCode = 12578},
-                new Address {Street = "Graham Road", City = "Grafton", ZipCode = 98536},
-                new Address {Street = "Derwent Avenue", City = "Wichita", ZipCode = 12547},
-                new Address {Street = "Lancaster Avenue", City = "New York", ZipCode = 18756},
+                new Address {Street = "Shaftesbury Road", City = "Fredonia", ZipCode = 32586, Country="Romania"},
+                new Address {Street = "Kestrel Close", City = "Buntingford", ZipCode = 18263, Country="Malta"},
+                new Address {Street = "Victoria Gardens", City = "Wolverhampton ", ZipCode = 36985, Country="England"},
+                new Address {Street = "Broad Street", City = "East Moline", ZipCode = 45862, Country="Palau"},
+                new Address {Street = "West Street", City = "Saratoga Springs", ZipCode = 12587, Country="Bolivia"},
+                new Address {Street = "Teal Close", City = "New Mills", ZipCode = 98563, Country="Netherlands"},
+                new Address {Street = "Railway Street", City = "Dronfield", ZipCode = 12578, Country="Australia"},
+                new Address {Street = "Graham Road", City = "Grafton", ZipCode = 98536, Country="Barbados"},
+                new Address {Street = "Derwent Avenue", City = "Wichita", ZipCode = 12547, Country="Denmark"},
+                new Address {Street = "Lancaster Avenue", City = "New York", ZipCode = 18756, Country="United States"},
             };
 
             return addresses;
@@ -138,6 +138,7 @@ namespace WEBProject.API.Data
                     PricePerNight = 18,
                     TimeToArrive = "2 PM",
                     TimeToLeave = "10 AM",
+                    IsDeleted = false,
                     Status = "Active",
                      Host = db.Users
                     .OrderBy(u => u.Id)
@@ -156,6 +157,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 4,
                     PricePerNight = 16,
                     TimeToArrive = "3 PM",
+                    IsDeleted = false,
                     TimeToLeave = "10 AM",
                     Status = "Active",
                      Host = db.Users
@@ -175,6 +177,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 2,
                     PricePerNight = 12,
                     TimeToArrive = "2 PM",
+                    IsDeleted = false,
                     TimeToLeave = "11 AM",
                     Status = "Active",
                      Host = db.Users
@@ -194,6 +197,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 8,
                     PricePerNight = 34,
                     TimeToArrive = "4 PM",
+                    IsDeleted = false,
                     TimeToLeave = "9 AM",
                     Status = "Active",
                      Host = db.Users
@@ -213,6 +217,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 4,
                     PricePerNight = 28,
                     TimeToArrive = "2 PM",
+                    IsDeleted = false,
                     TimeToLeave = "10 AM",
                     Status = "Active",
                      Host = db.Users
@@ -232,6 +237,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 1,
                     PricePerNight = 10,
                     TimeToArrive = "1 PM",
+                    IsDeleted = false,
                     TimeToLeave = "10 AM",
                     Status = "Active",
                      Host = db.Users
@@ -251,6 +257,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 2,
                     PricePerNight = 15,
                     TimeToArrive = "2 PM",
+                    IsDeleted = false,
                     TimeToLeave = "10 AM",
                     Status = "Active",
                      Host = db.Users
@@ -270,6 +277,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 7,
                     PricePerNight = 75,
                     TimeToArrive = "2 PM",
+                    IsDeleted = false,
                     TimeToLeave = "10 AM",
                     Status = "Active",
                      Host = db.Users
@@ -289,6 +297,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 6,
                     PricePerNight = 24,
                     TimeToArrive = "2 PM",
+                    IsDeleted = false,
                     TimeToLeave = "11 AM",
                     Status = "Active",
                     Host = db.Users
@@ -308,6 +317,7 @@ namespace WEBProject.API.Data
                     NumberOfGuests = 1,
                     PricePerNight = 6,
                     TimeToArrive = "1 PM",
+                    IsDeleted = false,
                     TimeToLeave = "11 AM",
                     Status = "Active",
                      Host = db.Users
@@ -407,6 +417,8 @@ namespace WEBProject.API.Data
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
                 user.Username = user.Username.ToLower();
+                user.IsDeleted = false;
+                user.IsBlocked = false;
 
             }
 

@@ -1,9 +1,34 @@
 <div class="container mt-5">
-  <div class="row">
+
+    <div class="text-center mt-3">
+        <h4>My apartments:</h4>
+      </div>
+
+  <mat-card style="min-width: 100%;">
+
+    <div class="row justify-content-end" style="margin-right: 10px;">
+  
+            <div>
+              <mat-form-field>
+                  <mat-label>Sort by price:</mat-label>
+                  <mat-select [(value)]="apartmentParams.orderby">
+                      <mat-option>None</mat-option>
+                      <mat-option value="Ascending">Ascending</mat-option>
+                      <mat-option value="Descending">Descending</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                  <button mat-raised-button (click)="loadApartments()" style="margin-left: 10px;">Sort</button>
+            </div>
+          </div>
+      
+          <div class="row">
     <div *ngFor="let apartment of apartments" class="col-lg-3 col-md-6 col-sm-12">
      <app-apartment-card [apartment]="apartment"></app-apartment-card>
     </div>
-  </div>
+
+          </div>
+</mat-card>
+
 
   <div class="d-flex justify-content-center">
     <pagination [boundaryLinks]="true" 

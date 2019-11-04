@@ -13,7 +13,9 @@ namespace WEBProject.API.Dtos
         public string City { get; set; }
         public string Gender { get; set; }
         public string Role { get; set; }
-        public ICollection<Apartment> RentedApartments { get; set; }
+        public bool IsBlocked { get; set; }
+        public bool IsDeleted { get; set; }
+        public ICollection<ApartmentForUserReturnDto> RentedApartments { get; set; }
         public ICollection<ReservationForReturnDto> Reservations { get; set; }   
        
     }

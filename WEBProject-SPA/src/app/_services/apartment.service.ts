@@ -47,7 +47,7 @@ export class ApartmentService {
     );
   }
 
-  getApartmentsForUser(id: number, page?, itemsPerPage?): Observable<PaginatedResult<Apartment[]>> {
+  getApartmentsForUser(id: number, page?, itemsPerPage?, apartmentParams?): Observable<PaginatedResult<Apartment[]>> {
 
     const paginatedResult: PaginatedResult<Apartment[]> = new PaginatedResult<Apartment[]>();
 
@@ -56,6 +56,10 @@ export class ApartmentService {
     if (page !== null && itemsPerPage !== null) {
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
+    }
+
+    if (apartmentParams !== null && apartmentParams !== undefined) {
+      params = params.append('orderby', apartmentParams.orderby);
     }
 
     return this.http.get<Apartment[]>(this.baseUrl + 'apartments/users/' + id, {observe: 'response', params}).pipe(

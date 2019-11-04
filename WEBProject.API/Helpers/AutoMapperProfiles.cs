@@ -11,6 +11,9 @@ namespace WEBProject.API.Helpers
         {
             CreateMap<User, UserForListDto>();
             CreateMap<User, UserForUpdateDto>();
+            CreateMap<User, UserToReturnDto>();
+            CreateMap<User, UserForRegisterDto>();
+            CreateMap<UserForRegisterDto, User>();
             CreateMap<UserForUpdateDto, User>();
             CreateMap<Apartment, ApartmentForListDto>();
             CreateMap<ApartmentForCreationDto, Apartment>();

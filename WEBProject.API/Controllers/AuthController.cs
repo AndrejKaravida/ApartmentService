@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,9 +19,12 @@ namespace WEBProject.API.Controllers
     {
          private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        private readonly IMapper _mapper;
+
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _config = config;
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -37,14 +41,13 @@ namespace WEBProject.API.Controllers
                 return BadRequest("Passwords must match");
             }
 
-            var userToCreate = new User
-            {
-                Username = userForRegisterDto.Username
-            };
-
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserToReturnDto>(createdUser);
+
+            return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
         }
 
         [HttpPost("login")]
@@ -77,9 +80,9 @@ namespace WEBProject.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
-                token = tokenHandler.WriteToken(token)
-            });
+            var user = _mapper.Map<UserForListDto>(userFromRepo);
+
+            return Ok(new {token = tokenHandler.WriteToken(token), user});
         }
     }
 }

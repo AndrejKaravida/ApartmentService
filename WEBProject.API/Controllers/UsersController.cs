@@ -34,7 +34,7 @@ namespace DatingApp.API.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name ="GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
@@ -58,6 +58,115 @@ namespace DatingApp.API.Controllers
                 return NoContent();
 
             throw new Exception($"Updating user {id} failed on save");
-        } 
+        }
+
+        [HttpGet("makehost/{id}")]
+        public async Task<IActionResult> MakeHost(int id)
+        {
+            var promoterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var promoter = await _repo.GetUser(promoterId);
+
+            if (promoter.Role != "Admin")
+            {
+                return Unauthorized();
+            }
+
+            var userFromRepo = await _repo.GetUser(id);
+            
+
+            if (promoter.Id == id || userFromRepo.Role == "Host")
+            {
+                return BadRequest();
+            }
+
+            userFromRepo.Role = "Host";
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Promoting user {id} failed on save");
+        }
+
+        [HttpGet("deleteuser/{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var promoterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var promoter = await _repo.GetUser(promoterId);
+
+            if (promoter.Role != "Admin")
+            {
+                return Unauthorized();
+            }
+
+            var userFromRepo = await _repo.GetUser(id);
+            
+            if (promoter.Id == id || userFromRepo.Role == "Admin" || userFromRepo.IsDeleted == true)
+            {
+                return BadRequest();
+            }
+
+            userFromRepo.IsDeleted = true;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Promoting user {id} failed on save");
+        }
+
+        [HttpGet("blockuser/{id}")]
+        public async Task<IActionResult> BlockUser(int id)
+        {
+            var promoterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var promoter = await _repo.GetUser(promoterId);
+
+            if (promoter.Role != "Admin")
+            {
+                return Unauthorized();
+            }
+
+            var userFromRepo = await _repo.GetUser(id);
+
+            if (promoter.Id == id || userFromRepo.Role == "Admin" || userFromRepo.IsBlocked == true)
+            {
+                return BadRequest();
+            }
+
+            userFromRepo.IsBlocked = true;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Promoting user {id} failed on save");
+        }
+
+        [HttpGet("unblockuser/{id}")]
+        public async Task<IActionResult> UnBlockUser(int id)
+        {
+            var promoterId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var promoter = await _repo.GetUser(promoterId);
+
+            if (promoter.Role != "Admin")
+            {
+                return Unauthorized();
+            }
+
+            var userFromRepo = await _repo.GetUser(id);
+
+            if (promoter.Id == id || userFromRepo.Role == "Admin" || userFromRepo.IsBlocked == false)
+            {
+                return BadRequest();
+            }
+
+            userFromRepo.IsBlocked = false;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Promoting user {id} failed on save");
+        }
     }
 } 

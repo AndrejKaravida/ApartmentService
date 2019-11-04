@@ -28,7 +28,7 @@ namespace WEBProject.API.Data
         public async Task<PagedList<Apartment>> GetActiveApartments(ApartmentParams apartmentParams)
         {
             var apartments = _context.Apartments
-                .Where(s => s.Status == "Active")
+                .Where(a => a.Status == "Active" && a.IsDeleted == false)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
@@ -38,9 +38,14 @@ namespace WEBProject.API.Data
                 if(apartmentParams.city != null && apartmentParams.city.Length > 0)
             {
                apartments = apartments.Where(a => a.Location.Address.City == apartmentParams.city);
-            }          
+            }
 
-            if(apartmentParams.minRooms >= 0)
+                if (apartmentParams.country != null && apartmentParams.country.Length > 0)
+                {
+                    apartments = apartments.Where(a => a.Location.Address.Country == apartmentParams.country);
+                }
+
+                if (apartmentParams.minRooms >= 0)
             {       
                apartments = apartments.Where(a => a.NumberOfRooms >= apartmentParams.minRooms && a.NumberOfRooms <= apartmentParams.maxRooms);
             }
@@ -76,12 +81,25 @@ namespace WEBProject.API.Data
         public async Task<PagedList<Apartment>> GetApartmentsFromUser(int id, ApartmentParams apartmentParams)
         {
             var apartments =  _context.Apartments
-                .Where(a => a.Host.Id == id)
+                .Where(a => a.Host.Id == id && a.IsDeleted == false)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
 
-            return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
+            if (!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined")
+            {
+                switch (apartmentParams.orderby)
+                {
+                    case "Ascending":
+                        apartments = apartments.OrderBy(a => a.PricePerNight);
+                        break;
+                    default:
+                        apartments = apartments.OrderByDescending(a => a.PricePerNight);
+                        break;
+                }
+            }
+
+                return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
         }
 
         public Address GetAddress(string street)
@@ -120,7 +138,7 @@ namespace WEBProject.API.Data
                 .Include(c => c.Comments)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .FirstOrDefaultAsync(a=> a.Id == id).ConfigureAwait(false);
+                .FirstOrDefaultAsync(a=> a.Id == id && a.IsDeleted == false).ConfigureAwait(false);
             return apartment;
         }
 
@@ -140,7 +158,7 @@ namespace WEBProject.API.Data
             var user = await _context.Users
                 .Include(a => a.RentedApartments)
                 .Include(r => r.Reservations)
-                .FirstOrDefaultAsync(u=> u.Id == id);
+                .FirstOrDefaultAsync(u=> u.Id == id && u.IsDeleted == false);
             return user;
         }
 
@@ -157,6 +175,7 @@ namespace WEBProject.API.Data
         public async Task<IEnumerable<User>> GetUsers()
         {
             var users = await _context.Users
+                .Where(u => u.IsDeleted == false)
                 .Include(a => a.RentedApartments)
                 .Include(r => r.Reservations)
                 .ThenInclude(ar => ar.Appartment)

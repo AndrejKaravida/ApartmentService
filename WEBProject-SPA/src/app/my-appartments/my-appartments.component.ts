@@ -29,7 +29,7 @@ export class MyAppartmentsComponent implements OnInit {
 
   loadApartments() {
     this.apartmentService.getApartmentsForUser(this.authService.decodedToken.nameid, this.pagination.currentPage,
-      this.pagination.itemsPerPage)
+      this.pagination.itemsPerPage, this.apartmentParams)
     .subscribe((res: PaginatedResult<Apartment[]>) => {
       this.apartments = res.result;
       this.pagination = res.pagination;

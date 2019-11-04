@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEBProject.API.Data;
 
 namespace WEBProject.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191104211726_IsDeletedProperty")]
+    partial class IsDeletedProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,8 +174,6 @@ namespace WEBProject.API.Migrations
                     b.Property<string>("FirstName");
 
                     b.Property<string>("Gender");
-
-                    b.Property<bool>("IsBlocked");
 
                     b.Property<bool>("IsDeleted");
 

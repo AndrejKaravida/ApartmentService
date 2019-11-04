@@ -15,6 +15,7 @@ namespace WEBProject.API.Models
         public string TimeToArrive { get; set; }
         public string TimeToLeave { get; set; }
         public string Status { get; set; }
+        public bool IsDeleted { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Amentity> Amentities { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
