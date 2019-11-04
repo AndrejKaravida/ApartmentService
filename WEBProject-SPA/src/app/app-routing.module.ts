@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { ExploreComponent } from './explore/explore.component';
 import { MyAppartmentsComponent } from './my-appartments/my-appartments.component';
@@ -18,7 +17,7 @@ import { ApartmentForUserResolver } from './_resolvers/apartment-foruser-resolve
 import { ReservationsComponent } from './reservations/reservations.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', component: ExploreComponent},
   { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard],
                         resolve: {apartments: ApartmentListResolver}},
   { path: 'explore/:id', component: ApartmentDetailComponent, canActivate: [AuthGuard],

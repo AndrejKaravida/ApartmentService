@@ -32,7 +32,29 @@ namespace WEBProject.API.Data
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
-               
+
+            if(apartmentParams != null) 
+            { 
+                if(apartmentParams.city != null && apartmentParams.city.Length > 0)
+            {
+               apartments = apartments.Where(a => a.Location.Address.City == apartmentParams.city);
+            }          
+
+            if(apartmentParams.minRooms >= 0)
+            {       
+               apartments = apartments.Where(a => a.NumberOfRooms >= apartmentParams.minRooms && a.NumberOfRooms <= apartmentParams.maxRooms);
+            }
+
+            if(apartmentParams.guests > 0)
+            {
+                apartments = apartments.Where(a => a.NumberOfGuests >= apartmentParams.guests);
+            }
+
+             if(apartmentParams.minPrice > 0)
+            {       
+               apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
+            }             
+            }
 
             return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
         }

@@ -6,7 +6,6 @@ import { BsDropdownModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './_services/auth.service';
-import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
@@ -50,7 +49,6 @@ export function tokenGetter() {
 @NgModule({
    declarations: [
       AppComponent,
-      HomeComponent,
       NavComponent,
       RegisterComponent,
       ExploreComponent,

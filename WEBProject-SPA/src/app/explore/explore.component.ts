@@ -24,16 +24,35 @@ export class ExploreComponent implements OnInit {
       this.apartments = data[key].result;
       this.pagination = data[key].pagination;
     });
+
+    this.apartmentParams.minPrice = 0;
+    this.apartmentParams.maxPrice = 99;
+    this.apartmentParams.city = '';
+    this.apartmentParams.country = '';
+    this.apartmentParams.guests = 1;
+    this.apartmentParams.minRooms = 1;
+    this.apartmentParams.maxRooms = 10;
   }
 
   loadApartments() {
-    this.apartmentService.getApartments(this.pagination.currentPage, this.pagination.itemsPerPage)
+    this.apartmentService.getApartments(this.pagination.currentPage, this.pagination.itemsPerPage, this.apartmentParams)
     .subscribe((res: PaginatedResult<Apartment[]>) => {
       this.apartments = res.result;
       this.pagination = res.pagination;
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  resetFilters() {
+    this.apartmentParams.minPrice = 0;
+    this.apartmentParams.maxPrice = 99;
+    this.apartmentParams.city = '';
+    this.apartmentParams.country = '';
+    this.apartmentParams.guests = 1;
+    this.apartmentParams.minRooms = 1;
+    this.apartmentParams.maxRooms = 10;
+    this.loadApartments();
   }
 
   pageChanged(event: any): void {
