@@ -18,5 +18,6 @@ namespace WEBProject.API.Helpers
         public int guests { get; set; } = 1;
         public string city { get; set; } = "";
         public string country { get; set; } = "";
+        public string orderby { get; set; }
     }
 }

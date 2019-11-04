@@ -33,6 +33,7 @@ export class ApartmentService {
       params = params.append('guests', apartmentParams.guests);
       params = params.append('city', apartmentParams.city);
       params = params.append('country', apartmentParams.country);
+      params = params.append('orderby', apartmentParams.orderby);
     }
 
     return this.http.get<Apartment[]>(this.baseUrl + 'apartments', {observe: 'response', params}).pipe(

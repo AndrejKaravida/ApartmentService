@@ -14,6 +14,7 @@ export class ExploreComponent implements OnInit {
   apartments: Apartment[];
   pagination: Pagination;
   apartmentParams: any = {};
+  options = ['Ascending', 'Descending'];
 
   constructor(private route: ActivatedRoute, private apartmentService: ApartmentService,
               private alertify: AlertifyService) { }
@@ -32,9 +33,11 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.guests = 1;
     this.apartmentParams.minRooms = 1;
     this.apartmentParams.maxRooms = 10;
+   // this.apartmentParams.orderby = 'Ascending';
   }
 
   loadApartments() {
+    console.log(this.apartmentParams);
     this.apartmentService.getApartments(this.pagination.currentPage, this.pagination.itemsPerPage, this.apartmentParams)
     .subscribe((res: PaginatedResult<Apartment[]>) => {
       this.apartments = res.result;

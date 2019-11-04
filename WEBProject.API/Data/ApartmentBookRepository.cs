@@ -53,7 +53,21 @@ namespace WEBProject.API.Data
              if(apartmentParams.minPrice > 0)
             {       
                apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
-            }             
+            }   
+
+              if(!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined") 
+               { 
+                switch (apartmentParams.orderby) 
+                { 
+                    case "Ascending": 
+                        apartments = apartments.OrderBy(a => a.PricePerNight);
+                        break;
+                    default: 
+                        apartments = apartments.OrderByDescending(a => a.PricePerNight);
+                        break;
+                }
+
+            }
             }
 
             return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
