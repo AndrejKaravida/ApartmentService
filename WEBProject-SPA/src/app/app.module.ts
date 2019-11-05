@@ -42,6 +42,7 @@ import { ApartmentForUserResolver } from './_resolvers/apartment-foruser-resolve
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { HostGuard } from './_guards/host.guard';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -67,6 +68,7 @@ export function tokenGetter() {
       BrowserModule,
       ReactiveFormsModule,
       FormsModule,
+      NgxDaterangepickerMd.forRoot(),
       MatSliderModule,
       HttpClientModule,
       AppRoutingModule,
