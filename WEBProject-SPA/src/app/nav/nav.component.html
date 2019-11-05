@@ -6,15 +6,19 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/explore']" >Find a home</a>
       </li>
-      <li class="nav-item">
-          <a class="nav-link"[routerLink]="['/addnew']" >Host a home</a>
-      </li>
+      <ng-container *ngIf="isHost() || isAdmin()">
+        <li class="nav-item">
+            <a class="nav-link"[routerLink]="['/addnew']" >Host a home</a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="isHost() || isAdmin()">
       <li class="nav-item">
         <a class="nav-link"[routerLink]="['/myapps']" >My Apartments</a>
     </li>
+     </ng-container>
     <li class="nav-item">
       <a class="nav-link"[routerLink]="['/reservations']" >My reservations</a>
-  </li>
+    </li>
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown" dropdown style="cursor: pointer;">
@@ -25,9 +29,11 @@
         <div class="dropdown-menu mt-3" *dropdownMenu>
             <a class="dropdown-item"  [routerLink]="['/profile']">
               <i class="fa fa-user"></i> Edit Profile</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item"  [routerLink]="['/users']">
-                <i class="fa fa-user"></i> Manage Users</a>
+              <ng-container *ngIf="isAdmin()">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item"  [routerLink]="['/users']">
+                  <i class="fa fa-user"></i> Manage Users</a>
+              </ng-container>
                 <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="logout()">
               <i class="fa fa-sign-out"></i> Logout</a>

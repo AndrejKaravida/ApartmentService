@@ -4,7 +4,7 @@
         <h4>My apartments:</h4>
       </div>
 
-  <mat-card style="min-width: 100%;">
+  <mat-card style="min-width: 100%;" *ngIf="pagination.totalItems > 0">
 
     <div class="row justify-content-end" style="margin-right: 10px;">
   
@@ -29,8 +29,15 @@
           </div>
 </mat-card>
 
+<div *ngIf="pagination.totalItems == 0" class="text-center mt-4">
+  You don't have any apartments for rent. Click
+  <a [routerLink]="['/addnew']">here</a>
+   to add one!
 
-  <div class="d-flex justify-content-center">
+</div>
+
+
+  <div class="d-flex justify-content-center" *ngIf="pagination.totalItems > 0">
     <pagination [boundaryLinks]="true" 
                 [totalItems]="pagination.totalItems"
                 [(ngModel)]="pagination.currentPage"

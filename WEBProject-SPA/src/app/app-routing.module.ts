@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Host } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards/auth.guard';
 import { ExploreComponent } from './explore/explore.component';
@@ -15,23 +15,69 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AddApartmentComponent } from './add-apartment/add-apartment.component';
 import { ApartmentForUserResolver } from './_resolvers/apartment-foruser-resolver';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { HostGuard } from './_guards/host.guard';
 
 const routes: Routes = [
-  { path: '', component: ExploreComponent},
-  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard],
-                        resolve: {apartments: ApartmentListResolver}},
-  { path: 'explore/:id', component: ApartmentDetailComponent, canActivate: [AuthGuard],
-                        resolve: {apartment: ApartmentDetailResolver}},
-  { path: 'myapps', component: MyAppartmentsComponent , canActivate: [AuthGuard],
-                        resolve: {apartments: ApartmentForUserResolver}},
-  { path: 'addnew', component: AddApartmentComponent , canActivate: [AuthGuard]},
-  { path: 'reservations', component: ReservationsComponent , canActivate: [AuthGuard]},
-  { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard],
-      resolve: {user: UserProfileResolver}, canDeactivate: [PreventUnsavedChanges]},
-  { path: 'users', component: UsersComponent , canActivate: [AuthGuard]},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: '**', redirectTo: 'login', pathMatch: 'full'}
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'explore',
+    component: ExploreComponent,
+    canActivate: [AuthGuard],
+    resolve: {apartments: ApartmentListResolver}
+  },
+  {
+    path: 'explore/:id',
+    component: ApartmentDetailComponent,
+    canActivate: [AuthGuard],
+    resolve: {apartment: ApartmentDetailResolver}
+  },
+  {
+    path: 'myapps',
+    component: MyAppartmentsComponent,
+    canActivate: [HostGuard],
+    resolve: {apartments: ApartmentForUserResolver}
+  },
+  {
+    path: 'addnew',
+    component: AddApartmentComponent,
+    canActivate: [HostGuard]
+  },
+  {
+    path: 'reservations',
+    component: ReservationsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent ,
+    canActivate: [AuthGuard],
+    resolve: {user: UserProfileResolver},
+    canDeactivate: [PreventUnsavedChanges]
+  },
+  {
+    path: 'profile/:id',
+    component: ProfileComponent ,
+    canActivate: [AdminGuard],
+    canDeactivate: [PreventUnsavedChanges]
+  },
+  {
+    path: 'users',
+     component: UsersComponent,
+     canActivate: [AdminGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  }
 ];
 
 @NgModule({

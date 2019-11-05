@@ -7,8 +7,14 @@
     </div>
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <mat-card>
-        <h5 style="text-align: center">Update profile</h5>   
-        <h6 style="text-align: center">Please enter your profile details:</h6>
+        <ng-container *ngIf="!admin">
+          <h5 style="text-align: center">Update profile</h5>   
+          <h6 style="text-align: center">Please enter your profile details:</h6>
+        </ng-container>
+        <ng-container *ngIf="admin">
+            <h5 style="text-align: center; color: red;">Update {{currentUser.firstName}}'s' profile</h5>   
+            <h6 style="text-align: center; color: red;">Editing will change his/her data!</h6>
+          </ng-container>  
         <br />
         <form #editForm="ngForm" (ngSubmit)="updateUser()">
           <div>

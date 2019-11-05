@@ -40,6 +40,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSliderModule} from '@angular/material/slider';
 import { ApartmentForUserResolver } from './_resolvers/apartment-foruser-resolver';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { HostGuard } from './_guards/host.guard';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -97,6 +99,8 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
+      AdminGuard,
+      HostGuard,
       ApartmentDetailResolver,
       ApartmentListResolver,
       UserProfileResolver,

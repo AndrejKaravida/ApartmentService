@@ -19,12 +19,20 @@ export class NavComponent implements OnInit {
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
+  }
+
+  isHost(){
+    return this.authService.isHost();
+  }
+
+  isAdmin(){
+    return this.authService.isAdmin();
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.alertify.message('Logged out!');
     this.router.navigate(['login']);
   }

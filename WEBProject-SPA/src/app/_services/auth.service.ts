@@ -41,4 +41,15 @@ loggedIn() {
   return !this.jwtHelper.isTokenExpired(token);
 }
 
+isAdmin() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user.role === 'Admin';
+}
+
+isHost(){
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user.role === 'Host';
+}
+
+
 }

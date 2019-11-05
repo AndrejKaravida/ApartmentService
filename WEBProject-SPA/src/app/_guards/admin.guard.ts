@@ -7,16 +7,16 @@ import { AlertifyService } from '../_services/alertify.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router,
               private alertify: AlertifyService) {}
 
   canActivate(): boolean {
-  if (this.authService.loggedIn()) {
+  if (this.authService.isAdmin() && this.authService.loggedIn()) {
     return true;
   }
 
-  this.alertify.error('You are not allowed to access this route, please log in!');
+  this.alertify.error('You are not allowed to access this route!');
   this.router.navigate(['/explore']);
   return false;
 

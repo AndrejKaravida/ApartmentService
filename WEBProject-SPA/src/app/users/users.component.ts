@@ -3,6 +3,7 @@ import { User } from '../_models/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '../_services/user.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -24,7 +25,8 @@ export class UsersComponent implements OnInit {
 
   dataSource = new MatTableDataSource<User>();
 
-  constructor(private userService: UserService, private alertify: AlertifyService) { }
+  constructor(private userService: UserService, private alertify: AlertifyService,
+              private router: Router) { }
 
   ngOnInit() {
    this.loadUsers();
@@ -65,6 +67,13 @@ export class UsersComponent implements OnInit {
     }, error => { 
       this.alertify.error('Error when trying to delete user!');
     });
+  }
+
+  onProfileEdit(id: number){
+    const url = '/profile/' + id;
+
+    this.router.navigateByUrl(url);
+
   }
 
 }

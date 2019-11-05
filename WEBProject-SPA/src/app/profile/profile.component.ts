@@ -13,7 +13,8 @@ import { AuthService } from '../_services/auth.service';
 })
 export class ProfileComponent implements OnInit {
   selectedValue = '';
-  currentUser: User;
+  currentUser: any = {};
+  admin = false;
  
   @ViewChild('editForm', {static: false}) editForm: NgForm;
   @HostListener('window:beforeunload', ['$event'])
@@ -24,23 +25,38 @@ export class ProfileComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService,
-              private userService: UserService, private authService: AuthService) { }
+              private userService: UserService, private authService: AuthService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      const key = 'user';
-      this.currentUser = data[key];
+
+    // tslint:disable-next-line: deprecation
+    this.activatedRoute.params.subscribe(params => {
+      const key = 'id';
+      if (params[key]) {
+        this.admin = true;
+        this.userService.getUser(params[key]).subscribe((user: User) => {
+          this.currentUser = user;
+        }, error => {
+          this.alertify.error('There is an error retreiving user data');
+        });
+      } else{
+        this.route.data.subscribe(data => {
+          const key = 'user';
+          this.currentUser = data[key];
+        });
+      }
     });
   }
 
   updateUser() {
-    this.userService.updateUser(this.authService.decodedToken.nameid, this.currentUser).subscribe(next => {
+    this.userService.updateUser(this.currentUser.id, this.currentUser).subscribe(next => {
       this.alertify.success('Updated successfully!');
       this.editForm.reset(this.currentUser);
     }, error => {
       this.alertify.error(error);
     });
-  }
+  } 
 
  
 }
