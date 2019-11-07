@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using WEBProject.API.Models;
 
 namespace WEBProject.API.Dtos
@@ -8,7 +9,7 @@ namespace WEBProject.API.Dtos
         public string Type { get; set; }
         public int NumberOfGuests { get; set; }
         public Location Location { get; set; }
-        public string Photo { get; set; }
+        public ICollection<PhotoToReturnDto> Photos { get; set; }
         public int PricePerNight { get; set; }
 
     }

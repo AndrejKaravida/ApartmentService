@@ -3,7 +3,6 @@ C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\WEBPr
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\WEBProject.API.runtimeconfig.dev.json
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\WEBProject.API.dll
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\WEBProject.API.pdb
-C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\obj\Debug\netcoreapp2.1\WEBProject.API.csprojAssemblyReference.cache
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\obj\Debug\netcoreapp2.1\WEBProject.API.RazorAssemblyInfo.cache
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\obj\Debug\netcoreapp2.1\WEBProject.API.RazorAssemblyInfo.cs
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\obj\Debug\netcoreapp2.1\WEBProject.API.AssemblyInfoInputs.cache
@@ -15,3 +14,4 @@ C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\appse
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\appsettings.json
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\Data\UserSeedData.json
+C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\obj\Debug\netcoreapp2.1\WEBProject.API.csprojAssemblyReference.cache

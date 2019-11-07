@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEBProject.API.Data;
 
 namespace WEBProject.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191107134758_PhotosTable")]
+    partial class PhotosTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,6 +72,8 @@ namespace WEBProject.API.Migrations
                     b.Property<int>("NumberOfGuests");
 
                     b.Property<int>("NumberOfRooms");
+
+                    b.Property<string>("Photo");
 
                     b.Property<int>("PricePerNight");
 
@@ -248,7 +252,7 @@ namespace WEBProject.API.Migrations
             modelBuilder.Entity("WEBProject.API.Models.Photo", b =>
                 {
                     b.HasOne("WEBProject.API.Models.Apartment", "Apartment")
-                        .WithMany("Photos")
+                        .WithMany()
                         .HasForeignKey("ApartmentId");
                 });
 

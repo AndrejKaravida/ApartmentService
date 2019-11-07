@@ -60,3 +60,9 @@
     line-height: 1.44444em !important;
     margin-left: 20px;
 }
+
+.date-range-picker-icon {
+    margin-left: -25px;
+    z-index: 1;
+    cursor: pointer;
+  }

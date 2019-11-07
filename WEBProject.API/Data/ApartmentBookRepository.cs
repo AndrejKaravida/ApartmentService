@@ -29,6 +29,7 @@ namespace WEBProject.API.Data
         {
             var apartments = _context.Apartments
                 .Where(a => a.Status == "Active" && a.IsDeleted == false)
+                .Include(p => p.Photos)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
@@ -82,6 +83,7 @@ namespace WEBProject.API.Data
         {
             var apartments =  _context.Apartments
                 .Where(a => a.Host.Id == id && a.IsDeleted == false)
+                .Include(p => p.Photos)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
@@ -134,11 +136,27 @@ namespace WEBProject.API.Data
             var apartment = await _context.Apartments
                 .Include(a => a.Amentities)
                 .Include(h => h.Host)
+                .Include(p => p.Photos)
                 .Include(r => r.Reservations)
                 .Include(c => c.Comments)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .FirstOrDefaultAsync(a=> a.Id == id && a.IsDeleted == false).ConfigureAwait(false);
+            return apartment;
+        }
+
+        public Apartment GetApartmentSync(int id)
+        {
+            var apartment = _context.Apartments
+                .Include(a => a.Amentities)
+                .Include(h => h.Host)
+                .Include(p => p.Photos)
+                .Include(r => r.Reservations)
+                .Include(c => c.Comments)
+                .Include(l => l.Location)
+                .ThenInclude(a => a.Address)
+                .FirstOrDefault(a => a.Id == id && a.IsDeleted == false);
+
             return apartment;
         }
 

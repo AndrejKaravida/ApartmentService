@@ -19,8 +19,8 @@ namespace WEBProject.API.Data
          Address GetAddress(string street);
          Location GetLocation(int id);
          List<Amentity> GetAmentities(List<Amentity> amentitiesIn);
-
-        User GetUserSync(int id);
+         Apartment GetApartmentSync(int id);
+         User GetUserSync(int id);
 
 
     }

@@ -331,19 +331,36 @@
                             </div>           
                         </form>
                     </mat-step>
+                   
+                    <mat-step>
+                     
+                        <ng-template matStepLabel>Photos</ng-template>
+                        <br/><br/>
+                        <span class="headline">Upload apartment main photo</span>
+                        <br/><br/>
+                        <div>
+                          <input #fileInput style="display: none;" type="file" (change)="onFileSelected($event)">
+                          <button type="button" (click)=fileInput.click()>
+                            Pick File
+                          </button>
+                        </div>
+                        <span class="headline2">You will be able to add more photos later.</span>
+                        <div>
+                          {{selectedFile?.name}}
+                        </div>
+                        <br/>
+                        <div class="buttons">
+                            <button mat-raised-button matStepperPrevious>Back</button>
+                            <button mat-raised-button color="primary" matStepperNext>Next</button>
+                          </div>    
+                                                 
+                        </mat-step>
+                        
 
               <mat-step>
                   <ng-template matStepLabel>Done</ng-template>
 
-                  <div>
-                      <br/>
-                      <br/>
-                    <span class="headline">You are now done</span>
-                    <br/>
-                    <br/>
-                    <br/>
-                  </div>
-
+             
                   <div class="buttons2">
                       <button mat-raised-button color="primary" (click)="addApartment()">Submit home</button>
                       <br/>

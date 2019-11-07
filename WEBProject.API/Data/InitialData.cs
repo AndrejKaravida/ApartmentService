@@ -41,6 +41,10 @@ namespace WEBProject.API.Data
                 context.Apartments.AddRange(apartments);
                 context.SaveChanges();
 
+                var photos = GetPhotos(context).ToArray();
+                context.Photos.AddRange(photos);
+                context.SaveChanges();
+
                 var reservations = GetReservations(context).ToArray();
                 context.Reservations.AddRange(reservations);
                 context.SaveChanges();
@@ -126,6 +130,25 @@ namespace WEBProject.API.Data
             return amentities;
         }
 
+        public static List<Photo> GetPhotos(DataContext db)
+        {
+            List<Photo> photos = new List<Photo>()
+            {
+                new Photo {Description = "MainPhoto", Url = "apartment1", Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment2", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(1).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment3", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment4", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(3).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment5", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment6", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(5).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment7", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment8", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(7).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment9", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "apartment10", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(9).Take(1).First() },
+            };
+
+            return photos;
+        }
+
         public static List<Apartment> GetApartments(DataContext db)
         {
             List<Apartment> apartments = new List<Apartment>()
@@ -148,7 +171,10 @@ namespace WEBProject.API.Data
                     .Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Take(10))
+                    .Take(10)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -168,7 +194,11 @@ namespace WEBProject.API.Data
                     .Skip(1).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(5).Take(4))
+                    .Skip(5).Take(4)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(1)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -188,7 +218,11 @@ namespace WEBProject.API.Data
                     .Skip(2).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(2).Take(8))
+                    .Skip(2).Take(8)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(2)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -208,7 +242,11 @@ namespace WEBProject.API.Data
                     .Skip(3).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(6).Take(5))
+                    .Skip(6).Take(5)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(3)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -228,7 +266,11 @@ namespace WEBProject.API.Data
                     .Skip(4).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(4).Take(6))
+                    .Skip(4).Take(6)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(4)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -248,7 +290,11 @@ namespace WEBProject.API.Data
                     .Skip(5).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(4).Take(5))
+                    .Skip(4).Take(5)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(5)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -268,7 +314,11 @@ namespace WEBProject.API.Data
                     .Skip(6).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(2).Take(5))
+                    .Skip(2).Take(5)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(6)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -288,7 +338,11 @@ namespace WEBProject.API.Data
                     .Skip(7).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(4).Take(7))
+                    .Skip(4).Take(7)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(7)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -308,7 +362,11 @@ namespace WEBProject.API.Data
                     .Skip(8).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(4).Take(3))
+                    .Skip(4).Take(3)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(8)
+                    .Take(1))
                 },
                 new Apartment
                 {
@@ -328,7 +386,11 @@ namespace WEBProject.API.Data
                     .Skip(9).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
                     .OrderBy(a => a.Id)
-                    .Skip(2).Take(5))
+                    .Skip(2).Take(5)),
+                    Photos = new List<Photo>(db.Photos
+                    .OrderBy(p => p.Id)
+                    .Skip(9)
+                    .Take(1))
                 }
             };
 

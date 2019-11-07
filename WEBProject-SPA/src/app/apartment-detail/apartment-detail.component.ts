@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Apartment } from '../_models/apartment';
 import { ApartmentService } from '../_services/apartment.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { Moment } from 'moment';
+import { DaterangepickerComponent } from 'ngx-daterangepicker-material';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
   selector: 'app-apartment-detail',
@@ -17,11 +19,11 @@ export class ApartmentDetailComponent implements OnInit {
   numOfGrades = 0;
   selected: {startDate: Moment, endDate: Moment};
 
-  constructor(private apartmentService: ApartmentService, private alertify: AlertifyService,
-              private route: ActivatedRoute) { }
+  constructor( private route: ActivatedRoute) { }
 
   ngOnInit() {
-   this.route.data.subscribe(data => {
+  
+    this.route.data.subscribe(data => {
      const key = 'apartment';
      this.apartment = data[key];
      console.log(data[key]);
@@ -34,5 +36,9 @@ export class ApartmentDetailComponent implements OnInit {
      }
      this.grade = totalGrade / this.numOfGrades;
    });
+  }
+
+  choosedDate(event: any) { 
+    
   }
 }

@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit {
     'edit',
     'block',
     'unblock',
+    'host',
     'delete'
   ];
 
@@ -42,34 +43,43 @@ export class UsersComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  blockUser(id: number){
+  blockUser(id: number) {
     this.userService.blockUser(id).subscribe(() => {
       this.alertify.success('User blocked successfully!');
       this.loadUsers();
-    }, error => { 
+    }, error => {
       this.alertify.error('Error when trying to block user!');
     });
   }
 
-  unblockUser(id: number){
+  unblockUser(id: number) {
     this.userService.unblockUser(id).subscribe(() => {
       this.alertify.success('User unblocked successfully!');
       this.loadUsers();
-    }, error => { 
+    }, error => {
       this.alertify.error('Error when trying to unblock user!');
     });
   }
 
-  deleteUser(id: number){
+  makeHost(id: number) {
+    this.userService.makehost(id).subscribe(() => {
+      this.alertify.success('User made host successfully!');
+      this.loadUsers();
+    }, error => {
+      this.alertify.error('Error when trying to make user host!');
+    });
+  }
+
+  deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(() => {
       this.alertify.success('User deleted successfully!');
       this.loadUsers();
-    }, error => { 
+    }, error => {
       this.alertify.error('Error when trying to delete user!');
     });
   }
 
-  onProfileEdit(id: number){
+  onProfileEdit(id: number) {
     const url = '/profile/' + id;
 
     this.router.navigateByUrl(url);

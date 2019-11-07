@@ -1,6 +1,6 @@
 <div class="card mb-4">
   <div class="card-img-wrapper">
-    <img class="card-img-top" src="{{'../../../../assets/placeholder.png" alt="{{apartment.type}}">
+    <img class="card-img-top" src="{{apartment.photos[0].url}}" alt="{{apartment.type}}">
   </div>
   <span *ngIf="apartment.type == 'Room'" class="aparttype">Room   · {{apartment.numberOfGuests}} Beds</span>
   <span *ngIf="apartment.type == 'Apartment'" class="aparttype">Entire Apartment  · {{apartment.numberOfGuests}} Beds</span>

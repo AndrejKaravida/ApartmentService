@@ -14,6 +14,7 @@ namespace WEBProject.API.Data
             public DbSet<Apartment> Apartments { get; set; }
             public DbSet<Address> Addresses { get; set; }
             public DbSet<Reservation> Reservations { get; set; }
+            public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

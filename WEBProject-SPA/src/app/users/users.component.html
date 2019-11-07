@@ -58,7 +58,7 @@
           <th mat-header-cell *matHeaderCellDef>Edit</th>
           <td mat-cell *matCellDef="let element" fxLayoutGap="5px">
             <button mat-mini-fab color="primary" style="cursor: pointer"
-            (click)="onProfileEdit(element.id)">
+            (click)="onProfileEdit(element.id)" *ngIf="element.role !== 'Admin'">
               <mat-icon>edit</mat-icon>
             </button>
           </td>
@@ -67,7 +67,7 @@
           <th mat-header-cell *matHeaderCellDef>Ban</th>
           <td mat-cell *matCellDef="let element" fxLayoutGap="5px">
             <button style="cursor: pointer" (click)="blockUser(element.id)"
-            [disabled]="element.isBlocked == true">
+            [disabled]="element.isBlocked == true" *ngIf="element.role !== 'Admin'">
               <mat-icon>lock</mat-icon>
             </button>
           </td>
@@ -76,16 +76,27 @@
             <th mat-header-cell *matHeaderCellDef>Unban</th>
             <td mat-cell *matCellDef="let element" fxLayoutGap="5px">
               <button style="cursor: pointer" (click)="unblockUser(element.id)"
-              [disabled]="element.isBlocked == false">
+              [disabled]="element.isBlocked == false" *ngIf="element.role !== 'Admin'">
                 <mat-icon>lock_open</mat-icon>
               </button>
             </td>
         </ng-container>
+        <ng-container matColumnDef="host">
+          <th mat-header-cell *matHeaderCellDef>Make host</th>
+          <td mat-cell *matCellDef="let element" fxLayoutGap="5px">
+            <button style="cursor: pointer" (click)="makeHost(element.id)"
+            [disabled]="element.role === 'Host'" *ngIf="element.role !== 'Admin'">
+            <i class="material-icons">
+              house
+              </i>
+            </button>
+          </td>
+      </ng-container>
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
           <td mat-cell *matCellDef="let element" fxLayoutGap="5px">
               <button mat-mini-fab color="warn" style="cursor: pointer"
-               (click)="deleteUser(element.id)">
+               (click)="deleteUser(element.id)" *ngIf="element.role !== 'Admin'">
                <i class="material-icons">delete</i>
               </button>
           </td>

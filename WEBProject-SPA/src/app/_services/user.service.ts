@@ -36,4 +36,8 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'users/deleteuser/' + id);
   }
 
+  makehost(id: number): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/makehost/' + id);
+  }
+
 }

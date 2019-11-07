@@ -69,11 +69,10 @@
       <div>
         <span>Reservation price is 10% higher during holidays.</span>
       </div>
-
-      <div>
-          <input style="max-width: 200px;" type="text" ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"/>
-      </div>
-
+      <br/>
+      <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
+        </ngx-daterangepicker-material>
+        <br/>   
       <mat-divider></mat-divider>
 
       <div>

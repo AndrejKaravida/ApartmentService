@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WEBProject.API.Models;
 
 namespace WEBProject.API.Dtos
 {
@@ -11,7 +12,7 @@ namespace WEBProject.API.Dtos
         public int NumberOfRooms { get; set; }
         public int NumberOfGuests { get; set; }
         public LocationToReturnDto Location { get; set; }
-        public string Photo { get; set; }
+        public ICollection<PhotoToReturnDto> Photos { get; set; }
         public int PricePerNight { get; set; }
         public string TimeToArrive { get; set; }
         public string TimeToLeave { get; set; }

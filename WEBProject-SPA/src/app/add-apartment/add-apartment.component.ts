@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Apartment } from '../_models/apartment';
 import { ApartmentService } from '../_services/apartment.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-add-apartment',
@@ -52,8 +54,11 @@ export class AddApartmentComponent implements OnInit {
 
   country = '';
 
+  selectedFile = null;
+
   constructor(private formBuilder: FormBuilder, private apartmentService: ApartmentService,
-              private alertify: AlertifyService, private authService: AuthService) { }
+              private alertify: AlertifyService, private authService: AuthService,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
@@ -72,6 +77,10 @@ export class AddApartmentComponent implements OnInit {
       city: ['', [Validators.required, Validators.minLength(5)]],
       zip: ['', [Validators.required, Validators.min(1), Validators.max(100000)]]
     });
+  }
+
+  onFileSelected(event){
+    this.selectedFile = event.target.files[0] as File;
   }
 
   addApartment() {
@@ -140,8 +149,16 @@ export class AddApartmentComponent implements OnInit {
     this.newApartment.city = this.thirdFormGroup.get('city').value;
     this.newApartment.amentities = amentities;
 
-    this.apartmentService.createApartment(this.authService.decodedToken.nameid, this.newApartment).subscribe(data => {
-       this.alertify.success('Successfully added apartment!');
+    this.apartmentService.createApartment(this.authService.decodedToken.nameid, this.newApartment).subscribe((data: any) => {
+      const fd = new FormData();
+      console.log(data);
+
+      fd.append('file', this.selectedFile, this.selectedFile.name);
+      return this.http.post('http://localhost:5000/api/upload/' + data.id, fd)
+      .subscribe(res => {
+        this.alertify.success('Successfully added apartment!');
+      });
+
      }, error => {
        this.alertify.error('There was a problem saving new apartment, please try again');
      });
