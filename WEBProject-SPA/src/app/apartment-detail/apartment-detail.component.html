@@ -1,101 +1,86 @@
-<div class="container">
-  <mat-card>
-    
-      <div>
-        <span class="headline"> {{apartment.location.address.street}} </span>
-      </div>
-      <div>
-        <span class="address"> {{apartment.location.address.city}}, {{apartment.location.address.country}} </span>
-      </div>
-      <br/>
-      
-      <div>
-        <span>
-          {{apartment.numberOfGuests}} guests
-        </span>
-
-        <span>
-          {{apartment.numberOfRooms}} bedrooms
-        </span>
-      </div>
-
-      <br/>
-      <mat-divider></mat-divider>
-      <div>
-          <span class="amentities">Price</span>
-      </div>
-
-      <div>
-        <span>{{apartment.pricePerNight}}$ /night</span>
-      </div>
-      <br/>
-      <mat-divider></mat-divider>
-
-      <div class="type">
-        <span>Entire home</span>
-      </div>
-
-      <div>
-        <span>You'll have the apartment for yourself.</span>
-      </div>
-      <br/>
-      <mat-divider></mat-divider>
-
-      <div>
-        <span class="amentities">Amentities</span>
-      </div>
-      <br/>
-      <div>
-        <ng-container *ngFor="let amentity of apartment.amentities"> 
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img class="card-img-top img-thumbnail" src="{{apartment.photos[0].url}}" alt="apartment.type">
+        <div class="card-body">
           <div>
-            <span>{{amentity.name}}</span>
+            <strong>Location:</strong>
+            <p>{{apartment.location.address.street}}, {{apartment.location.address.city}}, {{apartment.location.address.country}}</p>
           </div>
-        </ng-container>
+          <div>
+            <strong>Price:</strong>
+            <p>{{apartment.pricePerNight}}$ /night</p>
+          </div>
+          <div>
+            <strong>Grade:</strong>  
+            <p><i class="material-icons"> star</i>{{grade}} /10</p>
+          </div>
+          <div *ngIf="apartment.type === 'Room'">
+            <strong >Entire apartment</strong>  
+            <p>You will have whole apartment for yourself</p>           
+          </div> 
+          <div *ngIf="apartment.type !== 'Room'">
+            <strong >Room</strong>
+            <p>You would share some rooms with others</p>
+          </div> 
       </div>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="card">
+    <div class="tab-panel">
+      <tabset class="member-tabset">
+        <tab heading="Amentities">
+          <div style="margin-top: 10px;" align="center">
+            <strong>There are following amentities available:</strong>
+          </div>
+          <mat-list role="list">
+              <ng-container *ngFor="let amentity of apartment.amentities"> 
+                  <mat-list-item role="listitem">{{amentity.name}}</mat-list-item>
+                </ng-container> 
+          </mat-list>
+        </tab>
+        <tab heading="Availability">
+          <div align="center" style="margin-top: 10px;">
+            <div>
+                <span>The host offers discount of 10% during weekends, including friday.</span>
+              </div>
+              <div>
+                <span>Reservation price is 10% higher during holidays.</span>
+              </div>
+              <br/>
+              <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
+                </ngx-daterangepicker-material>
+          </div>
 
-      <div>
-        <button type="button" class="_b0ybw8s" aria-busy="false">Show all {{numOfAmentities}} amenities</button>
-      </div>
+        </tab>
+        <tab heading="Photos">
+          <div align="center" style="margin-top: 10px;">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+          </div>
+        </tab>
 
-      <mat-divider></mat-divider>
+        <tab heading="Reviews">
+          <div *ngIf="apartment.comments.length === 0" align="center" style="margin-top: 10px;">
+              <span>There are no reviews for this apartment.</span>
+          </div>
+          <br/>
+            <div *ngFor="let review of apartment.comments" style="margin-left: 10px; margin-right: 10px;">
+            Author:  {{review.author}} <br/> <br/>
+              {{review.text}}
+                <mat-divider></mat-divider>
+                <br/>
+            </div>
+        </tab>
+        
+        <tab heading="Messages">
+          <p>Messages will go here</p>
+        </tab>
 
-      <div>
-          <span class="amentities">Availability</span>
-      </div>
-      <br/>
-      <div>
-        <span>The host offers discount of 10% during weekends, including friday.</span>
-      </div>
-      <div>
-        <span>Reservation price is 10% higher during holidays.</span>
-      </div>
-      <br/>
-      <ngx-daterangepicker-material (choosedDate)="choosedDate($event)">
-        </ngx-daterangepicker-material>
-        <br/>   
-      <mat-divider></mat-divider>
-
-      <div>
-          <span class="amentities">Reviews</span>
-      </div>
-      <br/>
-      <div>
-        <span><i class="material-icons"> star</i></span>
-        <span class="grade">{{grade}}</span>
-        <span class="numofgrades">{{numOfGrades}}</span>
-        <span *ngIf="numOfGrades > 1"> reviews</span>
-        <span *ngIf="numOfGrades == 1"> review</span>
-      </div>
-      <br/>
-      <mat-divider></mat-divider>
-      <br/>
-       <div *ngFor="let review of apartment.comments">
-         {{review.text}}
-         <mat-divider></mat-divider>
-         <br/>
-       </div> 
-
-  </mat-card>
+      </tabset>
+    </div>
+  </div>
 </div>
-
-
+</div>
+</div>

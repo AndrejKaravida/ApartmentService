@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDropdownModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, PaginationModule, ButtonsModule, TabsModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './_services/auth.service';
@@ -42,7 +42,9 @@ import { ApartmentForUserResolver } from './_resolvers/apartment-foruser-resolve
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { HostGuard } from './_guards/host.guard';
+import { NgxGalleryModule } from 'ngx-gallery';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import {MatListModule} from '@angular/material/list';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -68,9 +70,12 @@ export function tokenGetter() {
       BrowserModule,
       ReactiveFormsModule,
       FormsModule,
+      MatListModule,
       NgxDaterangepickerMd.forRoot(),
       MatSliderModule,
+      TabsModule.forRoot(),
       HttpClientModule,
+      NgxGalleryModule,
       AppRoutingModule,
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,

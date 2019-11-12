@@ -1,68 +1,19 @@
-.headline{
-    font-size: 32px !important;
-    font-weight: 800 !important;
-    line-height: 1.125em !important;
-    color: rgb(72, 72, 72) !important;
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
-    margin: 0px !important;
+.img-thumbnail {
+    margin: 25px;
+    width: 85%;
+    height: 85%;
 }
 
-.address{
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    line-height: 1.375em !important;
-    color: rgb(72, 72, 72) !important;
-    margin: 0px !important;
+.card-body {
+    padding: 0 25px;
 }
 
-.type{
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    line-height: 1.375em !important;
-    color: rgb(72, 72, 72) !important;
-    margin: 0px !important;
+.card-footer {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-top: none;
 }
 
-.amentities{
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    line-height: 1.375em !important;
-    color: rgb(72, 72, 72) !important;
-    margin: 0px !important;
+.card {
+    min-height: 700px;
 }
-
-._b0ybw8s{
-    color: rgb(0, 132, 137) !important;
-    -webkit-appearance: none !important;
-    cursor: pointer !important;
-    user-select: auto !important;
-    text-align: left !important;
-    text-decoration: none !important;
-    background: transparent !important;
-    border-width: 0px !important;
-    border-style: initial !important;
-    border-color: initial !important;
-    border-image: initial !important;
-    margin: 0px !important;
-    padding: 0px !important;
-}
-
-.grade{
-    font-size: 18px !important;
-    font-weight: 800 !important;
-    line-height: 1.44444em !important;
-}
-
-.numofgrades{
-    font-size: 18px !important;
-    font-weight: 800 !important;
-    line-height: 1.44444em !important;
-    margin-left: 20px;
-}
-
-.date-range-picker-icon {
-    margin-left: -25px;
-    z-index: 1;
-    cursor: pointer;
-  }
