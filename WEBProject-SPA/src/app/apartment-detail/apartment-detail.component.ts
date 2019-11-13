@@ -19,7 +19,9 @@ export class ApartmentDetailComponent implements OnInit {
   apartment: any;
   numOfAmentities = 0;
   grade = 0;
+  oldPrice = 0;
   modify = false;
+  priceChange = false;
   numOfGrades = 0;
   selected: {startDate: Moment, endDate: Moment};
   galleryOptions: NgxGalleryOptions[];
@@ -57,6 +59,7 @@ export class ApartmentDetailComponent implements OnInit {
        totalGrade += this.apartment.comments[i].grade;
       }
       this.grade = totalGrade / this.numOfGrades;
+      this.oldPrice = this.apartment.pricePerNight;
     });
   }
 
@@ -81,22 +84,45 @@ export class ApartmentDetailComponent implements OnInit {
   modifyToogle() {
     this.modify = !this.modify;
   }
-  
-  addAmentity(){
+
+  changePrice() {
+    this.priceChange = !this.priceChange;
+  }
+
+  applyPriceChange() {
+
+    if (this.apartment.pricePerNight >= 0 &&
+       this.apartment.pricePerNight <= 99 &&
+       this.apartment.pricePerNight !== this.oldPrice) {
+      this.apartmentService.changePrice(this.apartment.id, this.apartment.pricePerNight).subscribe(() => {
+        this.alertify.success('Price successfully changed!');
+      }, error => {
+        this.alertify.error('Error while saving new price');
+      });
+      this.changePrice();
+    } else if (this.apartment.pricePerNight === this.oldPrice) {
+      this.alertify.error('You cannot enter the same price');
+    } else {
+      this.alertify.error('Please specify different price between 0 and 99');
+    }
+
+  }
+
+  addAmentity() {
     const dialogRef = this.dialog.open(AddamentitydialogComponent, {
-      width: "500px",
+      width: '500px',
       data: { apartment: this.apartment }
     });
 
-    dialogRef.afterClosed().subscribe(result => { 
-      if(result) {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
         const amenities = result.data;
-        this.apartmentService.addAmenities(this.apartment.id, amenities).subscribe(() => { 
+        this.apartmentService.addAmenities(this.apartment.id, amenities).subscribe(() => {
           this.alertify.success('Amenities updated!');
           this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
             this.apartment = result;
           });
-        }, error => { 
+        }, error => {
           this.alertify.error('Failed to add new amenities');
         });
       }

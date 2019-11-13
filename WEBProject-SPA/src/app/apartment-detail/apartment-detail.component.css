@@ -17,3 +17,10 @@
 .card {
     min-height: 700px;
 }
+
+.change { 
+    color: rgb(69, 25, 151);
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+}

@@ -10,7 +10,14 @@
           </div>
           <div>
             <strong>Price:</strong>
-            <p>{{apartment.pricePerNight}}$ /night</p>
+            <span class="change" (click)="changePrice()">(Change)</span>
+            <div *ngIf="priceChange">
+              <input mat-input [(ngModel)]="apartment.pricePerNight" style="width: 50px;">
+              <span>$ / night</span>
+              <span class="change" (click)="applyPriceChange()">Apply</span>
+              <br/>
+            </div>
+            <p *ngIf="!priceChange">{{apartment.pricePerNight}}$ /night</p>
           </div>
           <div *ngIf="numOfGrades == 0">
             <strong>Grade:</strong>  

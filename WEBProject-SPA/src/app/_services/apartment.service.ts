@@ -89,4 +89,8 @@ export class ApartmentService {
     return this.http.get<Apartment>(this.baseUrl + 'apartments/removeamentity/' + apid + '/' + amname);
   }
 
+  changePrice(apid: number, new_price: number): Observable<Apartment> {
+    return this.http.get<Apartment>(this.baseUrl + 'apartments/changeprice/' + apid + '/' + new_price);
+  }
+
 }

@@ -81,6 +81,27 @@ namespace WEBProject.API.Controllers
             throw new Exception("Deleting amentity failed on save");
         }
 
+        [HttpGet("changeprice/{ap_id}/{new_price}")]
+
+        public async Task<IActionResult> ChangePrice (int ap_id, int new_price)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            if (new_price >= 0 && new_price <= 99)
+            {
+                apartment.PricePerNight = new_price;
+                if (await _repo.SaveAll())
+                    return NoContent();
+                else
+                    throw new Exception("Updating price failed on save");
+
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
         [HttpPost("addamentities/{ap_id}")]
         public async Task<IActionResult> AddAmenities(int ap_id, [FromBody]JObject data)
         {
