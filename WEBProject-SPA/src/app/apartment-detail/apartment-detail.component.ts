@@ -22,10 +22,14 @@ export class ApartmentDetailComponent implements OnInit {
   oldPrice = 0;
   oldRooms = 0;
   oldGuests = 0;
+  oldArrival = '';
+  oldDeparture = '';
   modify = false;
   priceChange = false;
   guestsChange = false;
   roomsChange = false;
+  arrivalChange = false;
+  departureChange = false;
   numOfGrades = 0;
   selected: {startDate: Moment, endDate: Moment};
   galleryOptions: NgxGalleryOptions[];
@@ -66,6 +70,8 @@ export class ApartmentDetailComponent implements OnInit {
       this.oldPrice = this.apartment.pricePerNight;
       this.oldGuests = this.apartment.numberOfGuests;
       this.oldRooms = this.apartment.numberOfRooms;
+      this.oldArrival = this.apartment.timeToArrive;
+      this.oldDeparture = this.apartment.timeToLeave;
     });
   }
 
@@ -103,6 +109,14 @@ export class ApartmentDetailComponent implements OnInit {
     this.roomsChange = !this.roomsChange;
   }
 
+  changeArrival() {
+    this.arrivalChange = !this.arrivalChange;
+  }
+
+  changeDeparture() {
+    this.departureChange = !this.departureChange;
+  }
+
   applyPriceChange() {
 
     if (this.apartment.pricePerNight >= 0 &&
@@ -119,6 +133,36 @@ export class ApartmentDetailComponent implements OnInit {
       this.alertify.error('You cannot enter the same price');
     } else {
       this.alertify.error('Please specify different price between 0 and 99');
+    }
+  }
+
+  applyArrivalChange() {
+
+    if (this.apartment.timeToArrive != this.oldArrival) {
+      this.apartmentService.changeArrival(this.apartment.id, this.apartment.timeToArrive).subscribe(() => {
+        this.alertify.success('Time to arrive successfully changed!');
+      }, error => {
+        this.alertify.error('Error while saving new time');
+      });
+      this.changeArrival();
+      this.oldArrival = this.apartment.timeToArrive;
+    } else {
+      this.alertify.error('You cannot enter the same time');
+    }
+  }
+
+  applyDepartureChange() {
+
+    if (this.apartment.timeToLeave != this.oldDeparture) {
+      this.apartmentService.changeDeparture(this.apartment.id, this.apartment.timeToLeave).subscribe(() => {
+        this.alertify.success('Time to depart successfully changed!');
+      }, error => {
+        this.alertify.error('Error while saving new time');
+      });
+      this.changeDeparture();
+      this.oldDeparture = this.apartment.timeToLeave;
+    } else {
+      this.alertify.error('You cannot enter the same time');
     }
   }
 

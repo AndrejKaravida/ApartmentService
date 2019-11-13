@@ -10,7 +10,7 @@
         <button type="button" class="details" aria-busy="false" [routerLink]="['/explore/', apartment.id]">Details</button>
        <div *ngIf="apartment.status == 'Active' || apartment.status == 'Inactive'">
         <div>
-         <span class="details"> Status: </span>
+         <span class="details2"> Status: </span>
          <span *ngIf="apartment.status == 'Active'" class="statusactive">{{apartment.status}}</span>
          <span *ngIf="apartment.status == 'Inactive'"class="statusinactive">{{apartment.status}}</span>
        </div>

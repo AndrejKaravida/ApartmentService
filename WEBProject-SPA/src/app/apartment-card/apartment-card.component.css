@@ -66,6 +66,18 @@
     font-size: 12px !important;
 }
 
+.details2 { 
+    user-select: auto !important;
+    text-align: left !important;
+    background: transparent !important;
+    border: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    color: #008489 !important;
+    font: inherit !important;
+    font-size: 12px !important;
+}
+
 .delete { 
     user-select: auto !important;
     text-align: left !important;
@@ -84,7 +96,6 @@
     text-align: left !important;
     background: transparent !important;
     border: 0px !important;
-    cursor: pointer !important;
     margin: 0px !important;
     padding: 0px !important;
     color: #59ac0b !important;
@@ -97,7 +108,6 @@
     text-align: left !important;
     background: transparent !important;
     border: 0px !important;
-    cursor: pointer !important;
     margin: 0px !important;
     padding: 0px !important;
     color: #2f312e !important;

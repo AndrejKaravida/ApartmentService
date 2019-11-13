@@ -30,7 +30,7 @@
                   <span class="cancel" (click)="changeGuests()">Cancel</span>
                   <br/>
                 </div>
-              <p *ngIf="!guestsChange">{{apartment.numberOfGuests}}</p>
+              <p *ngIf="!guestsChange">{{apartment.numberOfGuests}} person max</p>
           </div>
           <div>
               <strong>Rooms number:</strong> 
@@ -41,7 +41,42 @@
                   <span class="cancel" (click)="changeRooms()">Cancel</span>
                   <br/>
                 </div>
-              <p *ngIf="!roomsChange">{{apartment.numberOfRooms}}</p>
+              <p *ngIf="!roomsChange && apartment.numberOfRooms > 1">{{apartment.numberOfRooms}} rooms</p>
+              <p *ngIf="!roomsChange && apartment.numberOfRooms == 1">{{apartment.numberOfRooms}} room</p>
+          </div>
+          <div>
+              <strong>Arrival time:</strong> 
+              <span class="change" (click)="changeArrival()">(Change)</span> 
+              <div *ngIf="arrivalChange">
+                  <mat-select [(value)]="apartment.timeToArrive">
+                      <mat-option value="1">1:00 PM</mat-option>
+                      <mat-option value="1:30">1:30 PM</mat-option>
+                      <mat-option value="2:00">2:00 PM</mat-option>
+                      <mat-option value="2:30">2:30 PM</mat-option>
+                      <mat-option value="3:00">3:00 PM</mat-option>
+                  </mat-select>
+                  <span class="change" (click)="applyArrivalChange()">Apply</span>
+                  <span class="cancel" (click)="changeArrival()">Cancel</span>
+                  <br/>
+                </div>
+              <p *ngIf="!arrivalChange">{{apartment.timeToArrive}} PM</p>
+          </div>
+          <div>
+              <strong>Departure time:</strong> 
+              <span class="change" (click)="changeDeparture()">(Change)</span> 
+              <div *ngIf="departureChange">
+                  <mat-select [(value)]="apartment.timeToLeave">
+                      <mat-option value="9">9:00 AM</mat-option>
+                      <mat-option value="9:30">9:30 AM</mat-option>
+                      <mat-option value="10:00">10:00 AM</mat-option>
+                      <mat-option value="10:30">10:30 AM</mat-option>
+                      <mat-option value="11:00">11:00 AM</mat-option>
+                  </mat-select>
+                  <span class="change" (click)="applyDepartureChange()">Apply</span>
+                  <span class="cancel" (click)="changeDeparture()">Cancel</span>
+                  <br/>
+                </div>
+              <p *ngIf="!departureChange">{{apartment.timeToLeave}} AM</p>
           </div>
           <div *ngIf="numOfGrades == 0">
             <strong>Grade:</strong>  

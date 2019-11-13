@@ -115,6 +115,36 @@ namespace WEBProject.API.Controllers
             }
         }
 
+        [HttpGet("changearrival/{ap_id}/{new_time}")]
+        public async Task<IActionResult> ChangeArrival (int ap_id, string new_time)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            apartment.TimeToArrive = new_time;
+                
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            else
+               throw new Exception("Updating price failed on save");
+
+        }
+
+        [HttpGet("changedeparture/{ap_id}/{new_time}")]
+        public async Task<IActionResult> ChangeDeparture (int ap_id, string new_time)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            apartment.TimeToLeave = new_time;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            else
+                throw new Exception("Updating price failed on save");
+
+        }
+
         [HttpGet("changeguests/{ap_id}/{new_number}")]
 
         public async Task<IActionResult> ChangeGuests(int ap_id, int new_number)

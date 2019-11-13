@@ -1,15 +1,17 @@
 
-<div class="text-center mt-3">
-  <h4>Your matches - {{pagination.totalItems}} found</h4>
-</div>
-
-
-<div class="text-center mt-3" *ngIf="pagination.totalItems == 0">
-    <h4>Please change search criteria and try again</h4>
-</div>
-
 <div class="container mt-3">
 
+    <div *ngIf="pagination.totalItems == 0" align="center">
+    <mat-card>
+        <h5>Please change search criteria and try again</h5>
+      </mat-card>
+    </div>
+
+    <div *ngIf="pagination.totalItems > 0" align="center">
+        <mat-card>
+            <h5>{{pagination.totalItems}} apartments found.</h5>
+          </mat-card>
+        </div>
 
     <mat-card>
         <h5 style="text-align: center">Search for apartment:</h5>   
