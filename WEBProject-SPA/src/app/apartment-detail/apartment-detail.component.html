@@ -109,7 +109,7 @@
                     <i class="material-icons">
                         {{amentity.icon}}
                         </i>
-                        
+
                       <span>{{amentity.name}}</span>
                   <span *ngIf="modify" style="cursor: pointer;"><i 
                     (click)="removeAmentity(amentity.name)"
@@ -151,6 +151,19 @@
                 <mat-divider></mat-divider>
                 <br/>
             </div>
+
+            <form (ngSubmit)=OnSaveReview(f) #f=ngForm>
+                <div class="form-group" align="center">
+                  <label for="textarea" >Your review:</label>
+    
+                  <textarea class="form-control" name="content" ngModel style="max-width: 90%;" required id="textarea" rows="5" minlength="30"></textarea>
+                  <br />
+    
+                  <button mat-raised-button  type="submit" color="primary">Add review</button>
+                </div>
+                <br />
+              </form>
+
         </tab>
         
         <tab heading="Messages">

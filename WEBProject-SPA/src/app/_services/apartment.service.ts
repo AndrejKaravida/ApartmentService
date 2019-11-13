@@ -113,4 +113,8 @@ export class ApartmentService {
     return this.http.get<Apartment>(this.baseUrl + 'apartments/delete/' + apid);
   }
 
+  commentApartment(apid: number, userid: number, content: string, grade: number): Observable<Apartment> {
+    return this.http.post<Apartment>(this.baseUrl + 'comments/' + apid, {content, grade, userid});
+  }
+
 }

@@ -3,8 +3,13 @@
     <div align="center">
         <mat-card>
             <h5>My apartments:</h5>
+            <div *ngIf="pagination.totalItems == 0" class="text-center mt-4">
+                You don't have any apartments for rent. Click
+                <a [routerLink]="['/addnew']">here</a>
+                 to add one!
+              </div>
           </mat-card>
-        </div>
+     </div>
 
   <mat-card style="min-width: 100%;" *ngIf="pagination.totalItems > 0">
 
@@ -31,12 +36,7 @@
           </div>
 </mat-card>
 
-<div *ngIf="pagination.totalItems == 0" class="text-center mt-4">
-  You don't have any apartments for rent. Click
-  <a [routerLink]="['/addnew']">here</a>
-   to add one!
 
-</div>
 
 
   <div class="d-flex justify-content-center" *ngIf="pagination.totalItems > 0">

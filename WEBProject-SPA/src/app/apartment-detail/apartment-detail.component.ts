@@ -9,6 +9,8 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { MatDialog } from '@angular/material/dialog';
 import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydialog.component';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-apartment-detail',
@@ -36,7 +38,8 @@ export class ApartmentDetailComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
 
   constructor( private route: ActivatedRoute, private alertify: AlertifyService,
-               private apartmentService: ApartmentService, public dialog: MatDialog) { }
+               private apartmentService: ApartmentService, public dialog: MatDialog,
+               private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -236,6 +239,15 @@ export class ApartmentDetailComponent implements OnInit {
       }
     }, error => {
       this.alertify.error('Failed to remove amentity.');
+    });
+  }
+
+  OnSaveReview(form: NgForm) {
+    const formcontent = form.value.content;
+    this.apartmentService.commentApartment(this.apartment.id, this.authService.decodedToken.nameid, formcontent, 10).subscribe(()=> {
+      this.alertify.success('Successfull!');
+    }, error => { 
+      this.alertify.error('Error saving comment');
     });
   }
 }
