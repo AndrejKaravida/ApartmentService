@@ -109,22 +109,22 @@ namespace WEBProject.API.Data
         {
             List<Amentity> amentities = new List<Amentity>()
             {
-                new Amentity {Name = "Essential"},
-                new Amentity {Name = "AirConditioning"},
-                new Amentity {Name = "Heat"},
-                new Amentity {Name = "HairDryer"},
-                new Amentity {Name = "Closet"},
-                new Amentity {Name = "Iron"},
-                new Amentity {Name = "Tv"},
-                new Amentity {Name = "PrivateEntrance"},
-                new Amentity {Name = "Shampoo"},
-                new Amentity {Name = "Wifi"},
-                new Amentity {Name = "Desk"},
-                new Amentity {Name = "Breakfast"},
-                new Amentity {Name = "FireExtinguisher"},
-                new Amentity {Name = "Carbon"},
-                new Amentity {Name = "Smoke"},
-                new Amentity {Name = "FirstAidKit"}
+                new Amentity {Name = "Essential", Icon="king_bed"},
+                new Amentity {Name = "AirConditioning", Icon="local_parking"},
+                new Amentity {Name = "Heat", Icon="call"},
+                new Amentity {Name = "HairDryer", Icon="face"},
+                new Amentity {Name = "Closet", Icon="table_chart"},
+                new Amentity {Name = "Iron", Icon="local_laundry_service"},
+                new Amentity {Name = "Tv", Icon="tv"},
+                new Amentity {Name = "PrivateEntrance", Icon="house"},
+                new Amentity {Name = "Shampoo", Icon="bathtub"},
+                new Amentity {Name = "Wifi", Icon="wifi"},
+                new Amentity {Name = "Desk", Icon="desktop_mac"},
+                new Amentity {Name = "Breakfast", Icon="free_breakfast"},
+                new Amentity {Name = "FireExtinguisher", Icon="fireplace"},
+                new Amentity {Name = "Carbon", Icon="warning"},
+                new Amentity {Name = "Smoke", Icon="smoke_free"},
+                new Amentity {Name = "FirstAidKit", Icon="healing"}
             };
 
             return amentities;

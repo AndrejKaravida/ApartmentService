@@ -8,5 +8,6 @@ namespace WEBProject.API.Dtos
     public class AmentityToReturnDto
     {
         public string Name { get; set; }
+        public string Icon { get; set; }
     }
 }

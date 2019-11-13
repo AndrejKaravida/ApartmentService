@@ -104,7 +104,13 @@
           </div>
           <mat-list role="list">
               <ng-container *ngFor="let amentity of apartment.amentities"> 
-                  <mat-list-item role="listitem">{{amentity.name}}  
+                  <mat-list-item role="listitem">
+          
+                    <i class="material-icons">
+                        {{amentity.icon}}
+                        </i>
+                        
+                      <span>{{amentity.name}}</span>
                   <span *ngIf="modify" style="cursor: pointer;"><i 
                     (click)="removeAmentity(amentity.name)"
                     class="material-icons">
