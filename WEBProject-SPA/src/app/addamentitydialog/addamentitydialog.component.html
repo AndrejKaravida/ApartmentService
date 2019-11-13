@@ -1,0 +1,111 @@
+<div align="center">
+  <span class="headline">What amenities do you offer?</span>
+</div>
+<br/>
+
+<div>
+    <mat-checkbox class="example-margin" name = "essential" [(ngModel)]="amentities.essential">
+  Essentials (Towels, bed sheets, soap, toilet paper, pillows)
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "airconditioning" [(ngModel)]="amentities.airconditioning">
+   Air conditioning
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "heat" [(ngModel)]="amentities.heat">
+  Heat
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "hairdryer" [(ngModel)]="amentities.hairdryer">
+ Hair dryer
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "closet" [(ngModel)]="amentities.closet">
+  Closet/drawers
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "iron" [(ngModel)]="amentities.iron">
+  Iron
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "tv" [(ngModel)]="amentities.tv">
+  Tv
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "privateentrance" [(ngModel)]="amentities.privateentrance">
+  Private entrance
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "shampoo" [(ngModel)]="amentities.shampoo">
+  Shampoo
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "wifi" [(ngModel)]="amentities.wifi">
+  Wifi
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "desk" [(ngModel)]="amentities.desk">
+  Desk/workspace
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "breakfast" [(ngModel)]="amentities.breakfast">
+  Breakfast, coffee, tea
+</mat-checkbox>
+</div>
+
+<div>
+  <br/>
+    <span class="headline2">Safety amenities</span>
+  </div>
+  <br/>
+
+<div>
+    <mat-checkbox class="example-margin" name = "fireextinguisher" [(ngModel)]="amentities.fireextinguisher">
+  Fire extinguisher
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "carbon" [(ngModel)]="amentities.carbon">
+  Carbon monoxide detector
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "smoke" [(ngModel)]="amentities.smoke">
+  Smoke detector
+</mat-checkbox>
+</div>
+
+<div>
+    <mat-checkbox class="example-margin" name = "firstaidkit" [(ngModel)]="amentities.firstaidkit">
+ First aid kit
+</mat-checkbox>
+</div>
+
+<div align="center" style="margin-top: 20px;">
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="returnAmenities()">Update amenities</button>
+  <button mat-raised-button style="margin-left: 10px;" (click)="onNoClick()">Discard</button>
+</div>

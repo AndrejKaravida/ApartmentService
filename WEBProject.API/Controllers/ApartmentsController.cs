@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using WEBProject.API.Data;
 using WEBProject.API.Dtos;
 using WEBProject.API.Helpers;
@@ -78,6 +79,34 @@ namespace WEBProject.API.Controllers
                 return NoContent();
 
             throw new Exception("Deleting amentity failed on save");
+        }
+
+        [HttpPost("addamentities/{ap_id}")]
+        public async Task<IActionResult> AddAmenities(int ap_id, [FromBody]JObject data)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            string amenities = data["amenities"].ToString();
+
+            string[] amentitiesParsed = amenities.Split(',');
+
+            List<Amentity> amentities = new List<Amentity>();
+
+            foreach (var str in amentitiesParsed)
+            {
+                Amentity am = new Amentity { Name = str };
+                if (am.Name.Length > 0)
+                    amentities.Add(am);
+            }
+
+            var amentitiesFromRepo = _repo.GetAmentities(amentities);
+
+            apartment.Amentities = amentitiesFromRepo;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Updating amenities failed on save");
         }
 
 

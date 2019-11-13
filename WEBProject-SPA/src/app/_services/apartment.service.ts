@@ -81,6 +81,10 @@ export class ApartmentService {
     return this.http.post(this.baseUrl + 'apartments/' + id, apartment);
   }
 
+  addAmenities(apid: number, amenities: string) {
+    return this.http.post(this.baseUrl + 'apartments/addamentities/' + apid, {amenities});
+  }
+
   removeAmentity(apid: number, amname: string): Observable<Apartment> {
     return this.http.get<Apartment>(this.baseUrl + 'apartments/removeamentity/' + apid + '/' + amname);
   }

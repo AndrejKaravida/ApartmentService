@@ -35,12 +35,14 @@
     <div class="card">
     <div class="tab-panel">
       <tabset class="member-tabset">
-        <tab heading="Amentities">
+        <tab heading="Amenities">
           <div style="margin-top: 10px;" align="center">
-            <strong>There are following amentities available:</strong>
+            <strong>There are following amenities available:</strong>
           </div>
           <div style="margin-top: 10px;" align="center">
-            <button mat-raised-button color="primary" (click)="modifyToogle()">Modify</button>
+            <button mat-raised-button color="primary" (click)="modifyToogle()" *ngIf="!modify">Remove amenities</button>
+            <button mat-raised-button color="primary" (click)="modifyToogle()" *ngIf="modify">Cancel removal</button>
+            <button style="margin-left: 10px;" mat-raised-button color="primary" (click)="addAmentity()">Add amenities</button>
           </div>
           <mat-list role="list">
               <ng-container *ngFor="let amentity of apartment.amentities"> 

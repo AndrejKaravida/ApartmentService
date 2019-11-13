@@ -45,6 +45,10 @@ import { HostGuard } from './_guards/host.guard';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {MatListModule} from '@angular/material/list';
+import {MatDialogModule} from '@angular/material/dialog';
+import { AddamentitydialogComponent } from './addamentitydialog/addamentitydialog.component';
+import { BlockuserdialogComponent } from './blockuserdialog/blockuserdialog.component';
+import { DeleteuserdialogComponent } from './deleteuserdialog/deleteuserdialog.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -64,13 +68,17 @@ export function tokenGetter() {
       ApartmentCardComponent,
       ApartmentDetailComponent,
       ReservationsComponent,
-      AddApartmentComponent
+      AddApartmentComponent,
+      AddamentitydialogComponent,
+      BlockuserdialogComponent, 
+      DeleteuserdialogComponent
    ],
    imports: [
       BrowserModule,
       ReactiveFormsModule,
       FormsModule,
       MatListModule,
+      MatDialogModule,
       NgxDaterangepickerMd.forRoot(),
       MatSliderModule,
       TabsModule.forRoot(),
@@ -112,10 +120,17 @@ export function tokenGetter() {
       ApartmentListResolver,
       UserProfileResolver,
       ApartmentForUserResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      AddamentitydialogComponent,
+      BlockuserdialogComponent, 
+      DeleteuserdialogComponent
    ],
    bootstrap: [
       AppComponent
-   ]
+   ],
+   entryComponents: [
+      AddamentitydialogComponent,
+      BlockuserdialogComponent, 
+      DeleteuserdialogComponent]
 })
 export class AppModule { }

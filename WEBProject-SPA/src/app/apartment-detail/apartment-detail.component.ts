@@ -7,6 +7,8 @@ import { Moment, relativeTimeThreshold } from 'moment';
 import { DaterangepickerComponent } from 'ngx-daterangepicker-material';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { MatDialog } from '@angular/material/dialog';
+import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydialog.component';
 
 @Component({
   selector: 'app-apartment-detail',
@@ -24,7 +26,7 @@ export class ApartmentDetailComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
 
   constructor( private route: ActivatedRoute, private alertify: AlertifyService,
-               private apartmentService: ApartmentService) { }
+               private apartmentService: ApartmentService, public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -79,10 +81,31 @@ export class ApartmentDetailComponent implements OnInit {
   modifyToogle() {
     this.modify = !this.modify;
   }
+  
+  addAmentity(){
+    const dialogRef = this.dialog.open(AddamentitydialogComponent, {
+      width: "500px",
+      data: { apartment: this.apartment }
+    });
+
+    dialogRef.afterClosed().subscribe(result => { 
+      if(result) {
+        const amenities = result.data;
+        this.apartmentService.addAmenities(this.apartment.id, amenities).subscribe(() => { 
+          this.alertify.success('Amenities updated!');
+          this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+            this.apartment = result;
+          });
+        }, error => { 
+          this.alertify.error('Failed to add new amenities');
+        });
+      }
+    });
+  }
 
   removeAmentity(name: string) {
     this.apartmentService.removeAmentity(this.apartment.id, name).subscribe(() => {
-      this.alertify.success('Amentity removed!');
+      this.alertify.success('Amenity removed!');
       for (let i = 0; i < this.apartment.amentities.length; i++) {
         if (this.apartment.amentities[i].name === name) {
           this.apartment.amentities.splice(i, 1);
