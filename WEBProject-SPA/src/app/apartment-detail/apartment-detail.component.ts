@@ -20,8 +20,12 @@ export class ApartmentDetailComponent implements OnInit {
   numOfAmentities = 0;
   grade = 0;
   oldPrice = 0;
+  oldRooms = 0;
+  oldGuests = 0;
   modify = false;
   priceChange = false;
+  guestsChange = false;
+  roomsChange = false;
   numOfGrades = 0;
   selected: {startDate: Moment, endDate: Moment};
   galleryOptions: NgxGalleryOptions[];
@@ -60,6 +64,8 @@ export class ApartmentDetailComponent implements OnInit {
       }
       this.grade = totalGrade / this.numOfGrades;
       this.oldPrice = this.apartment.pricePerNight;
+      this.oldGuests = this.apartment.numberOfGuests;
+      this.oldRooms = this.apartment.numberOfRooms;
     });
   }
 
@@ -89,6 +95,14 @@ export class ApartmentDetailComponent implements OnInit {
     this.priceChange = !this.priceChange;
   }
 
+  changeGuests() {
+    this.guestsChange = !this.guestsChange;
+  }
+
+  changeRooms() {
+    this.roomsChange = !this.roomsChange;
+  }
+
   applyPriceChange() {
 
     if (this.apartment.pricePerNight >= 0 &&
@@ -100,12 +114,50 @@ export class ApartmentDetailComponent implements OnInit {
         this.alertify.error('Error while saving new price');
       });
       this.changePrice();
+      this.oldPrice = this.apartment.oldPrice;
     } else if (this.apartment.pricePerNight === this.oldPrice) {
       this.alertify.error('You cannot enter the same price');
     } else {
       this.alertify.error('Please specify different price between 0 and 99');
     }
+  }
 
+  applyGuestsChange() {
+
+    if (this.apartment.numberOfGuests > 0 &&
+       this.apartment.numberOfGuests <= 10 &&
+       this.apartment.numberOfGuests !== this.oldGuests) {
+      this.apartmentService.changeGuests(this.apartment.id, this.apartment.numberOfGuests).subscribe(() => {
+        this.alertify.success('Number of guests successfully changed!');
+      }, error => {
+        this.alertify.error('Error while saving new guests number');
+      });
+      this.changeGuests();
+      this.oldGuests = this.apartment.numberOfGuests;
+    } else if (this.apartment.numberOfGuests === this.oldGuests) {
+      this.alertify.error('You cannot enter the same number of guests');
+    } else {
+      this.alertify.error('Please specify guests number between 0 and 10');
+    }
+  }
+
+  applyRoomsChange() {
+
+    if (this.apartment.numberOfRooms > 0 &&
+       this.apartment.numberOfRooms <= 10 &&
+       this.apartment.numberOfRooms !== this.oldRooms) {
+      this.apartmentService.changeRooms(this.apartment.id, this.apartment.numberOfRooms).subscribe(() => {
+        this.alertify.success('Number of rooms successfully changed!');
+      }, error => {
+        this.alertify.error('Error while saving new rooms number');
+      });
+      this.changeRooms();
+      this.oldRooms = this.apartment.numberOfRooms;
+    } else if (this.apartment.numberOfRooms === this.oldRooms) {
+      this.alertify.error('You cannot enter the same number of rooms twice');
+    } else {
+      this.alertify.error('Please specify rooms number between 0 and 10');
+    }
   }
 
   addAmentity() {

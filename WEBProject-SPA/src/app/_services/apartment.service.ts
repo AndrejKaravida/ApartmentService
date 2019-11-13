@@ -93,4 +93,12 @@ export class ApartmentService {
     return this.http.get<Apartment>(this.baseUrl + 'apartments/changeprice/' + apid + '/' + new_price);
   }
 
+  changeGuests(apid: number, new_number: number): Observable<Apartment> {
+    return this.http.get<Apartment>(this.baseUrl + 'apartments/changeguests/' + apid + '/' + new_number);
+  }
+
+  changeRooms(apid: number, new_number: number): Observable<Apartment> {
+    return this.http.get<Apartment>(this.baseUrl + 'apartments/changerooms/' + apid + '/' + new_number);
+  }
+
 }

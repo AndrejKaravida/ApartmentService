@@ -102,6 +102,48 @@ namespace WEBProject.API.Controllers
             }
         }
 
+        [HttpGet("changeguests/{ap_id}/{new_number}")]
+
+        public async Task<IActionResult> ChangeGuests(int ap_id, int new_number)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            if (new_number > 0 && new_number <= 10)
+            {
+                apartment.NumberOfGuests = new_number;
+                if (await _repo.SaveAll())
+                    return NoContent();
+                else
+                    throw new Exception("Updating guests failed on save");
+
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+        [HttpGet("changerooms/{ap_id}/{new_number}")]
+
+        public async Task<IActionResult> ChangeRooms(int ap_id, int new_number)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            if (new_number > 0 && new_number <= 10)
+            {
+                apartment.NumberOfRooms = new_number;
+                if (await _repo.SaveAll())
+                    return NoContent();
+                else
+                    throw new Exception("Updating rooms failed on save");
+
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
         [HttpPost("addamentities/{ap_id}")]
         public async Task<IActionResult> AddAmenities(int ap_id, [FromBody]JObject data)
         {

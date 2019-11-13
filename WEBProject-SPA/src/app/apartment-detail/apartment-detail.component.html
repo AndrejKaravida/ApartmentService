@@ -15,9 +15,33 @@
               <input mat-input [(ngModel)]="apartment.pricePerNight" style="width: 50px;">
               <span>$ / night</span>
               <span class="change" (click)="applyPriceChange()">Apply</span>
+              <span class="cancel" (click)="changePrice()">Cancel</span>
               <br/>
             </div>
-            <p *ngIf="!priceChange">{{apartment.pricePerNight}}$ /night</p>
+            <p *ngIf="!priceChange && apartment.pricePerNight !== 0">{{apartment.pricePerNight}}$ /night</p>
+            <p *ngIf="!priceChange && apartment.pricePerNight === 0">Free stay!</p>
+          </div>
+          <div>
+              <strong>Guests number:</strong> 
+              <span class="change" (click)="changeGuests()">(Change)</span> 
+              <div *ngIf="guestsChange">
+                  <input mat-input [(ngModel)]="apartment.numberOfGuests" style="width: 50px;">
+                  <span class="change" (click)="applyGuestsChange()">Apply</span>
+                  <span class="cancel" (click)="changeGuests()">Cancel</span>
+                  <br/>
+                </div>
+              <p *ngIf="!guestsChange">{{apartment.numberOfGuests}}</p>
+          </div>
+          <div>
+              <strong>Rooms number:</strong> 
+              <span class="change" (click)="changeRooms()">(Change)</span> 
+              <div *ngIf="roomsChange">
+                  <input mat-input [(ngModel)]="apartment.numberOfRooms" style="width: 50px;">
+                  <span class="change" (click)="applyRoomsChange()">Apply</span>
+                  <span class="cancel" (click)="changeRooms()">Cancel</span>
+                  <br/>
+                </div>
+              <p *ngIf="!roomsChange">{{apartment.numberOfRooms}}</p>
           </div>
           <div *ngIf="numOfGrades == 0">
             <strong>Grade:</strong>  
@@ -27,14 +51,6 @@
             <strong>Grade:</strong>  
             <p><i class="material-icons"> star</i>{{grade}} /10</p>
           </div>
-          <div *ngIf="apartment.type !== 'Room'">
-            <strong >Entire apartment</strong>  
-            <p>You will have whole apartment for yourself.</p>           
-          </div> 
-          <div *ngIf="apartment.type === 'Room'">
-            <strong >Room</strong>
-            <p>You would share some rooms with others.</p>
-          </div> 
       </div>
     </div>
   </div>
