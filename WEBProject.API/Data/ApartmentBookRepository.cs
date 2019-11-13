@@ -110,6 +110,13 @@ namespace WEBProject.API.Data
 
             return address;
         }
+        
+        public Amentity GetAmentity(string name)
+        {
+            var amentity = _context.Amentities.FirstOrDefault(a => a.Name == name) ?? null;
+
+            return amentity;
+        }
 
         public Location GetLocation(int id)
         {

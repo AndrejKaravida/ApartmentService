@@ -12,17 +12,21 @@
             <strong>Price:</strong>
             <p>{{apartment.pricePerNight}}$ /night</p>
           </div>
-          <div>
+          <div *ngIf="numOfGrades == 0">
+            <strong>Grade:</strong>  
+            <p>There are no grades at this moments.</p>
+          </div>
+          <div *ngIf="numOfGrades > 0">
             <strong>Grade:</strong>  
             <p><i class="material-icons"> star</i>{{grade}} /10</p>
           </div>
-          <div *ngIf="apartment.type === 'Room'">
-            <strong >Entire apartment</strong>  
-            <p>You will have whole apartment for yourself</p>           
-          </div> 
           <div *ngIf="apartment.type !== 'Room'">
+            <strong >Entire apartment</strong>  
+            <p>You will have whole apartment for yourself.</p>           
+          </div> 
+          <div *ngIf="apartment.type === 'Room'">
             <strong >Room</strong>
-            <p>You would share some rooms with others</p>
+            <p>You would share some rooms with others.</p>
           </div> 
       </div>
     </div>
@@ -35,9 +39,18 @@
           <div style="margin-top: 10px;" align="center">
             <strong>There are following amentities available:</strong>
           </div>
+          <div style="margin-top: 10px;" align="center">
+            <button mat-raised-button color="primary" (click)="modifyToogle()">Modify</button>
+          </div>
           <mat-list role="list">
               <ng-container *ngFor="let amentity of apartment.amentities"> 
-                  <mat-list-item role="listitem">{{amentity.name}}</mat-list-item>
+                  <mat-list-item role="listitem">{{amentity.name}}  
+                  <span *ngIf="modify" style="cursor: pointer;"><i 
+                    (click)="removeAmentity(amentity.name)"
+                    class="material-icons">
+                    remove_circle
+                    </i></span>
+                  </mat-list-item>
                 </ng-container> 
           </mat-list>
         </tab>

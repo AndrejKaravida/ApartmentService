@@ -21,7 +21,6 @@ namespace WEBProject.API.Data
          List<Amentity> GetAmentities(List<Amentity> amentitiesIn);
          Apartment GetApartmentSync(int id);
          User GetUserSync(int id);
-
-
+         Amentity GetAmentity(string name);
     }
 }

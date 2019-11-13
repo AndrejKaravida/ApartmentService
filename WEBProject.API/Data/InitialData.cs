@@ -121,7 +121,7 @@ namespace WEBProject.API.Data
                 new Amentity {Name = "Wifi"},
                 new Amentity {Name = "Desk"},
                 new Amentity {Name = "Breakfast"},
-                new Amentity {Name = "Fire Extinguisher"},
+                new Amentity {Name = "FireExtinguisher"},
                 new Amentity {Name = "Carbon"},
                 new Amentity {Name = "Smoke"},
                 new Amentity {Name = "FirstAidKit"}
@@ -134,16 +134,16 @@ namespace WEBProject.API.Data
         {
             List<Photo> photos = new List<Photo>()
             {
-                new Photo {Description = "MainPhoto", Url = "apartment1", Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment2", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(1).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment3", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment4", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(3).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment5", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment6", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(5).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment7", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment8", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(7).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment9", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First() },
-                new Photo {Description = "MainPhoto", Url = "apartment10", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(9).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment1.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment2.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(1).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment3.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment4.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(3).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment5.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment6.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(5).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment7.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment8.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(7).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment9.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First() },
+                new Photo {Description = "MainPhoto", Url = "http://localhost:5000/apartment10.jpg", Apartment = db.Apartments.OrderBy(a => a.Id).Skip(9).Take(1).First() },
             };
 
             return photos;

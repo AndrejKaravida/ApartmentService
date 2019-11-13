@@ -63,8 +63,24 @@ namespace WEBProject.API.Controllers
 
             return Ok(apartmentToReturn);
         }
-      
-  
+
+        [HttpGet("removeamentity/{ap_id}/{am_name}")]
+
+        public async Task<IActionResult> RemoveAmentity(int ap_id, string am_name)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            var amentity = _repo.GetAmentity(am_name);
+
+            apartment.Amentities.Remove(amentity);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Deleting amentity failed on save");
+        }
+
+
         [HttpPost("{userId}")]
         public async Task<IActionResult> AddApartment(int userId, ApartmentForCreationDto apartmentForCreationDto)
         {
@@ -90,6 +106,7 @@ namespace WEBProject.API.Controllers
                       {
                           Street = apartmentForCreationDto.Street,
                           City = apartmentForCreationDto.City,
+                          Country = apartmentForCreationDto.Country,
                           ZipCode = apartmentForCreationDto.Zip
                       };
                       _repo.Add(address);
