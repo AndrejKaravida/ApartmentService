@@ -49,6 +49,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AddamentitydialogComponent } from './addamentitydialog/addamentitydialog.component';
 import { BlockuserdialogComponent } from './blockuserdialog/blockuserdialog.component';
 import { DeleteuserdialogComponent } from './deleteuserdialog/deleteuserdialog.component';
+import { DeleteapartmentdialogComponent } from './deleteapartmentdialog/deleteapartmentdialog.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -71,7 +72,8 @@ export function tokenGetter() {
       AddApartmentComponent,
       AddamentitydialogComponent,
       BlockuserdialogComponent, 
-      DeleteuserdialogComponent
+      DeleteuserdialogComponent,
+      DeleteapartmentdialogComponent
    ],
    imports: [
       BrowserModule,
@@ -120,17 +122,15 @@ export function tokenGetter() {
       ApartmentListResolver,
       UserProfileResolver,
       ApartmentForUserResolver,
-      PreventUnsavedChanges,
-      AddamentitydialogComponent,
-      BlockuserdialogComponent, 
-      DeleteuserdialogComponent
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent
    ],
    entryComponents: [
       AddamentitydialogComponent,
-      BlockuserdialogComponent, 
+      BlockuserdialogComponent,
+      DeleteapartmentdialogComponent, 
       DeleteuserdialogComponent]
 })
 export class AppModule { }

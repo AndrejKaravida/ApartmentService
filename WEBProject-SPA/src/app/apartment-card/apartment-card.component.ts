@@ -1,5 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Apartment } from '../_models/apartment';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AlertifyService } from '../_services/alertify.service';
+import { ApartmentService } from '../_services/apartment.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteapartmentdialogComponent } from '../deleteapartmentdialog/deleteapartmentdialog.component';
+
 
 @Component({
   selector: 'app-apartment-card',
@@ -8,10 +12,24 @@ import { Apartment } from '../_models/apartment';
 })
 export class ApartmentCardComponent implements OnInit {
   @Input() apartment: any;
+  @Output() changed = new EventEmitter();
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
+  deleteApartment() {
+
+    const dialogRef = this.dialog.open(DeleteapartmentdialogComponent, {
+      width: '400px',
+      data: { apartment: this.apartment }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.changed.emit(this.apartment.id);
+      }
+    });
+  }
 }

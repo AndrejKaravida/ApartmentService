@@ -101,4 +101,8 @@ export class ApartmentService {
     return this.http.get<Apartment>(this.baseUrl + 'apartments/changerooms/' + apid + '/' + new_number);
   }
 
+  deleteApartment(apid: number): Observable<Apartment> {
+    return this.http.get<Apartment>(this.baseUrl + 'apartments/delete/' + apid);
+  }
+
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ChildActivationStart } from '@angular/router';
 import { Apartment } from '../_models/apartment';
 import { ApartmentService } from '../_services/apartment.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { PaginatedResult, Pagination } from '../_models/pagination';
 import { AuthService } from '../_services/auth.service';
+import { ApartmentCardComponent } from '../apartment-card/apartment-card.component';
 
 @Component({
   selector: 'app-my-appartments',
@@ -15,15 +16,27 @@ export class MyAppartmentsComponent implements OnInit {
   apartments: Apartment[];
   apartmentParams: any = {};
   pagination: Pagination;
+  id;
 
   constructor(private route: ActivatedRoute, private apartmentService: ApartmentService,
-              private alertify: AlertifyService, private authService: AuthService) { }
+              private alertify: AlertifyService, private authService: AuthService,
+             ) {
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       const key = 'apartments';
       this.apartments = data[key].result;
       this.pagination = data[key].pagination;
+    });
+  }
+
+  deleteApartment(event) { 
+    this.apartmentService.deleteApartment(event).subscribe(()=> { 
+      this.alertify.success('Successfully deleted apartment!');
+      this.loadApartments();  
+    }, error => { 
+      this.alertify.error('Error while deleting apartment');
     });
   }
 

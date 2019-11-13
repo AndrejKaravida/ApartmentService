@@ -46,7 +46,7 @@ namespace WEBProject.API.Controllers
         {
             var apartments = await _repo.GetApartmentsFromUser(userId, apartmentParams);
 
-            var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForListDto>>(apartments);
+            var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForUserListDto>>(apartments);
 
             Response.AddPagination(apartments.CurrentPage, apartments.PageSize, 
             apartments.TotalCount, apartments.TotalPages);
@@ -63,6 +63,19 @@ namespace WEBProject.API.Controllers
             var apartmentToReturn =  _mapper.Map<ApartmentForReturnDto>(apartment);
 
             return Ok(apartmentToReturn);
+        }
+
+        [HttpGet("delete/{id}")]
+        public async Task<IActionResult> DeleteApartment(int id)
+        {
+            var apartment = await _repo.GetApartment(id);
+
+            apartment.IsDeleted = true;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Deleting apartment failed on save");
         }
 
         [HttpGet("removeamentity/{ap_id}/{am_name}")]

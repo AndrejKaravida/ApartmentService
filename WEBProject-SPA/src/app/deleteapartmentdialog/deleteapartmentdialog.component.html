@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+    <p >Please confirm deleting apartment:  </p>
+    <p><b>{{apartment.apartment.location.address.street}}, {{apartment.apartment.location.address.city}},{{apartment.apartment.location.address.country}} </b></p>
+  
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  
+    <button mat-button color="warn" (click)="delete()"cdkFocusInitial>Confirm</button>
+  
+  </div>
+  

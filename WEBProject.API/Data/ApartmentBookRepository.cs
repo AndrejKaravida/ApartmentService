@@ -83,6 +83,7 @@ namespace WEBProject.API.Data
         {
             var apartments =  _context.Apartments
                 .Where(a => a.Host.Id == id && a.IsDeleted == false)
+                .Include(h => h.Host)
                 .Include(p => p.Photos)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)

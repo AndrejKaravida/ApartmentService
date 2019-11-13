@@ -18,8 +18,8 @@
               <span class="cancel" (click)="changePrice()">Cancel</span>
               <br/>
             </div>
-            <p *ngIf="!priceChange && apartment.pricePerNight !== 0">{{apartment.pricePerNight}}$ /night</p>
-            <p *ngIf="!priceChange && apartment.pricePerNight === 0">Free stay!</p>
+            <p *ngIf="!priceChange && apartment.pricePerNight != 0">{{apartment.pricePerNight}}$ /night</p>
+            <p *ngIf="!priceChange && apartment.pricePerNight == 0">Free stay!</p>
           </div>
           <div>
               <strong>Guests number:</strong> 

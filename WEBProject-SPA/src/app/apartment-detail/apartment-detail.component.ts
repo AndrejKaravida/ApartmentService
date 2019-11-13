@@ -114,7 +114,7 @@ export class ApartmentDetailComponent implements OnInit {
         this.alertify.error('Error while saving new price');
       });
       this.changePrice();
-      this.oldPrice = this.apartment.oldPrice;
+      this.oldPrice = this.apartment.pricePerNight;
     } else if (this.apartment.pricePerNight === this.oldPrice) {
       this.alertify.error('You cannot enter the same price');
     } else {
