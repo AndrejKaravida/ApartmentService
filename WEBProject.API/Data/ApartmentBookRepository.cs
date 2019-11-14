@@ -198,6 +198,13 @@ namespace WEBProject.API.Data
             return user;
         }
 
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _context.Photos
+               .FirstOrDefaultAsync(p => p.Id == id);
+            return photo;
+        }
+
         public User GetUserSync(int id)
         {
             var user = _context.Users
@@ -225,6 +232,12 @@ namespace WEBProject.API.Data
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<Photo> GetMainPhotoForApartment(int appId)
+        {
+            return await _context.Photos.Where(p => p.Apartment.Id == appId)
+                .FirstOrDefaultAsync(ph => ph.IsMain);
         }
     }
 }

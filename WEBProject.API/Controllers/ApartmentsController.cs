@@ -63,15 +63,6 @@ namespace WEBProject.API.Controllers
 
             var apartmentToReturn =  _mapper.Map<ApartmentForReturnDto>(apartment);
 
-            for (int index = 0; index < apartmentToReturn.Comments.Count; index++)
-            {
-                if (apartmentToReturn.Comments.ElementAt(index).Deleted == true)
-                {
-                    var comment = apartmentToReturn.Comments.ElementAt(index);
-                    apartmentToReturn.Comments.Remove(comment);
-                }
-            }
-
             return Ok(apartmentToReturn);
         }
 

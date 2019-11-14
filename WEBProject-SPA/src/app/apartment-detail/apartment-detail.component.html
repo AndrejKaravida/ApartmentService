@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img class="card-img-top img-thumbnail" src="{{apartment.photos[0].url}}" alt="apartment.type">
+        <img class="card-img-top img-thumbnail" src="{{photoUrl}}" alt="apartment.type">
         <div class="card-body">
           <div>
             <strong>Location:</strong>
@@ -84,7 +84,7 @@
           </div>
           <div *ngIf="numOfGrades > 0">
             <strong>Grade:</strong>  
-            <p><i class="material-icons"> star</i>{{grade}} /5</p>
+            <p><i class="material-icons"> star</i>{{grade.toFixed(2)}} /5</p>
           </div>
       </div>
     </div>
@@ -98,7 +98,7 @@
             <strong>There are following amenities available:</strong>
           </div>
           <div style="margin-top: 10px;" align="center">
-            <button mat-raised-button color="primary" (click)="modifyToogle()" *ngIf="!modify">Remove amenities</button>
+            <button mat-raised-button color="primary" [disabled]="apartment.amentities.length == 0" (click)="modifyToogle()" *ngIf="!modify">Remove amenities</button>
             <button mat-raised-button color="primary" (click)="modifyToogle()" *ngIf="modify">Cancel removal</button>
             <button style="margin-left: 10px;" mat-raised-button color="primary" (click)="addAmentity()">Add amenities</button>
           </div>
@@ -170,11 +170,9 @@
               </div>
             </div> 
         </tab>
-        
-        <tab heading="Messages">
-          <p>Messages will go here</p>
-        </tab>
-
+        <tab heading="Edit Photos">
+            <app-photo-editor [photos]="apartment.photos" [apartment]="apartment" (changed)="changeMain($event)"></app-photo-editor>
+          </tab>
       </tabset>
     </div>
   </div>

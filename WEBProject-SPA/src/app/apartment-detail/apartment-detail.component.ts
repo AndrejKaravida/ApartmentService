@@ -20,6 +20,7 @@ import { AddreviewdialogComponent } from '../addreviewdialog/addreviewdialog.com
 })
 export class ApartmentDetailComponent implements OnInit {
   apartment: any;
+  photoUrl = '';
   numOfAmentities = 0;
   grade = 0;
   oldPrice = 0;
@@ -76,7 +77,13 @@ export class ApartmentDetailComponent implements OnInit {
       this.oldRooms = this.apartment.numberOfRooms;
       this.oldArrival = this.apartment.timeToArrive;
       this.oldDeparture = this.apartment.timeToLeave;
-      console.log(this.apartment);
+      
+      for(let i = 0; i < data[key].photos.length; i++) { 
+        if(data[key].photos[i].isMain) { 
+          this.photoUrl = data[key].photos[i].url;
+          break;
+        }
+      }
     });
   }
 
@@ -258,6 +265,10 @@ export class ApartmentDetailComponent implements OnInit {
     });
   }
 
+  changeMain(event){
+    this.photoUrl = event;
+  }
+
   deleteComment(id: number) { 
 
     this.alertify.confirm('Are you sure you want do delete this comment?', () => {
@@ -290,6 +301,7 @@ export class ApartmentDetailComponent implements OnInit {
           this.apartmentService.commentApartment(this.apartment.id,
             this.authService.decodedToken.nameid, text, grade).subscribe(() => {
             this.alertify.success('Successfull!');
+            this.alertify.confirm('Your comment has been sent for approval', () => {});
             this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
               this.apartment = result;
             });

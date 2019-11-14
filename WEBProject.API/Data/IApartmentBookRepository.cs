@@ -23,5 +23,7 @@ namespace WEBProject.API.Data
          User GetUserSync(int id);
          Amentity GetAmentity(string name);
          Task<Comment> GetComment(int id);
+         Task<Photo> GetPhoto(int id);
+         Task<Photo> GetMainPhotoForApartment(int appId);
     }
 }

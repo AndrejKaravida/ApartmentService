@@ -125,4 +125,8 @@ export class ApartmentService {
     return this.http.get<Apartment>(this.baseUrl + 'comments/delete/' + id);
   }
 
+  setMainPhoto(appId: number, photoid: number) {
+    return this.http.get(this.baseUrl + 'upload/setmain/' + appId + '/' + photoid);
+  }
+
 }

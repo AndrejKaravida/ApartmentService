@@ -52,7 +52,8 @@ import { DeleteuserdialogComponent } from './deleteuserdialog/deleteuserdialog.c
 import { DeleteapartmentdialogComponent } from './deleteapartmentdialog/deleteapartmentdialog.component';
 import { AddreviewdialogComponent } from './addreviewdialog/addreviewdialog.component';
 import { ApprovedPipe } from './approved.pipe';
-
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -76,6 +77,7 @@ export function tokenGetter() {
       AddamentitydialogComponent,
       BlockuserdialogComponent,
       DeleteuserdialogComponent,
+      PhotoEditorComponent,
       DeleteapartmentdialogComponent,
       AddreviewdialogComponent,
       ApprovedPipe
@@ -85,6 +87,7 @@ export function tokenGetter() {
       ReactiveFormsModule,
       FormsModule,
       MatListModule,
+      FileUploadModule,
       MatDialogModule,
       NgxDaterangepickerMd.forRoot(),
       MatSliderModule,

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using WEBProject.API.Models;
 
 namespace WEBProject.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UploadController : ControllerBase
@@ -29,6 +31,31 @@ namespace WEBProject.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("{id}", Name = "GetPhoto")]
+        public async Task<IActionResult> GetPhoto(int id)
+        {
+            var photoFromRepo = await _repo.GetPhoto(id);
+
+            return Ok(photoFromRepo);
+        }
+
+        [HttpGet("setmain/{appId}/{id}")]
+        public async Task<IActionResult> SetMain(int appId, int id)
+        {
+            var photo = await _repo.GetPhoto(id);
+
+            photo.IsMain = true;
+
+            var previousMain = await _repo.GetMainPhotoForApartment(appId);
+
+            previousMain.IsMain = false;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Setting main photo failed on save");
+        }
+    
 
         [HttpPost("{apartmentId}")]
         public async Task<IActionResult> UploadImage(int apartmentId, IFormFile file)
@@ -37,17 +64,29 @@ namespace WEBProject.API.Controllers
             var image_location = await _imageHandler.UploadImage(file); 
             var objectResult = image_location as ObjectResult;
             var value = objectResult.Value;
-            
-            Photo newPhoto = new Photo() { Apartment = apartment, Url = "http://localhost:5000/" + value.ToString(), Description = "Main Photo" };
+                        
+            Photo newPhoto = new Photo() { Apartment = apartment, Url = "http://localhost:5000/" + value.ToString() };
+
+            if(!apartment.Photos.Any(p => p.IsMain))
+            {
+                newPhoto.IsMain = true;
+            }
+            else
+            {
+                newPhoto.IsMain = false;
+            }
 
             _repo.Add(newPhoto);
-            _repo.SaveAll();
-
+            
             apartment.Photos.Add(newPhoto);
 
-            _repo.SaveAll();
+            if (await _repo.SaveAll())
+            {
+                return CreatedAtRoute("GetPhoto", new { id = newPhoto.Id }, newPhoto);
+            }
 
-            return Ok();
+            return BadRequest("Could not add the photo");
+
         }
 
     }
