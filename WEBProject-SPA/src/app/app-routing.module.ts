@@ -18,6 +18,7 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { HostGuard } from './_guards/host.guard';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -81,7 +82,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+   imports: [
+      RouterModule.forRoot(routes)
+   ],
+   exports: [
+      RouterModule
+   ],
+   declarations: [
+      
+   ]
 })
 export class AppRoutingModule { }

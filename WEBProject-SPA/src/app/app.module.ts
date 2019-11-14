@@ -50,6 +50,9 @@ import { AddamentitydialogComponent } from './addamentitydialog/addamentitydialo
 import { BlockuserdialogComponent } from './blockuserdialog/blockuserdialog.component';
 import { DeleteuserdialogComponent } from './deleteuserdialog/deleteuserdialog.component';
 import { DeleteapartmentdialogComponent } from './deleteapartmentdialog/deleteapartmentdialog.component';
+import { AddreviewdialogComponent } from './addreviewdialog/addreviewdialog.component';
+import { ApprovedPipe } from './approved.pipe';
+
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -71,9 +74,11 @@ export function tokenGetter() {
       ReservationsComponent,
       AddApartmentComponent,
       AddamentitydialogComponent,
-      BlockuserdialogComponent, 
+      BlockuserdialogComponent,
       DeleteuserdialogComponent,
-      DeleteapartmentdialogComponent
+      DeleteapartmentdialogComponent,
+      AddreviewdialogComponent,
+      ApprovedPipe
    ],
    imports: [
       BrowserModule,
@@ -109,6 +114,7 @@ export function tokenGetter() {
          }
       })
    ],
+
    providers: [
       AuthService,
       ApartmentService,
@@ -131,6 +137,7 @@ export function tokenGetter() {
       AddamentitydialogComponent,
       BlockuserdialogComponent,
       DeleteapartmentdialogComponent, 
-      DeleteuserdialogComponent]
+      DeleteuserdialogComponent,
+      AddreviewdialogComponent]
 })
 export class AppModule { }

@@ -147,10 +147,20 @@ namespace WEBProject.API.Data
                 .Include(p => p.Photos)
                 .Include(r => r.Reservations)
                 .Include(c => c.Comments)
+                .ThenInclude(c => c.User)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .FirstOrDefaultAsync(a=> a.Id == id && a.IsDeleted == false).ConfigureAwait(false);
+                .FirstOrDefaultAsync(a => a.Id == id && a.IsDeleted == false);   
+                   
             return apartment;
+        }
+
+        public async Task<Comment> GetComment(int id)
+        {
+            var comment = await _context.Comments
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            return comment;
         }
 
         public Apartment GetApartmentSync(int id)

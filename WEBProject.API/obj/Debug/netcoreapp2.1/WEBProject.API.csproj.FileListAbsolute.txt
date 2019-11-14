@@ -14,4 +14,3 @@ C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\appse
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\appsettings.json
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
 C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\bin\Debug\netcoreapp2.1\Data\UserSeedData.json
-C:\Users\Andrej\Desktop\WEBProjekat\WEBProject.API\obj\Debug\netcoreapp2.1\WEBProject.API.csprojAssemblyReference.cache

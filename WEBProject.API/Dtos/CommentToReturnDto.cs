@@ -2,9 +2,11 @@
 {
     public class CommentToReturnDto
     {
- 
-        public UserToReturnDto Author { get; set; }
+        public int Id { get; set; }
+        public UserToReturnDto User { get; set; }
         public string Text { get; set; }
         public int Grade { get; set; }
+        public bool Approved { get; set; }
+        public bool Deleted { get; set; }
     }
 }

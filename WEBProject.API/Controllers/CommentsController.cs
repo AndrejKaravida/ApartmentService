@@ -35,7 +35,7 @@ namespace WEBProject.API.Controllers
             var apartment = await _repo.GetApartment(ap_id);
             var user = await _repo.GetUser(userId);
 
-            Comment comment = new Comment { Apartment = apartment, Author = user, Text = content, Grade = grade };
+            Comment comment = new Comment { Apartment = apartment, User = user, Text = content, Grade = grade, Deleted = false, Approved = false };
 
             apartment.Comments.Add(comment);
 
@@ -43,6 +43,32 @@ namespace WEBProject.API.Controllers
                 return NoContent();
 
             throw new Exception("Saving review failed on save");
+        }
+
+        [HttpGet("approve/{id}")]
+        public async Task<IActionResult> ApproveComment(int id)
+        {
+            var comment = await _repo.GetComment(id);
+
+            comment.Approved = true;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Approving comment failed on save");
+        }
+
+        [HttpGet("delete/{id}")]
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            var comment = await _repo.GetComment(id);
+
+            comment.Deleted = true;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Approving comment failed on save");
         }
 
 

@@ -433,31 +433,41 @@ namespace WEBProject.API.Data
                 new Comment {Text = "If you are looking for a unique experience, this is a perfect place for you." +
                 " A hidden gem of Novi Sad, with a quite and dreamy church bell as a backround to complete the decor. " +
                 "Jelena was very accomodating and friendly. We would gladly visit again. Thank you!", 
-                Grade = 10, 
-                Author = db.Users.OrderBy(u => u.Id).Take(1).First(),
+                Grade = 5,
+                Approved = true,
+                Deleted = false,
+                User = db.Users.OrderBy(u => u.Id).Take(1).First(),
                 Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First()},
                  new Comment {Text = "Great location! Apartment is beautifully decorated and just enough space in the " +
                  "heart of the city. Jelena and Milan were very accommodating with arrival and check out. Highly recommend" +
                  " this space and would definitely come back again!!!!", 
-                Grade = 9, 
-                Author = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(),
+                Grade = 5,
+                Approved = true,
+                Deleted = false,
+                User = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(),
                 Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First()}, 
                 new Comment {Text = "Super good location. From the balcony, the church is really close and you can see the " +
                 "church roof clearly.",
-                Grade = 10,
-                Author = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(),
+                Grade = 4,
+                Approved = true,
+                Deleted = false,
+                User = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(),
                 Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First()},
                 new Comment {Text = "As advertised, the location is amazing. With a balcony overlooking a public square," +
                 " I was initially unsure as to whether or not noise levels might make it difficult to sleep, but all was very" +
                 " quiet by 10pm every night. We loved the balcony. This was a great modern, apartment where it was easy to feel at ease. " +
                 "Good communication with hosts too.",
-                Grade = 10,
-                Author = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(),
+                Grade = 5,
+                Approved = true,
+                Deleted = false,
+                User = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(),
                 Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First()}, 
                 new Comment {Text = "Very clean place with great facilities and in the middle of the city. Fantastic view from " +
                 "the terrace. We stayed only one night unfortunately but we would definetly stay longer next time.",
-                Grade = 9,
-                Author = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(),
+                Grade = 4,
+                Approved = true,
+                Deleted = false,
+                User = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(),
                 Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First()},
 
             };

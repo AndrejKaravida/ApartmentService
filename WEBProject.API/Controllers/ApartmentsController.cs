@@ -11,6 +11,7 @@ using WEBProject.API.Data;
 using WEBProject.API.Dtos;
 using WEBProject.API.Helpers;
 using WEBProject.API.Models;
+using System.Linq;
 
 namespace WEBProject.API.Controllers
 {
@@ -61,6 +62,15 @@ namespace WEBProject.API.Controllers
             var apartment = await _repo.GetApartment(id);
 
             var apartmentToReturn =  _mapper.Map<ApartmentForReturnDto>(apartment);
+
+            for (int index = 0; index < apartmentToReturn.Comments.Count; index++)
+            {
+                if (apartmentToReturn.Comments.ElementAt(index).Deleted == true)
+                {
+                    var comment = apartmentToReturn.Comments.ElementAt(index);
+                    apartmentToReturn.Comments.Remove(comment);
+                }
+            }
 
             return Ok(apartmentToReturn);
         }

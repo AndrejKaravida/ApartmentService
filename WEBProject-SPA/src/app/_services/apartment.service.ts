@@ -117,4 +117,12 @@ export class ApartmentService {
     return this.http.post<Apartment>(this.baseUrl + 'comments/' + apid, {content, grade, userid});
   }
 
+  approveComment(id: number): Observable<Apartment> { 
+    return this.http.get<Apartment>(this.baseUrl + 'comments/approve/' + id);
+  }
+
+  deleteComment(id: number): Observable<Apartment> { 
+    return this.http.get<Apartment>(this.baseUrl + 'comments/delete/' + id);
+  }
+
 }

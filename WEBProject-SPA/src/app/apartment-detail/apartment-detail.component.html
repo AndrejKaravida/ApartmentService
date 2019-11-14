@@ -84,7 +84,7 @@
           </div>
           <div *ngIf="numOfGrades > 0">
             <strong>Grade:</strong>  
-            <p><i class="material-icons"> star</i>{{grade}} /10</p>
+            <p><i class="material-icons"> star</i>{{grade}} /5</p>
           </div>
       </div>
     </div>
@@ -145,25 +145,30 @@
               <span>There are no reviews for this apartment.</span>
           </div>
           <br/>
+          <div align="center"> 
+            <button  mat-raised-button color="primary" (click)=OnSaveReview()>Add review</button>
+          </div>
+          <div>
+              <br/>
+            <mat-divider></mat-divider> <br/> 
+          </div>
             <div *ngFor="let review of apartment.comments" style="margin-left: 10px; margin-right: 10px;">
-            Author:  {{review.author}} <br/> <br/>
-              {{review.text}}
-                <mat-divider></mat-divider>
-                <br/>
-            </div>
-
-            <form (ngSubmit)=OnSaveReview(f) #f=ngForm>
-                <div class="form-group" align="center">
-                  <label for="textarea" >Your review:</label>
-    
-                  <textarea class="form-control" name="content" ngModel style="max-width: 90%;" required id="textarea" rows="5" minlength="30"></textarea>
-                  <br />
-    
-                  <button mat-raised-button  type="submit" color="primary">Add review</button>
+              <div *ngIf="review.deleted == false">
+                Author:  {{review.user.firstName}} {{review.user.lastName}} <br/>
+                Grade: {{review.grade}}
+                <div>
+                  Status: {{review.approved | approved}}
+                  <span *ngIf="!review.approved" class="approve" (click)="approveComment(review.id)">Approve</span>
                 </div>
-                <br />
-              </form>
-
+                <div>
+                    <span class="cancel" (click)="deleteComment(review.id)">Delete</span>
+                </div>
+                 <br/>
+                  {{review.text}}
+                    <mat-divider></mat-divider>
+                    <br/>
+              </div>
+            </div> 
         </tab>
         
         <tab heading="Messages">

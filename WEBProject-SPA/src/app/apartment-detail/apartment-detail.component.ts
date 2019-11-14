@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydialog.component';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
+import { AddreviewdialogComponent } from '../addreviewdialog/addreviewdialog.component';
 
 @Component({
   selector: 'app-apartment-detail',
@@ -75,6 +76,7 @@ export class ApartmentDetailComponent implements OnInit {
       this.oldRooms = this.apartment.numberOfRooms;
       this.oldArrival = this.apartment.timeToArrive;
       this.oldDeparture = this.apartment.timeToLeave;
+      console.log(this.apartment);
     });
   }
 
@@ -242,12 +244,62 @@ export class ApartmentDetailComponent implements OnInit {
     });
   }
 
-  OnSaveReview(form: NgForm) {
-    const formcontent = form.value.content;
-    this.apartmentService.commentApartment(this.apartment.id, this.authService.decodedToken.nameid, formcontent, 10).subscribe(()=> {
-      this.alertify.success('Successfull!');
-    }, error => { 
-      this.alertify.error('Error saving comment');
+  approveComment(id: number) { 
+
+    this.alertify.confirm('Are you sure you want to approve this comment?', () => { 
+      this.apartmentService.approveComment(id).subscribe(() => { 
+        this.alertify.success('Comment approved!');
+        this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+          this.apartment = result;
+        });
+      }, error => { 
+        this.alertify.error('Failed to approve comment!');
+      });
+    });
+  }
+
+  deleteComment(id: number) { 
+
+    this.alertify.confirm('Are you sure you want do delete this comment?', () => {
+      this.apartmentService.deleteComment(id).subscribe(() => { 
+        this.alertify.success('Comment deleted!');
+        this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+          this.apartment = result;
+        });
+      }, error => { 
+        this.alertify.error('Failed to delete comment!');
+      });
+    });
+
+  }
+
+  OnSaveReview() {
+
+    const dialogRef = this.dialog.open(AddreviewdialogComponent, {
+      width: '600px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.text.length > 5 && result.grade) {
+
+        const grade = result.grade;
+        const text = result.text;
+
+        if (text.length >= 5 && grade) {
+          this.apartmentService.commentApartment(this.apartment.id,
+            this.authService.decodedToken.nameid, text, grade).subscribe(() => {
+            this.alertify.success('Successfull!');
+            this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+              this.apartment = result;
+            });
+          }, error => {
+            this.alertify.error('Error saving comment');
+          });
+        } else {
+          this.alertify.error('Please enter valid review');
+        }
+      }
     });
   }
 }

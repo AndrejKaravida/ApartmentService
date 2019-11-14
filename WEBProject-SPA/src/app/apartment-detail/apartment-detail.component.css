@@ -25,6 +25,13 @@
     margin-left: 5px;
 }
 
+.approve { 
+    color: rgb(65, 153, 6);
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
 .cancel { 
     color: rgb(226, 35, 10);
     font-size: 12px;

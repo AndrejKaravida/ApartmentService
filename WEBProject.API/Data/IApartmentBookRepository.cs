@@ -22,5 +22,6 @@ namespace WEBProject.API.Data
          Apartment GetApartmentSync(int id);
          User GetUserSync(int id);
          Amentity GetAmentity(string name);
+         Task<Comment> GetComment(int id);
     }
 }
