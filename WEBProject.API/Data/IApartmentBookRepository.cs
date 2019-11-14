@@ -12,8 +12,9 @@ namespace WEBProject.API.Data
          Task<bool> SaveAll();
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
-         Task<PagedList<Apartment>> GetActiveApartments(ApartmentParams apartmentParams);
-         Task<IEnumerable<Reservation>> GetReservations();
+         Task<PagedList<Apartment>> GetApartments(ApartmentParams apartmentParams);
+        Task<PagedList<Apartment>> GetApartmentsForAdmin(ApartmentParams apartmentParams);
+        Task<IEnumerable<Reservation>> GetReservations();
          Task<Apartment> GetApartment(int id);
          Task<PagedList<Apartment>> GetApartmentsFromUser(int id, ApartmentParams apartmentParams);
          Address GetAddress(string street);

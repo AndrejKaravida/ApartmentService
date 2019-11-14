@@ -1,15 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Apartment } from '../_models/apartment';
+import { Component, OnInit } from '@angular/core';
 import { ApartmentService } from '../_services/apartment.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { Moment, relativeTimeThreshold } from 'moment';
-import { DaterangepickerComponent } from 'ngx-daterangepicker-material';
-import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { Moment } from 'moment';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { MatDialog } from '@angular/material/dialog';
 import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydialog.component';
-import { NgForm } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { AddreviewdialogComponent } from '../addreviewdialog/addreviewdialog.component';
 import { Photo } from '../_models/photo';
@@ -112,7 +108,7 @@ export class ApartmentDetailComponent implements OnInit {
     return imageUrls;
   }
 
-  choosedDate(event: any) {
+  choosedDate() {
 
   }
 
@@ -147,7 +143,7 @@ export class ApartmentDetailComponent implements OnInit {
        this.apartment.pricePerNight !== this.oldPrice) {
       this.apartmentService.changePrice(this.apartment.id, this.apartment.pricePerNight).subscribe(() => {
         this.alertify.success('Price successfully changed!');
-      }, error => {
+      }, () => {
         this.alertify.error('Error while saving new price');
       });
       this.changePrice();
@@ -159,7 +155,7 @@ export class ApartmentDetailComponent implements OnInit {
     }
   }
 
-  loadAgain(event) { 
+  loadAgain() { 
       this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
         this.apartment = result;
         this.galleryImages = this.getImages();
@@ -171,7 +167,7 @@ export class ApartmentDetailComponent implements OnInit {
     if (this.apartment.timeToArrive != this.oldArrival) {
       this.apartmentService.changeArrival(this.apartment.id, this.apartment.timeToArrive).subscribe(() => {
         this.alertify.success('Time to arrive successfully changed!');
-      }, error => {
+      }, () => {
         this.alertify.error('Error while saving new time');
       });
       this.changeArrival();
@@ -186,7 +182,7 @@ export class ApartmentDetailComponent implements OnInit {
     if (this.apartment.timeToLeave != this.oldDeparture) {
       this.apartmentService.changeDeparture(this.apartment.id, this.apartment.timeToLeave).subscribe(() => {
         this.alertify.success('Time to depart successfully changed!');
-      }, error => {
+      }, () => {
         this.alertify.error('Error while saving new time');
       });
       this.changeDeparture();
@@ -203,7 +199,7 @@ export class ApartmentDetailComponent implements OnInit {
        this.apartment.numberOfGuests !== this.oldGuests) {
       this.apartmentService.changeGuests(this.apartment.id, this.apartment.numberOfGuests).subscribe(() => {
         this.alertify.success('Number of guests successfully changed!');
-      }, error => {
+      }, () => {
         this.alertify.error('Error while saving new guests number');
       });
       this.changeGuests();
@@ -222,7 +218,7 @@ export class ApartmentDetailComponent implements OnInit {
        this.apartment.numberOfRooms !== this.oldRooms) {
       this.apartmentService.changeRooms(this.apartment.id, this.apartment.numberOfRooms).subscribe(() => {
         this.alertify.success('Number of rooms successfully changed!');
-      }, error => {
+      }, () => {
         this.alertify.error('Error while saving new rooms number');
       });
       this.changeRooms();
@@ -248,7 +244,7 @@ export class ApartmentDetailComponent implements OnInit {
           this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
             this.apartment = result;
           });
-        }, error => {
+        }, () => {
           this.alertify.error('Failed to add new amenities');
         });
       }
@@ -264,7 +260,7 @@ export class ApartmentDetailComponent implements OnInit {
           break;
         }
       }
-    }, error => {
+    }, () => {
       this.alertify.error('Failed to remove amentity.');
     });
   }
@@ -277,7 +273,7 @@ export class ApartmentDetailComponent implements OnInit {
         this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
           this.apartment = result;
         });
-      }, error => { 
+      }, () => { 
         this.alertify.error('Failed to approve comment!');
       });
     });
@@ -295,7 +291,7 @@ export class ApartmentDetailComponent implements OnInit {
         this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
           this.apartment = result;
         });
-      }, error => { 
+      }, () => { 
         this.alertify.error('Failed to delete comment!');
       });
     });
@@ -323,7 +319,7 @@ export class ApartmentDetailComponent implements OnInit {
             this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
               this.apartment = result;
             });
-          }, error => {
+          }, () => {
             this.alertify.error('Error saving comment');
           });
         } else {

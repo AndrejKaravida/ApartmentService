@@ -15,7 +15,8 @@ export class ExploreComponent implements OnInit {
   pagination: Pagination;
   apartmentParams: any = {};
   options = ['Ascending', 'Descending'];
-
+  role = '';
+  
   constructor(private route: ActivatedRoute, private apartmentService: ApartmentService,
               private alertify: AlertifyService) { }
 
@@ -24,8 +25,12 @@ export class ExploreComponent implements OnInit {
       const key = 'apartments';
       this.apartments = data[key].result;
       this.pagination = data[key].pagination;
-    });
+      this.role = localStorage.getItem('role');
+      this.role = this.role.substr(1);
+      this.role = this.role.substr(0, this.role.length - 1);
 
+    });
+    
     this.apartmentParams.minPrice = 0;
     this.apartmentParams.maxPrice = 99;
     this.apartmentParams.city = '';
@@ -33,10 +38,24 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.guests = 1;
     this.apartmentParams.minRooms = 1;
     this.apartmentParams.maxRooms = 10;
+
+    if(this.role === 'Admin') { 
+      this.loadApartmentsForAdmin();
+    }
   }
 
   loadApartments() {
     this.apartmentService.getApartments(this.pagination.currentPage, this.pagination.itemsPerPage, this.apartmentParams)
+    .subscribe((res: PaginatedResult<Apartment[]>) => {
+      this.apartments = res.result;
+      this.pagination = res.pagination;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  loadApartmentsForAdmin() {
+    this.apartmentService.getApartmentsForAdmin(this.pagination.currentPage, this.pagination.itemsPerPage, this.apartmentParams)
     .subscribe((res: PaginatedResult<Apartment[]>) => {
       this.apartments = res.result;
       this.pagination = res.pagination;
@@ -53,12 +72,24 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.guests = 1;
     this.apartmentParams.minRooms = 1;
     this.apartmentParams.maxRooms = 10;
-    this.loadApartments();
+
+    if(this.role === 'Admin') { 
+      this.loadApartmentsForAdmin();
+    }
+    else { 
+      this.loadApartments();
+    }
   }
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
-    this.loadApartments();
+
+    if(this.role === 'Admin') { 
+      this.loadApartmentsForAdmin();
+    }
+    else { 
+      this.loadApartments();
+    }
   }
 
 

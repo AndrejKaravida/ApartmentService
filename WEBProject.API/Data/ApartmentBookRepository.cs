@@ -25,7 +25,61 @@ namespace WEBProject.API.Data
             _context.Remove(entity);
         }
 
-        public async Task<PagedList<Apartment>> GetActiveApartments(ApartmentParams apartmentParams)
+        public async Task<PagedList<Apartment>> GetApartmentsForAdmin(ApartmentParams apartmentParams)
+        {
+            var apartments = _context.Apartments
+                .Where(a => a.IsDeleted == false)
+                .Include(p => p.Photos)
+                .Include(l => l.Location)
+                .ThenInclude(a => a.Address)
+                .AsQueryable();
+
+            if (apartmentParams != null)
+            {
+                if (apartmentParams.city != null && apartmentParams.city.Length > 0)
+                {
+                    apartments = apartments.Where(a => a.Location.Address.City == apartmentParams.city);
+                }
+
+                if (apartmentParams.country != null && apartmentParams.country.Length > 0)
+                {
+                    apartments = apartments.Where(a => a.Location.Address.Country == apartmentParams.country);
+                }
+
+                if (apartmentParams.minRooms >= 0)
+                {
+                    apartments = apartments.Where(a => a.NumberOfRooms >= apartmentParams.minRooms && a.NumberOfRooms <= apartmentParams.maxRooms);
+                }
+
+                if (apartmentParams.guests > 0)
+                {
+                    apartments = apartments.Where(a => a.NumberOfGuests >= apartmentParams.guests);
+                }
+
+                if (apartmentParams.minPrice > 0)
+                {
+                    apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
+                }
+
+                if (!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined")
+                {
+                    switch (apartmentParams.orderby)
+                    {
+                        case "Ascending":
+                            apartments = apartments.OrderBy(a => a.PricePerNight);
+                            break;
+                        default:
+                            apartments = apartments.OrderByDescending(a => a.PricePerNight);
+                            break;
+                    }
+
+                }
+            }
+
+            return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
+        }
+
+        public async Task<PagedList<Apartment>> GetApartments(ApartmentParams apartmentParams)
         {
             var apartments = _context.Apartments
                 .Where(a => a.Status == "Active" && a.IsDeleted == false)

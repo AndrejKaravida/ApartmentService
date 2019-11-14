@@ -14,6 +14,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
   currentUser: User;
+  currentRole: string;
   
 constructor(private http: HttpClient, private router: Router) {}
 
@@ -25,7 +26,10 @@ constructor(private http: HttpClient, private router: Router) {}
       if (user) {
         localStorage.setItem('token', user.token);
         localStorage.setItem('user', JSON.stringify(user.user));
+        localStorage.setItem('role', JSON.stringify(user.user.role));
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
+        this.currentUser = user.user;
+        this.currentRole = user.user.role;
         this.router.navigate(['explore']);
       }
     })

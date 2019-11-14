@@ -47,6 +47,40 @@ export class ApartmentService {
     );
   }
 
+  
+  getApartmentsForAdmin(page?, itemsPerPage?, apartmentParams?): Observable<PaginatedResult<Apartment[]>> {
+
+    const paginatedResult: PaginatedResult<Apartment[]> = new PaginatedResult<Apartment[]>();
+
+    let params = new HttpParams();
+
+    if (page !== null && itemsPerPage !== null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    if (apartmentParams !== null && apartmentParams !== undefined) {
+      params = params.append('minPrice', apartmentParams.minPrice);
+      params = params.append('maxPrice', apartmentParams.maxPrice);
+      params = params.append('minRooms', apartmentParams.minRooms);
+      params = params.append('maxRooms', apartmentParams.maxRooms);
+      params = params.append('guests', apartmentParams.guests);
+      params = params.append('city', apartmentParams.city);
+      params = params.append('country', apartmentParams.country);
+      params = params.append('orderby', apartmentParams.orderby);
+    }
+
+    return this.http.get<Apartment[]>(this.baseUrl + 'apartments/admin', {observe: 'response', params}).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
+  }
+
   getApartmentsForUser(id: number, page?, itemsPerPage?, apartmentParams?): Observable<PaginatedResult<Apartment[]>> {
 
     const paginatedResult: PaginatedResult<Apartment[]> = new PaginatedResult<Apartment[]>();
@@ -131,6 +165,10 @@ export class ApartmentService {
 
   deletePhoto(photoid: number) {
     return this.http.get(this.baseUrl + 'upload/delete/' + photoid);
+  }
+
+  makeActive(apId: number) { 
+    return this.http.get(this.baseUrl + 'apartments/makeactive/' + apId);
   }
 
 }

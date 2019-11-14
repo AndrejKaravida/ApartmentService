@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AlertifyService } from '../_services/alertify.service';
-import { ApartmentService } from '../_services/apartment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteapartmentdialogComponent } from '../deleteapartmentdialog/deleteapartmentdialog.component';
+import { AuthService } from '../_services/auth.service';
 
 
 @Component({
@@ -13,10 +12,14 @@ import { DeleteapartmentdialogComponent } from '../deleteapartmentdialog/deletea
 export class ApartmentCardComponent implements OnInit {
   @Input() apartment: any;
   @Output() changed = new EventEmitter();
+  role = '';
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.role = localStorage.getItem('role');
+    this.role = this.role.substr(1);
+    this.role = this.role.substr(0, this.role.length - 1);
   }
 
   deleteApartment() {

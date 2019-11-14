@@ -29,14 +29,27 @@ namespace WEBProject.API.Controllers
         }
 
         [HttpGet]
-
-        public async Task<IActionResult> GetActiveApartments([FromQuery]ApartmentParams apartmentParams)
+        [AllowAnonymous]
+        public async Task<IActionResult> GetApartments([FromQuery]ApartmentParams apartmentParams)
         { 
-            var apartments = await _repo.GetActiveApartments(apartmentParams);
+            var apartments = await _repo.GetApartments(apartmentParams);
 
             var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForListDto>>(apartments);
 
             Response.AddPagination(apartments.CurrentPage, apartments.PageSize, 
+            apartments.TotalCount, apartments.TotalPages);
+
+            return Ok(apartmentsToReturn);
+        }
+
+        [HttpGet("admin")]
+        public async Task<IActionResult> GetApartmentsForAdmin([FromQuery]ApartmentParams apartmentParams)
+        {
+            var apartments = await _repo.GetApartmentsForAdmin(apartmentParams);
+
+            var apartmentsToReturn = _mapper.Map<IEnumerable<ApartmentForListDto>>(apartments);
+
+            Response.AddPagination(apartments.CurrentPage, apartments.PageSize,
             apartments.TotalCount, apartments.TotalPages);
 
             return Ok(apartmentsToReturn);
@@ -56,7 +69,7 @@ namespace WEBProject.API.Controllers
         }
 
         [HttpGet("{id}", Name="GetApartment")]
-
+        [AllowAnonymous]
         public async Task<IActionResult> GetApartment(int id) 
         { 
             var apartment = await _repo.GetApartment(id);
@@ -186,6 +199,21 @@ namespace WEBProject.API.Controllers
             {
                 return NoContent();
             }
+        }
+
+        [HttpGet("makeactive/{ap_id}")]
+
+        public async Task<IActionResult> MakeActive(int ap_id)
+        {
+            var apartment = await _repo.GetApartment(ap_id);
+
+            apartment.Status = "Active";
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Updating rooms failed on save");
+   
         }
 
         [HttpPost("addamentities/{ap_id}")]

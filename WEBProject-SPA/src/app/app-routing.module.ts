@@ -28,13 +28,11 @@ const routes: Routes = [
   {
     path: 'explore',
     component: ExploreComponent,
-    canActivate: [AuthGuard],
     resolve: {apartments: ApartmentListResolver}
   },
   {
     path: 'explore/:id',
     component: ApartmentDetailComponent,
-    canActivate: [AuthGuard],
     resolve: {apartment: ApartmentDetailResolver}
   },
   {

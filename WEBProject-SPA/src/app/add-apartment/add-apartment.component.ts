@@ -5,6 +5,7 @@ import { ApartmentService } from '../_services/apartment.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class AddApartmentComponent implements OnInit {
     country: '',
     zip: null,
     apt: null,
-    status: 'Active',
+    status: 'Inactive',
     amentities: ''
   };
 
@@ -58,7 +59,7 @@ export class AddApartmentComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private apartmentService: ApartmentService,
               private alertify: AlertifyService, private authService: AuthService,
-              private http: HttpClient) { }
+              private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
@@ -151,12 +152,13 @@ export class AddApartmentComponent implements OnInit {
 
     this.apartmentService.createApartment(this.authService.decodedToken.nameid, this.newApartment).subscribe((data: any) => {
       const fd = new FormData();
-      console.log(data);
-
+  
       fd.append('file', this.selectedFile, this.selectedFile.name);
       return this.http.post('http://localhost:5000/api/upload/' + data.id, fd)
       .subscribe(res => {
         this.alertify.success('Successfully added apartment!');
+        this.router.navigate(['myapps']);
+        
       });
 
      }, error => {
