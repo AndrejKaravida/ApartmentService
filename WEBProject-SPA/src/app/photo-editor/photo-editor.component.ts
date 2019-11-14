@@ -15,6 +15,7 @@ export class PhotoEditorComponent implements OnInit {
   @Input() photos: Photo [];
   @Input() apartment: any;
   @Output() changed = new EventEmitter();
+  @Output() changed2 = new EventEmitter();
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
@@ -65,6 +66,18 @@ export class PhotoEditorComponent implements OnInit {
       this.changed.emit(photo.url);
     }, error => {
       this.alertify.error(error);
+    });
+  }
+
+  deletePhoto(id: number) {
+    this.alertify.confirm('Are you sure you want to delete this photo?', () => {
+      this.apartmentService.deletePhoto(id).subscribe(() => {
+        this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+        this.alertify.success('Photo has been deleted');
+        this.changed2.emit(true);
+      }, error => {
+        this.alertify.error('Failed to delete the photo');
+      });
     });
   }
 

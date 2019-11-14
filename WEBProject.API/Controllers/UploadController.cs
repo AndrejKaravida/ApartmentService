@@ -55,7 +55,20 @@ namespace WEBProject.API.Controllers
 
             throw new Exception("Setting main photo failed on save");
         }
-    
+
+        [HttpGet("delete/{id}")]
+        public async Task<IActionResult> DeletePhoto(int id)
+        {
+            var photo = await _repo.GetPhoto(id);
+
+            photo.IsDeleted = true;
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Deleting photo failed on save");
+        }
+
 
         [HttpPost("{apartmentId}")]
         public async Task<IActionResult> UploadImage(int apartmentId, IFormFile file)
@@ -65,7 +78,7 @@ namespace WEBProject.API.Controllers
             var objectResult = image_location as ObjectResult;
             var value = objectResult.Value;
                         
-            Photo newPhoto = new Photo() { Apartment = apartment, Url = "http://localhost:5000/" + value.ToString() };
+            Photo newPhoto = new Photo() { Apartment = apartment, Url = "http://localhost:5000/" + value.ToString(), IsDeleted = false };
 
             if(!apartment.Photos.Any(p => p.IsMain))
             {
@@ -88,6 +101,8 @@ namespace WEBProject.API.Controllers
             return BadRequest("Could not add the photo");
 
         }
+
+        
 
     }
 }

@@ -171,7 +171,7 @@
             </div> 
         </tab>
         <tab heading="Edit Photos">
-            <app-photo-editor [photos]="apartment.photos" [apartment]="apartment" (changed)="changeMain($event)"></app-photo-editor>
+            <app-photo-editor [photos]="photos" [apartment]="apartment" (changed)="changeMain($event)" (changed2)="loadAgain($event)"></app-photo-editor>
           </tab>
       </tabset>
     </div>

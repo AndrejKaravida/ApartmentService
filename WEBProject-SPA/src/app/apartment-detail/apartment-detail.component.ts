@@ -12,6 +12,7 @@ import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydial
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { AddreviewdialogComponent } from '../addreviewdialog/addreviewdialog.component';
+import { Photo } from '../_models/photo';
 
 @Component({
   selector: 'app-apartment-detail',
@@ -21,6 +22,7 @@ import { AddreviewdialogComponent } from '../addreviewdialog/addreviewdialog.com
 export class ApartmentDetailComponent implements OnInit {
   apartment: any;
   photoUrl = '';
+  photos: Photo[] = [];
   numOfAmentities = 0;
   grade = 0;
   oldPrice = 0;
@@ -84,6 +86,12 @@ export class ApartmentDetailComponent implements OnInit {
           break;
         }
       }
+
+      for(let i = 0; i < data[key].photos.length; i++) { 
+        if(!data[key].photos[i].isDeleted) { 
+          this.photos.push(data[key].photos[i]);
+        }
+      }
     });
   }
 
@@ -91,12 +99,15 @@ export class ApartmentDetailComponent implements OnInit {
     const imageUrls = [];
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.apartment.photos.length; i++) {
-      imageUrls.push({
-        small: this.apartment.photos[i].url,
-        medium: this.apartment.photos[i].url,
-        big: this.apartment.photos[i].url,
-        description: this.apartment.photos[i].description
-      });
+
+      if(!this.apartment.photos[i].isDeleted) {
+        imageUrls.push({
+          small: this.apartment.photos[i].url,
+          medium: this.apartment.photos[i].url,
+          big: this.apartment.photos[i].url,
+          description: this.apartment.photos[i].description
+        });
+      }
     }
     return imageUrls;
   }
@@ -146,6 +157,13 @@ export class ApartmentDetailComponent implements OnInit {
     } else {
       this.alertify.error('Please specify different price between 0 and 99');
     }
+  }
+
+  loadAgain(event) { 
+      this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+        this.apartment = result;
+        this.galleryImages = this.getImages();
+      });  
   }
 
   applyArrivalChange() {

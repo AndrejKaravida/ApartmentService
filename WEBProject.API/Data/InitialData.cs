@@ -134,16 +134,16 @@ namespace WEBProject.API.Data
         {
             List<Photo> photos = new List<Photo>()
             {
-                new Photo {Url = "http://localhost:5000/apartment1.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment2.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(1).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment3.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment4.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(3).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment5.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment6.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(5).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment7.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment8.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(7).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment9.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment10.jpg", IsMain=true, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(9).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment1.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment2.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(1).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment3.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment4.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(3).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment5.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment6.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(5).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment7.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment8.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(7).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment9.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment10.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(9).Take(1).First() },
             };
 
             return photos;

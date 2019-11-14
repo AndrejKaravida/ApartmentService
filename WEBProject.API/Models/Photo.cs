@@ -11,6 +11,7 @@ namespace WEBProject.API.Models
         public string Url { get; set; }
         public Apartment Apartment { get; set; }
         public bool IsMain { get; set; }
+        public bool IsDeleted { get; set; }
 
     }
 }
