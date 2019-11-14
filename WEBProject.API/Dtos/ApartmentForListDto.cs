@@ -10,6 +10,7 @@ namespace WEBProject.API.Dtos
         public int NumberOfGuests { get; set; }
         public Location Location { get; set; }
         public ICollection<PhotoToReturnDto> Photos { get; set; }
+        public UserToReturnDto Host { get; set; }
         public int PricePerNight { get; set; }
         public string Status { get; set; }
 

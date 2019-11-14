@@ -30,6 +30,7 @@ namespace WEBProject.API.Data
             var apartments = _context.Apartments
                 .Where(a => a.IsDeleted == false)
                 .Include(p => p.Photos)
+                .Include(h => h.Host)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
@@ -56,10 +57,11 @@ namespace WEBProject.API.Data
                     apartments = apartments.Where(a => a.NumberOfGuests >= apartmentParams.guests);
                 }
 
-                if (apartmentParams.minPrice > 0)
+                if (apartmentParams.minPrice >= 0)
                 {
                     apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
                 }
+
 
                 if (!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined")
                 {
@@ -84,6 +86,7 @@ namespace WEBProject.API.Data
             var apartments = _context.Apartments
                 .Where(a => a.Status == "Active" && a.IsDeleted == false)
                 .Include(p => p.Photos)
+                .Include(h => h.Host)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
@@ -110,7 +113,7 @@ namespace WEBProject.API.Data
                 apartments = apartments.Where(a => a.NumberOfGuests >= apartmentParams.guests);
             }
 
-             if(apartmentParams.minPrice > 0)
+             if(apartmentParams.minPrice >= 0)
             {       
                apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
             }   

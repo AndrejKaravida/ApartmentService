@@ -37,6 +37,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('role');
+    localStorage.removeItem('username');
     this.alertify.message('Logged out!');
     this.router.navigate(['login']);
   }

@@ -13,6 +13,7 @@ export class ApartmentCardComponent implements OnInit {
   @Input() apartment: any;
   @Output() changed = new EventEmitter();
   role = '';
+  username = '';
 
   constructor(public dialog: MatDialog) { }
 
@@ -20,6 +21,9 @@ export class ApartmentCardComponent implements OnInit {
     this.role = localStorage.getItem('role');
     this.role = this.role.substr(1);
     this.role = this.role.substr(0, this.role.length - 1);
+    this.username = localStorage.getItem('username');
+    this.username = this.username.substr(1);
+    this.username = this.username.substr(0, this.username.length - 1);
   }
 
   deleteApartment() {

@@ -45,12 +45,27 @@ export class ExploreComponent implements OnInit {
   }
 
   loadApartments() {
-    this.apartmentService.getApartments(this.pagination.currentPage, this.pagination.itemsPerPage, this.apartmentParams)
-    .subscribe((res: PaginatedResult<Apartment[]>) => {
-      this.apartments = res.result;
-      this.pagination = res.pagination;
-    }, error => {
-      this.alertify.error(error);
+
+    if(this.role === 'Admin') { 
+      this.loadApartmentsForAdmin();
+    }
+    else { 
+      this.apartmentService.getApartments(this.pagination.currentPage, this.pagination.itemsPerPage, this.apartmentParams)
+      .subscribe((res: PaginatedResult<Apartment[]>) => {
+        this.apartments = res.result;
+        this.pagination = res.pagination;
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
+  }
+
+  deleteApartment(event) { 
+    this.apartmentService.deleteApartment(event).subscribe(()=> { 
+      this.alertify.success('Successfully deleted apartment!');
+      this.loadApartments();  
+    }, error => { 
+      this.alertify.error('Error while deleting apartment');
     });
   }
 

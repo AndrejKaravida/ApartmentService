@@ -27,6 +27,7 @@ constructor(private http: HttpClient, private router: Router) {}
         localStorage.setItem('token', user.token);
         localStorage.setItem('user', JSON.stringify(user.user));
         localStorage.setItem('role', JSON.stringify(user.user.role));
+        localStorage.setItem('username', JSON.stringify(user.user.username));
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
         this.currentUser = user.user;
         this.currentRole = user.user.role;

@@ -16,6 +16,8 @@ import { Photo } from '../_models/photo';
   styleUrls: ['./apartment-detail.component.css']
 })
 export class ApartmentDetailComponent implements OnInit {
+  role = '';
+  username = '';
   apartment: any;
   photoUrl = '';
   photos: Photo[] = [];
@@ -56,6 +58,12 @@ export class ApartmentDetailComponent implements OnInit {
     }
   ];
     this.galleryImages = this.getImages();
+    this.role = localStorage.getItem('role');
+    this.role = this.role.substr(1);
+    this.role = this.role.substr(0, this.role.length - 1);
+    this.username = localStorage.getItem('username');
+    this.username = this.username.substr(1);
+    this.username = this.username.substr(0, this.username.length - 1);
   }
 
   loadApartment() {
