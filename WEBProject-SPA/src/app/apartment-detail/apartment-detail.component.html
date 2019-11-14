@@ -146,14 +146,14 @@
           </div>
           <br/>
           <div align="center"> 
-            <button  mat-raised-button color="primary" (click)=OnSaveReview()>Add review</button>
+            <button *ngIf="username !== apartment.host.username" mat-raised-button color="primary" (click)=OnSaveReview()>Add review</button>
           </div>
           <div>
               <br/>
             <mat-divider></mat-divider> <br/> 
           </div>
             <div *ngFor="let review of apartment.comments" style="margin-left: 10px; margin-right: 10px;">
-              <div *ngIf="review.deleted == false">
+              <div *ngIf="review.deleted == false && ( review.approved == true || username == apartment.host.username || role == 'Admin')">
                 Author:  {{review.user.firstName}} {{review.user.lastName}} <br/>
                 Grade: {{review.grade}}
                 <div>
