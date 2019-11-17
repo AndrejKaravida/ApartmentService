@@ -83,16 +83,16 @@ export class ApartmentDetailComponent implements OnInit {
       this.oldRooms = this.apartment.numberOfRooms;
       this.oldArrival = this.apartment.timeToArrive;
       this.oldDeparture = this.apartment.timeToLeave;
-      
-      for(let i = 0; i < data[key].photos.length; i++) { 
-        if(data[key].photos[i].isMain) { 
+
+      for (let i = 0; i < data[key].photos.length; i++) {
+        if (data[key].photos[i].isMain) {
           this.photoUrl = data[key].photos[i].url;
           break;
         }
       }
 
-      for(let i = 0; i < data[key].photos.length; i++) { 
-        if(!data[key].photos[i].isDeleted) { 
+      for (let i = 0; i < data[key].photos.length; i++) {
+        if (!data[key].photos[i].isDeleted) {
           this.photos.push(data[key].photos[i]);
         }
       }
@@ -104,7 +104,7 @@ export class ApartmentDetailComponent implements OnInit {
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.apartment.photos.length; i++) {
 
-      if(!this.apartment.photos[i].isDeleted) {
+      if (!this.apartment.photos[i].isDeleted) {
         imageUrls.push({
           small: this.apartment.photos[i].url,
           medium: this.apartment.photos[i].url,
@@ -116,8 +116,18 @@ export class ApartmentDetailComponent implements OnInit {
     return imageUrls;
   }
 
-  choosedDate() {
+  makeReservation(event) {
+    const startDate = event.startDate._d;
+    const endDate = event.endDate._d;
 
+    const apid = this.apartment.id;
+    const usid = this.authService.decodedToken.nameid;
+
+    this.apartmentService.makeReservation(apid, usid, startDate, endDate).subscribe(() => {
+      this.alertify.success('Reservation has been made!');
+    }, error => {
+      this.alertify.error('Problem while making reservation!');
+    });
   }
 
   modifyToogle() {
@@ -163,11 +173,11 @@ export class ApartmentDetailComponent implements OnInit {
     }
   }
 
-  loadAgain() { 
+  loadAgain() {
       this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
         this.apartment = result;
         this.galleryImages = this.getImages();
-      });  
+      });
   }
 
   applyArrivalChange() {
@@ -273,33 +283,33 @@ export class ApartmentDetailComponent implements OnInit {
     });
   }
 
-  approveComment(id: number) { 
+  approveComment(id: number) {
 
-    this.alertify.confirm('Are you sure you want to approve this comment?', () => { 
-      this.apartmentService.approveComment(id).subscribe(() => { 
+    this.alertify.confirm('Are you sure you want to approve this comment?', () => {
+      this.apartmentService.approveComment(id).subscribe(() => {
         this.alertify.success('Comment approved!');
         this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
           this.apartment = result;
         });
-      }, () => { 
+      }, () => {
         this.alertify.error('Failed to approve comment!');
       });
     });
   }
 
-  changeMain(event){
+  changeMain(event) {
     this.photoUrl = event;
   }
 
-  deleteComment(id: number) { 
+  deleteComment(id: number) {
 
     this.alertify.confirm('Are you sure you want do delete this comment?', () => {
-      this.apartmentService.deleteComment(id).subscribe(() => { 
+      this.apartmentService.deleteComment(id).subscribe(() => {
         this.alertify.success('Comment deleted!');
         this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
           this.apartment = result;
         });
-      }, () => { 
+      }, () => {
         this.alertify.error('Failed to delete comment!');
       });
     });

@@ -54,6 +54,7 @@ import { AddreviewdialogComponent } from './addreviewdialog/addreviewdialog.comp
 import { ApprovedPipe } from './approved.pipe';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { AngularOpenlayersModule } from 'ngx-openlayers';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -85,6 +86,7 @@ export function tokenGetter() {
    imports: [
       BrowserModule,
       ReactiveFormsModule,
+      AngularOpenlayersModule,
       FormsModule,
       MatListModule,
       FileUploadModule,

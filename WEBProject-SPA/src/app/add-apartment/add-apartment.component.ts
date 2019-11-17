@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-apartment.component.css']
 })
 export class AddApartmentComponent implements OnInit {
+  lat = 51.678418;
+  lng = 7.809007;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;

@@ -120,57 +120,75 @@
                   <form  [formGroup]="thirdFormGroup">
                       <ng-template matStepLabel>Location</ng-template>
 
-                      <div>
-                        <span class="headline">Where’s your place located?</span>
-                      </div>
-                      <br/>
-
-                      <div>
-                        <label class="headline2">Country / Region</label>
+                      <div style="display: flex;">
+                        
                         <div>
-                          <mat-form-field appearance="outline">
-                            <input matInput name="country" required formControlName="country">
-                          </mat-form-field>
+                          <div>
+                            <span class="headline">Where’s your place located?</span>
+                          </div>
+                          <br/>
+                          <div>
+                            <label class="headline2">Country / Region</label>
+                            <div>
+                              <mat-form-field appearance="outline">
+                                <input matInput name="country" required formControlName="country">
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <label class="headline2">Street Address</label>
+                            <div>
+                                <mat-form-field appearance="outline">
+                                  <input matInput name="street" required formControlName="street">
+                                </mat-form-field>
+                              </div>
+                          </div>
+
+                          <div>
+                            <label class="headline2">Apt, Suite. (optional)</label>
+                            <div>
+                                <mat-form-field appearance="outline">
+                                  <input matInput name="apt" formControlName="apt">
+                                </mat-form-field>
+                              </div>
+                          </div>
+    
+                          <div>
+                            <label class="headline2">City</label>
+                            <div>
+                                <mat-form-field appearance="outline">
+                                  <input matInput name="city" required formControlName="city">
+                                </mat-form-field>
+                              </div>
+                          </div>
+
+                          <div>
+                            <label class="headline2">ZIP Code</label>
+                            <div>
+                                <mat-form-field appearance="outline">
+                                  <input matInput name="zip" required formControlName="zip"> 
+                                </mat-form-field>
+                              </div>
+                          </div>
                         </div>
-                      </div>
-                      
-                      <div>
-                        <label class="headline2">Street Address</label>
-                        <div>
-                            <mat-form-field appearance="outline">
-                              <input matInput name="street" required formControlName="street">
-                            </mat-form-field>
-                          </div>
-                      </div>
-                      
-                      <div>
-                        <label class="headline2">Apt, Suite. (optional)</label>
-                        <div>
-                            <mat-form-field appearance="outline">
-                              <input matInput name="apt" formControlName="apt">
-                            </mat-form-field>
-                          </div>
-                      </div>
 
-                      <div>
-                        <label class="headline2">City</label>
-                        <div>
-                            <mat-form-field appearance="outline">
-                              <input matInput name="city" required formControlName="city">
-                            </mat-form-field>
-                          </div>
-                      </div>
+                        <div style="margin-left: 90px">
+                            <!-- Maps go here -->
 
-                      <div>
-                        <label class="headline2">ZIP Code</label>
-                        <div>
-                            <mat-form-field appearance="outline">
-                              <input matInput name="zip" required formControlName="zip"> 
-                            </mat-form-field>
-                          </div>
-                      </div>
-                      
-                                     
+                            <aol-map [width]="'600px'" [height]="'400'">
+                                <aol-view [zoom]="2">
+                                    <aol-coordinate [x]="15.795122" [y]="45.210225" [srid]="'EPSG:4326'"></aol-coordinate>
+                                </aol-view>
+                                <aol-layer-tile>
+                                    <aol-source-osm></aol-source-osm>
+                                </aol-layer-tile>
+                            </aol-map>
+
+                        </div>
+
+                        </div>
+                        
                       <br/>
                       <div class="buttons">
                           <button mat-raised-button matStepperPrevious>Back</button>

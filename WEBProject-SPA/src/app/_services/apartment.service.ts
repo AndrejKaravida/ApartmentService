@@ -47,7 +47,7 @@ export class ApartmentService {
     );
   }
 
-  
+
   getApartmentsForAdmin(page?, itemsPerPage?, apartmentParams?): Observable<PaginatedResult<Apartment[]>> {
 
     const paginatedResult: PaginatedResult<Apartment[]> = new PaginatedResult<Apartment[]>();
@@ -151,11 +151,11 @@ export class ApartmentService {
     return this.http.post<Apartment>(this.baseUrl + 'comments/' + apid, {content, grade, userid});
   }
 
-  approveComment(id: number): Observable<Apartment> { 
+  approveComment(id: number): Observable<Apartment> {
     return this.http.get<Apartment>(this.baseUrl + 'comments/approve/' + id);
   }
 
-  deleteComment(id: number): Observable<Apartment> { 
+  deleteComment(id: number): Observable<Apartment> {
     return this.http.get<Apartment>(this.baseUrl + 'comments/delete/' + id);
   }
 
@@ -167,8 +167,12 @@ export class ApartmentService {
     return this.http.get(this.baseUrl + 'upload/delete/' + photoid);
   }
 
-  makeActive(apId: number) { 
+  makeActive(apId: number) {
     return this.http.get(this.baseUrl + 'apartments/makeactive/' + apId);
+  }
+
+  makeReservation(apartmentid: number, userid: number, startdate: string, enddate: string) {
+    return this.http.post(this.baseUrl + 'reservations', {apartmentid, userid, startdate, enddate});
   }
 
 }
