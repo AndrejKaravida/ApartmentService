@@ -1,8 +1,13 @@
 <div class="container">
   <br />
-  <h3 style="text-align: center; font-weight: bold">
-    My reservations:
-  </h3>
+  <div align="center">
+
+      <mat-card>
+        <h5 style="text-align: center; font-weight: bold">
+         My reservations
+        </h5>
+        </mat-card>
+    </div>
 
   <div>
       <div fxLayoutGap="20px" align="center">
@@ -83,7 +88,10 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Status</th>
           <td mat-cell *matCellDef="let element">
-            <span> {{ element.status }}</span>
+              <span *ngIf="element.status == 'Created'"> {{ element.status }}</span>
+              <span class="accepted" *ngIf="element.status == 'Accepted'"> {{ element.status }}</span>
+              <span class="denied" *ngIf="element.status == 'Denied' || element.status == 'Quit' "> {{ element.status }}</span>
+              <span class="finished" *ngIf="element.status == 'Finished'"> {{ element.status }}</span>
           </td>
         </ng-container>
 

@@ -51,7 +51,7 @@
           <th mat-header-cell *matHeaderCellDef>Status</th>
           <td mat-cell *matCellDef="let element">
             <span *ngIf="element.status == 'Created' || element.status == 'Quit'"> {{ element.status }}</span>
-            <span class="accepted" *ngIf="element.status == 'Created'"> {{ element.status }}</span>
+            <span class="accepted" *ngIf="element.status == 'Accepted'"> {{ element.status }}</span>
             <span class="denied" *ngIf="element.status == 'Denied'"> {{ element.status }}</span>
             <span class="finished" *ngIf="element.status == 'Finished'"> {{ element.status }}</span>
           </td>
