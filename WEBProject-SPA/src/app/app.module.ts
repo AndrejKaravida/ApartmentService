@@ -55,6 +55,7 @@ import { ApprovedPipe } from './approved.pipe';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AngularOpenlayersModule } from 'ngx-openlayers';
+import { ApartmentreservationsComponent } from './apartmentreservations/apartmentreservations.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -81,7 +82,8 @@ export function tokenGetter() {
       PhotoEditorComponent,
       DeleteapartmentdialogComponent,
       AddreviewdialogComponent,
-      ApprovedPipe
+      ApprovedPipe,
+      ApartmentreservationsComponent
    ],
    imports: [
       BrowserModule,

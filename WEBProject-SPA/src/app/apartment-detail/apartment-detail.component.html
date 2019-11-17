@@ -172,7 +172,10 @@
         </tab>
         <tab heading="Edit Photos" *ngIf="role == 'Admin' || username == apartment.host.username">
             <app-photo-editor [photos]="photos" [apartment]="apartment" (changed)="changeMain($event)" (changed2)="loadAgain($event)"></app-photo-editor>
-          </tab>
+        </tab>
+        <tab heading="Reservations" *ngIf="role == 'Admin' || username == apartment.host.username">
+            <app-apartmentreservations [apartment]="apartment.id" ></app-apartmentreservations>
+       </tab>
       </tabset>
     </div>
   </div>

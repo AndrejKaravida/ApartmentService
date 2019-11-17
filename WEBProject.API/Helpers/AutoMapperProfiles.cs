@@ -22,7 +22,7 @@ namespace WEBProject.API.Helpers
             CreateMap<Reservation, ReservationForReturnDto>()
                 .ForMember(r => r.PhotoUrl, opt => opt.MapFrom
                 (a => a.Appartment.Photos.FirstOrDefault(p => p.IsMain).Url));
-
+            CreateMap<Reservation, ApartmanReservationsDto>();
             
         }
     }

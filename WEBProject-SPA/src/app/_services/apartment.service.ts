@@ -180,4 +180,8 @@ export class ApartmentService {
     return this.http.get<Reservation[]>(this.baseUrl + 'reservations/' + id);
   }
 
+  getReservationsForApartment(id: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(this.baseUrl + 'reservations/apt/' + id);
+  }
+
 }

@@ -235,12 +235,10 @@ namespace WEBProject.API.Data
             return apartment;
         }
 
-        public async Task<IEnumerable<Reservation>> GetReservations()
+        public async Task<IEnumerable<Reservation>> GetReservationsForApartment(int id)
         {
             var reservations = await _context.Reservations
-                .Include(a => a.Appartment)
-                .ThenInclude(l => l.Location)
-                .ThenInclude(a => a.Address)
+                .Where(a => a.Appartment.Id == id)
                 .Include(g => g.Guest)
                 .ToListAsync();
             return reservations;

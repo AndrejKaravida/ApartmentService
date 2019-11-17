@@ -27,12 +27,12 @@ namespace WEBProject.API.Controllers
             _repo = repo;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetReservations()
+        [HttpGet("apt/{id}")]
+        public async Task<IActionResult> GetReservationsForApartment(int id)
         {
-            var reservations = await _repo.GetReservations();
+            var reservations = await _repo.GetReservationsForApartment(id);
 
-            var reservationsToReturn = _mapper.Map<IEnumerable<ReservationForReturnDto>>(reservations);
+            var reservationsToReturn = _mapper.Map<IEnumerable<ApartmanReservationsDto>>(reservations);
 
             return Ok(reservationsToReturn);
         }
@@ -84,6 +84,7 @@ namespace WEBProject.API.Controllers
             };
 
             _repo.Add(newReservation);
+            apartmentFromRepo.Reservations.Add(newReservation);
 
             if (await _repo.SaveAll())
                 return NoContent();
