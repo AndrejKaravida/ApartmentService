@@ -10,7 +10,9 @@ namespace WEBProject.API.Dtos
     {
         public int Id { get; set; }
         public ApartmentForReturnDto Appartment { get; set; }
+        public string PhotoUrl { get; set; }
         public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public int NumberOfNights { get; set; }
         public int TotalPrice { get; set; }
         public string Status { get; set; }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using System.Linq;
 using WEBProject.API.Dtos;
 using WEBProject.API.Models;
 
@@ -18,6 +19,9 @@ namespace WEBProject.API.Helpers
             CreateMap<Apartment, ApartmentForListDto>();
             CreateMap<ApartmentForCreationDto, Apartment>();
             CreateMap<ApartmentForCreationDto, Location>();
+            CreateMap<Reservation, ReservationForReturnDto>()
+                .ForMember(r => r.PhotoUrl, opt => opt.MapFrom
+                (a => a.Appartment.Photos.FirstOrDefault(p => p.IsMain).Url));
 
             
         }

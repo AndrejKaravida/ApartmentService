@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ using WEBProject.API.Models;
 
 namespace WEBProject.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReservationsController : ControllerBase
@@ -29,6 +31,16 @@ namespace WEBProject.API.Controllers
         public async Task<IActionResult> GetReservations()
         {
             var reservations = await _repo.GetReservations();
+
+            var reservationsToReturn = _mapper.Map<IEnumerable<ReservationForReturnDto>>(reservations);
+
+            return Ok(reservationsToReturn);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReservationsForUser(int id)
+        {
+            var reservations = await _repo.GetReservationsForUser(id);
 
             var reservationsToReturn = _mapper.Map<IEnumerable<ReservationForReturnDto>>(reservations);
 

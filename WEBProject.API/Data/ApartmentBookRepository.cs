@@ -246,6 +246,18 @@ namespace WEBProject.API.Data
             return reservations;
         }
 
+        public async Task<IEnumerable<Reservation>> GetReservationsForUser(int id)
+        {
+            var reservations = await _context.Reservations
+                .Where(r => r.Guest.Id == id)
+                .Include(a => a.Appartment)
+                .ThenInclude(p => p.Photos)
+                .Include(a => a.Appartment.Location)
+                .ThenInclude(a => a.Address)
+                .ToListAsync();
+            return reservations;
+        }
+
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users

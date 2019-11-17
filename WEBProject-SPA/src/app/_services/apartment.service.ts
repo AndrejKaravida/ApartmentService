@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Apartment } from '../_models/apartment';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
+import { Reservation } from '../_models/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -173,6 +174,10 @@ export class ApartmentService {
 
   makeReservation(apartmentid: number, userid: number, startdate: string, enddate: string) {
     return this.http.post(this.baseUrl + 'reservations', {apartmentid, userid, startdate, enddate});
+  }
+
+  getReservations(id: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(this.baseUrl + 'reservations/' + id);
   }
 
 }
