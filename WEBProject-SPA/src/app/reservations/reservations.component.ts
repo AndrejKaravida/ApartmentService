@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Reservation } from '../_models/reservation';
 import { ApartmentService } from '../_services/apartment.service';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-reservations',
@@ -20,12 +21,14 @@ export class ReservationsComponent implements OnInit {
     'timetoleave',
     'numofnights',
     'totalprice',
-    'status'
+    'status',
+    'quit'
   ];
 
   dataSource = new MatTableDataSource<Reservation>();
 
-  constructor(private apartmentService: ApartmentService, private authService: AuthService) {}
+  constructor(private apartmentService: ApartmentService, private authService: AuthService,
+              private alertify: AlertifyService) {}
 
   ngOnInit() {
    this.loadReservations();
@@ -34,6 +37,15 @@ export class ReservationsComponent implements OnInit {
   loadReservations() {
     this.apartmentService.getReservations(this.authService.decodedToken.nameid).subscribe((reservations) => {
       this.dataSource = new MatTableDataSource<Reservation>(reservations);
+    });
+  }
+
+  quitReservation(id: number) {
+    this.apartmentService.quitReservation(id).subscribe(() => {
+      this.alertify.success('Reservation quit!');
+      this.loadReservations();
+    }, error => { 
+      this.alertify.error('Problem quitting reservation.');
     });
   }
 

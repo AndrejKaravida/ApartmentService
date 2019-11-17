@@ -87,6 +87,13 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="quit">
+            <th mat-header-cell *matHeaderCellDef>Quit</th>
+            <td mat-cell *matCellDef="let element">
+              <button *ngIf="element.status == 'Accepted' || element.status == 'Created'" type="button" class="quit" aria-busy="false" (click)="quitReservation(element.id)">Quit</button>
+            </td>
+          </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky:true></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </mat-table>

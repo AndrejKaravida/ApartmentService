@@ -265,6 +265,13 @@ namespace WEBProject.API.Data
             return user;
         }
 
+        public async Task<Reservation> GetReservation(int id)
+        {
+            var reservation = await _context.Reservations
+               .FirstOrDefaultAsync(r => r.Id == id);
+            return reservation;
+        }
+
         public async Task<Photo> GetPhoto(int id)
         {
             var photo = await _context.Photos

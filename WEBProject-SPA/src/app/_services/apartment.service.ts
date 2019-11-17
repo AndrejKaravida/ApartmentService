@@ -184,4 +184,20 @@ export class ApartmentService {
     return this.http.get<Reservation[]>(this.baseUrl + 'reservations/apt/' + id);
   }
 
+  acceptReservation(id: number) {
+    return this.http.get(this.baseUrl + 'reservations/accept/' + id);
+  }
+
+  denyReservation(id: number) {
+    return this.http.get(this.baseUrl + 'reservations/deny/' + id);
+  }
+
+  finishReservation(id: number) {
+    return this.http.get(this.baseUrl + 'reservations/finish/' + id);
+  }
+
+  quitReservation(id: number) {
+    return this.http.get(this.baseUrl + 'reservations/quit/' + id);
+  }
+
 }

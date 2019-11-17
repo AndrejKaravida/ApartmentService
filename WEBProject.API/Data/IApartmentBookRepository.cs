@@ -27,5 +27,6 @@ namespace WEBProject.API.Data
          Task<Photo> GetPhoto(int id);
          Task<Photo> GetMainPhotoForApartment(int appId);
          Task<IEnumerable<Reservation>> GetReservationsForUser(int id);
+         Task<Reservation> GetReservation(int id);
     }
 }

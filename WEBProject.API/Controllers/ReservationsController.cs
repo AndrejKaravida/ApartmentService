@@ -92,6 +92,58 @@ namespace WEBProject.API.Controllers
             throw new Exception("Saving review failed on save");
      
         }
-     
+
+        [HttpGet("accept/{id}")]
+        public async Task<IActionResult> AcceptReservation(int id)
+        {
+            var reservation = await _repo.GetReservation(id);
+
+            reservation.Status = "Accepted";
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Accepting reservation failed on save");
+        }
+
+        [HttpGet("deny/{id}")]
+        public async Task<IActionResult> DenyReservation(int id)
+        {
+            var reservation = await _repo.GetReservation(id);
+
+            reservation.Status = "Denied";
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Deniding reservation failed on save");
+        }
+
+        [HttpGet("finish/{id}")]
+        public async Task<IActionResult> FinishReservation(int id)
+        {
+            var reservation = await _repo.GetReservation(id);
+
+            reservation.Status = "Finished";
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Finishing reservation failed on save");
+        }
+
+        [HttpGet("quit/{id}")]
+        public async Task<IActionResult> QuithReservation(int id)
+        {
+            var reservation = await _repo.GetReservation(id);
+
+            reservation.Status = "Quit";
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Quiting reservation failed on save");
+        }
+
     }
 }

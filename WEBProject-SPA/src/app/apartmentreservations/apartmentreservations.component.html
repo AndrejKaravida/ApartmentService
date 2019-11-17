@@ -50,7 +50,21 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Status</th>
           <td mat-cell *matCellDef="let element">
-            <span> {{ element.status }}</span>
+            <span *ngIf="element.status == 'Created' || element.status == 'Quit'"> {{ element.status }}</span>
+            <span class="accepted" *ngIf="element.status == 'Created'"> {{ element.status }}</span>
+            <span class="denied" *ngIf="element.status == 'Denied'"> {{ element.status }}</span>
+            <span class="finished" *ngIf="element.status == 'Finished'"> {{ element.status }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button *ngIf="element.status == 'Created' || element.status == 'Accepted'" type="button" class="deny" aria-busy="false" (click)="denyReservation(element.id)">Deny</button>
+            &nbsp;
+            <button *ngIf="element.status == 'Created'" type="button" class="accept" aria-busy="false" (click)="acceptReservation(element.id)">Accept</button>
+            &nbsp;
+            <button *ngIf="element.status == 'Accepted'" type="button" class="finish" aria-busy="false" (click)="finishReservation(element.id)">Finish</button>
           </td>
         </ng-container>
 
