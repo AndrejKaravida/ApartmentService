@@ -201,6 +201,7 @@ namespace WEBProject.API.Data
             var apartment = await _context.Apartments
                 .Include(a => a.Amentities)
                 .Include(h => h.Host)
+                .Include(r => r.ReservedDates)
                 .Include(p => p.Photos)
                 .Include(r => r.Reservations)
                 .Include(c => c.Comments)
@@ -208,7 +209,8 @@ namespace WEBProject.API.Data
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .FirstOrDefaultAsync(a => a.Id == id && a.IsDeleted == false);   
-                   
+
+                              
             return apartment;
         }
 
@@ -254,6 +256,18 @@ namespace WEBProject.API.Data
                 .ThenInclude(a => a.Address)
                 .ToListAsync();
             return reservations;
+        }
+
+        public bool GetReservationsForUserForApartment(int us_id, int ap_id)
+        {
+            var reservations = _context.Reservations
+                .Where(r => r.Guest.Id == us_id && r.Appartment.Id == ap_id && (r.Status == "Finished" || r.Status == "Denied"))
+                .ToArray();
+
+            if (reservations.Length > 0)
+                return true;
+            else
+                return false;
         }
 
         public async Task<User> GetUser(int id)

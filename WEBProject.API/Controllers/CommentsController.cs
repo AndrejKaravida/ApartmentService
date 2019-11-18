@@ -68,9 +68,20 @@ namespace WEBProject.API.Controllers
             if (await _repo.SaveAll())
                 return NoContent();
 
-            throw new Exception("Approving comment failed on save");
+            throw new Exception("Deleting comment failed on save");
         }
 
-
+        [HttpGet("getpermission/{us_id}/{app_id}")]
+        public async Task<IActionResult> GetCommentPermission(int us_id, int app_id)
+        {
+            if (_repo.GetReservationsForUserForApartment(us_id, app_id))
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
+        }
     }
 }

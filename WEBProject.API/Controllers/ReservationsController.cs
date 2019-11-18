@@ -83,11 +83,22 @@ namespace WEBProject.API.Controllers
                 Status = "Created"
             };
 
-            _repo.Add(newReservation);
-            apartmentFromRepo.Reservations.Add(newReservation);
+            if(apartmentFromRepo.ReservedDates == null)
+            {
+                apartmentFromRepo.ReservedDates = new List<ReservedDate>();
+            }
+
+            for (var dt = start; dt <= end; dt = dt.AddDays(1))
+            {
+                ReservedDate date = new ReservedDate { Date = dt };
+                apartmentFromRepo.ReservedDates.Add(date);
+            }
+                       
+              _repo.Add(newReservation);
+               apartmentFromRepo.Reservations.Add(newReservation);
 
             if (await _repo.SaveAll())
-                return NoContent();
+            return NoContent();
 
             throw new Exception("Saving review failed on save");
      
@@ -124,16 +135,22 @@ namespace WEBProject.API.Controllers
         {
             var reservation = await _repo.GetReservation(id);
 
-            reservation.Status = "Finished";
-
-            if (await _repo.SaveAll())
-                return NoContent();
+            if(reservation.EndDate <= DateTime.Now)
+            {
+                reservation.Status = "Finished";
+                if (await _repo.SaveAll())
+                    return NoContent();
+            }
+            else
+            {
+                return Unauthorized();
+            }
 
             throw new Exception("Finishing reservation failed on save");
         }
 
         [HttpGet("quit/{id}")]
-        public async Task<IActionResult> QuithReservation(int id)
+        public async Task<IActionResult> QuitReservation(int id)
         {
             var reservation = await _repo.GetReservation(id);
 

@@ -9,6 +9,7 @@ import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydial
 import { AuthService } from '../_services/auth.service';
 import { AddreviewdialogComponent } from '../addreviewdialog/addreviewdialog.component';
 import { Photo } from '../_models/photo';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-apartment-detail',
@@ -16,6 +17,9 @@ import { Photo } from '../_models/photo';
   styleUrls: ['./apartment-detail.component.css']
 })
 export class ApartmentDetailComponent implements OnInit {
+  maxDate: moment.Moment;
+  minDate: moment.Moment;
+  postpermission = false;
   role = '';
   username = '';
   apartment: any;
@@ -38,6 +42,7 @@ export class ApartmentDetailComponent implements OnInit {
   selected: {startDate: Moment, endDate: Moment};
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  invalidDates: moment.Moment[] = [];
 
   constructor( private route: ActivatedRoute, private alertify: AlertifyService,
                private apartmentService: ApartmentService, public dialog: MatDialog,
@@ -46,6 +51,11 @@ export class ApartmentDetailComponent implements OnInit {
   ngOnInit() {
 
     this.loadApartment();
+
+    this.maxDate = moment().add(1,  'years');
+    this.minDate = moment();
+    
+    
 
     this.galleryOptions = [
     {
@@ -64,6 +74,11 @@ export class ApartmentDetailComponent implements OnInit {
     this.username = localStorage.getItem('username');
     this.username = this.username.substr(1);
     this.username = this.username.substr(0, this.username.length - 1);
+  }
+
+  isInvalidDate = (m: moment.Moment) =>  {
+
+    return this.invalidDates.some(d => d.isSame(m, 'day'));
   }
 
   loadApartment() {
@@ -96,6 +111,18 @@ export class ApartmentDetailComponent implements OnInit {
           this.photos.push(data[key].photos[i]);
         }
       }
+
+      this.invalidDates = [];
+
+      for (let i = 0; i < data[key].reservedDaysFromToday.length; i++) { 
+        const invaliddate = data[key].reservedDaysFromToday[i].dayFromToday;
+        this.invalidDates.push(moment().add(invaliddate, 'days'));
+      }
+
+      this.apartmentService.getPermission(this.authService.decodedToken.nameid,
+        this.apartment.id).subscribe((result: boolean) => {
+          this.postpermission = result;
+        });
     });
   }
 
@@ -125,9 +152,11 @@ export class ApartmentDetailComponent implements OnInit {
 
     this.apartmentService.makeReservation(apid, usid, startDate, endDate).subscribe(() => {
       this.alertify.success('Reservation has been made!');
+      this.loadApartment();
     }, error => {
       this.alertify.error('Problem while making reservation!');
     });
+    
   }
 
   modifyToogle() {

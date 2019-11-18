@@ -129,7 +129,10 @@
                 <span>Reservation price is 10% higher during holidays.</span>
               </div>
               <br/>
-              <ngx-daterangepicker-material (choosedDate)="makeReservation($event)">
+              <ngx-daterangepicker-material (choosedDate)="makeReservation($event)" 
+              [isInvalidDate] = "isInvalidDate"
+              [maxDate]="maxDate"
+              [minDate]="minDate">
                 </ngx-daterangepicker-material>
           </div>
 
@@ -146,7 +149,7 @@
           </div>
           <br/>
           <div align="center"> 
-            <button *ngIf="username !== apartment.host.username" mat-raised-button color="primary" (click)=OnSaveReview()>Add review</button>
+            <button *ngIf="username !== apartment.host.username && postpermission == true" mat-raised-button color="primary" (click)=OnSaveReview()>Add review</button>
           </div>
           <div>
               <br/>

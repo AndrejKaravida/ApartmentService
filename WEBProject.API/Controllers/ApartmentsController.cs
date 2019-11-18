@@ -74,6 +74,26 @@ namespace WEBProject.API.Controllers
         { 
             var apartment = await _repo.GetApartment(id);
 
+            if(apartment.ReservedDaysFromToday == null)
+            {
+                apartment.ReservedDaysFromToday = new List<ReservedDayFromToday>();
+            }
+
+            foreach (var date in apartment.ReservedDates)
+            {
+                if(date.Date >= DateTime.Now)
+                {
+
+                    double dayFromNow = date.Date.Subtract(DateTime.Today).TotalDays;
+                    dayFromNow = Math.Ceiling(dayFromNow);
+                    string dayFromNowString = dayFromNow.ToString();
+                    int day = Int32.Parse(dayFromNowString);
+
+                    ReservedDayFromToday dayToSave = new ReservedDayFromToday { DayFromToday = day };
+                    apartment.ReservedDaysFromToday.Add(dayToSave);
+                }
+            }
+
             var apartmentToReturn =  _mapper.Map<ApartmentForReturnDto>(apartment);
 
             return Ok(apartmentToReturn);

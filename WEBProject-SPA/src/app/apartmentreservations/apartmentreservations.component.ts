@@ -62,7 +62,7 @@ export class ApartmentreservationsComponent implements OnInit {
       this.alertify.success('Reservation finished!');
       this.loadReservations();
     }, error => { 
-      this.alertify.error('Problem finishing reservation.');
+      this.alertify.error('You cannot set reservation to finished before its end date!');
     });
   }
 

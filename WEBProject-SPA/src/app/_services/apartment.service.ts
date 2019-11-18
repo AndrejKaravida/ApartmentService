@@ -200,4 +200,8 @@ export class ApartmentService {
     return this.http.get(this.baseUrl + 'reservations/quit/' + id);
   }
 
+  getPermission(usid: number, appid: number) {
+    return this.http.get(this.baseUrl + 'comments/getpermission/' + usid + '/' + appid);
+  }
+
 }

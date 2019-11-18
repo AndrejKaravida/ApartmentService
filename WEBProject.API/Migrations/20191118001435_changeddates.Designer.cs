@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEBProject.API.Data;
 
 namespace WEBProject.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191118001435_changeddates")]
+    partial class changeddates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,30 +198,13 @@ namespace WEBProject.API.Migrations
 
                     b.Property<int?>("ApartmentId");
 
-                    b.Property<DateTime>("Date");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApartmentId");
-
-                    b.ToTable("ReservedDate");
-                });
-
-            modelBuilder.Entity("WEBProject.API.Models.ReservedDayFromToday", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ApartmentId");
-
                     b.Property<int>("DayFromToday");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApartmentId");
 
-                    b.ToTable("ReservedDayFromToday");
+                    b.ToTable("ReservedDate");
                 });
 
             modelBuilder.Entity("WEBProject.API.Models.User", b =>
@@ -311,13 +296,6 @@ namespace WEBProject.API.Migrations
                 {
                     b.HasOne("WEBProject.API.Models.Apartment")
                         .WithMany("ReservedDates")
-                        .HasForeignKey("ApartmentId");
-                });
-
-            modelBuilder.Entity("WEBProject.API.Models.ReservedDayFromToday", b =>
-                {
-                    b.HasOne("WEBProject.API.Models.Apartment")
-                        .WithMany("ReservedDaysFromToday")
                         .HasForeignKey("ApartmentId");
                 });
 #pragma warning restore 612, 618

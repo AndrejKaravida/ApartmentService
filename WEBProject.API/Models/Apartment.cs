@@ -12,7 +12,8 @@ namespace WEBProject.API.Models
         public Location Location { get; set; }
         public User Host { get; set; }
         public ICollection<Photo> Photos { get; set; }
-  //      public ICollection<DateTime> ReservedDates { get; set; }
+        public ICollection<ReservedDate> ReservedDates { get; set; }
+        public ICollection<ReservedDayFromToday> ReservedDaysFromToday { get; set; }
         public int PricePerNight { get; set; }
         public string TimeToArrive { get; set; }
         public string TimeToLeave { get; set; }
