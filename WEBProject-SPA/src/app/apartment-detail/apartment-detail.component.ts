@@ -54,8 +54,8 @@ export class ApartmentDetailComponent implements OnInit {
 
     this.maxDate = moment().add(1,  'years');
     this.minDate = moment();
-    
-    
+
+
 
     this.galleryOptions = [
     {
@@ -114,7 +114,7 @@ export class ApartmentDetailComponent implements OnInit {
 
       this.invalidDates = [];
 
-      for (let i = 0; i < data[key].reservedDaysFromToday.length; i++) { 
+      for (let i = 0; i < data[key].reservedDaysFromToday.length; i++) {
         const invaliddate = data[key].reservedDaysFromToday[i].dayFromToday;
         this.invalidDates.push(moment().add(invaliddate, 'days'));
       }
@@ -144,8 +144,21 @@ export class ApartmentDetailComponent implements OnInit {
   }
 
   makeReservation(event) {
-    const startDate = event.startDate._d;
-    const endDate = event.endDate._d;
+    const starting: Date = event.startDate.toDate();
+
+    const curr_date_st = starting.getDate();
+    const curr_month_st = starting.getMonth() + 1;
+    const curr_year_st = starting.getFullYear();
+
+    const startDate = curr_date_st + '-' + curr_month_st + '-' + curr_year_st;
+
+    const ending: Date = event.endDate.toDate();
+
+    const curr_date_en = ending.getDate();
+    const curr_month_en = ending.getMonth() + 1;
+    const curr_year_en = ending.getFullYear();
+
+    const endDate = curr_date_en + '-' + curr_month_en + '-' + curr_year_en;
 
     const apid = this.apartment.id;
     const usid = this.authService.decodedToken.nameid;
@@ -156,7 +169,7 @@ export class ApartmentDetailComponent implements OnInit {
     }, error => {
       this.alertify.error('Problem while making reservation!');
     });
-    
+
   }
 
   modifyToogle() {

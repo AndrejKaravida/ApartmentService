@@ -85,7 +85,7 @@ namespace WEBProject.API.Controllers
                 {
 
                     double dayFromNow = date.Date.Subtract(DateTime.Today).TotalDays;
-                    dayFromNow = Math.Ceiling(dayFromNow);
+                    dayFromNow = Math.Floor(dayFromNow);
                     string dayFromNowString = dayFromNow.ToString();
                     int day = Int32.Parse(dayFromNowString);
 
