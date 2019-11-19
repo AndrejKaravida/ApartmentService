@@ -28,7 +28,7 @@ namespace WEBProject.API.Data
         public async Task<PagedList<Apartment>> GetApartmentsForAdmin(ApartmentParams apartmentParams)
         {
             var apartments = _context.Apartments
-                .Where(a => a.IsDeleted == false)
+                .Where(a => a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
                 .Include(p => p.Photos)
                 .Include(h => h.Host)
                 .Include(l => l.Location)
@@ -84,7 +84,7 @@ namespace WEBProject.API.Data
         public async Task<PagedList<Apartment>> GetApartments(ApartmentParams apartmentParams)
         {
             var apartments = _context.Apartments
-                .Where(a => a.Status == "Active" && a.IsDeleted == false)
+                .Where(a => a.Status == "Active" && a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
                 .Include(p => p.Photos)
                 .Include(h => h.Host)
                 .Include(l => l.Location)
@@ -139,7 +139,7 @@ namespace WEBProject.API.Data
         public async Task<PagedList<Apartment>> GetApartmentsFromUser(int id, ApartmentParams apartmentParams)
         {
             var apartments =  _context.Apartments
-                .Where(a => a.Host.Id == id && a.IsDeleted == false)
+                .Where(a => a.Host.Id == id && a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
                 .Include(h => h.Host)
                 .Include(p => p.Photos)
                 .Include(l => l.Location)
@@ -199,6 +199,7 @@ namespace WEBProject.API.Data
         public async Task<Apartment> GetApartment(int id)
         {
             var apartment = await _context.Apartments
+                .Where(a => a.Status == "Active" && a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
                 .Include(a => a.Amentities)
                 .Include(h => h.Host)
                 .Include(r => r.ReservedDates)
