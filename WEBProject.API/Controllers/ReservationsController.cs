@@ -4,9 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WEBProject.API.Data;
 using WEBProject.API.Dtos;
@@ -83,17 +81,37 @@ namespace WEBProject.API.Controllers
                 Status = "Created"
             };
 
-            if(apartmentFromRepo.ReservedDates == null)
+            if( apartmentFromRepo.ReservedDates.Count == 0)
             {
-                apartmentFromRepo.ReservedDates = new List<ReservedDate>();
-            }
+                for (var dt = start; dt <= end; dt = dt.AddDays(1))
+                {
+                   ReservedDate date = new ReservedDate { Date = dt, CurrentNumberOfGuests = 1 };
+                   apartmentFromRepo.ReservedDates.Add(date);
 
-            for (var dt = start; dt <= end; dt = dt.AddDays(1))
-            {
-                ReservedDate date = new ReservedDate { Date = dt };
-                apartmentFromRepo.ReservedDates.Add(date);
+                }   
             }
-                       
+            else
+            {
+                for (var dt = start; dt <= end; dt = dt.AddDays(1))
+                {
+                    foreach (var reservedDate in apartmentFromRepo.ReservedDates.ToList())
+                    {
+                        if (reservedDate.Date == dt)
+                        {
+                            reservedDate.CurrentNumberOfGuests++;
+                            
+                        }
+                        else
+                        {
+                            ReservedDate date = new ReservedDate { Date = dt, CurrentNumberOfGuests = 1 };
+                            apartmentFromRepo.ReservedDates.Add(date);
+                            
+
+                        }
+                    }
+                }
+            }
+             
               _repo.Add(newReservation);
                apartmentFromRepo.Reservations.Add(newReservation);
 

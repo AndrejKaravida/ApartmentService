@@ -9,5 +9,6 @@ namespace WEBProject.API.Models
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        public int CurrentNumberOfGuests { get; set; }
     }
 }

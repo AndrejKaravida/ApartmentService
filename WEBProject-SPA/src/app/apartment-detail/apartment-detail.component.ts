@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApartmentService } from '../_services/apartment.service';
 import { AlertifyService } from '../_services/alertify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Moment } from 'moment';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { MatDialog } from '@angular/material/dialog';
@@ -46,7 +46,7 @@ export class ApartmentDetailComponent implements OnInit {
 
   constructor( private route: ActivatedRoute, private alertify: AlertifyService,
                private apartmentService: ApartmentService, public dialog: MatDialog,
-               private authService: AuthService) { }
+               private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
 
@@ -54,8 +54,6 @@ export class ApartmentDetailComponent implements OnInit {
 
     this.maxDate = moment().add(1,  'years');
     this.minDate = moment();
-
-
 
     this.galleryOptions = [
     {
@@ -160,16 +158,22 @@ export class ApartmentDetailComponent implements OnInit {
 
     const endDate = curr_date_en + '-' + curr_month_en + '-' + curr_year_en;
 
+    const numOfNights = Math.floor(Math.abs( (ending as any) - (starting as any)) / 1000 / 60 / 60 / 24);
+    const totalPrice = Math.abs(numOfNights * this.apartment.pricePerNight);
+
     const apid = this.apartment.id;
     const usid = this.authService.decodedToken.nameid;
 
-    this.apartmentService.makeReservation(apid, usid, startDate, endDate).subscribe(() => {
-      this.alertify.success('Reservation has been made!');
-      this.loadApartment();
-    }, error => {
-      this.alertify.error('Problem while making reservation!');
+    this.alertify.confirm('Are you sure you want to make reservation from '
+    + startDate + ' until ' + endDate + ', number of nights: ' + numOfNights + ', total price: ' + totalPrice + '$' + ' ?', () => {
+      this.apartmentService.makeReservation(apid, usid, startDate, endDate).subscribe(() => {
+        this.alertify.success('Reservation has been made!');
+        this.loadApartment();
+        this.router.navigate(['reservations']);
+      }, error => {
+        this.alertify.error('Problem while making reservation!');
+      });
     });
-
   }
 
   modifyToogle() {

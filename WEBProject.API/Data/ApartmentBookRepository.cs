@@ -227,6 +227,7 @@ namespace WEBProject.API.Data
             var apartment = _context.Apartments
                 .Include(a => a.Amentities)
                 .Include(h => h.Host)
+                .Include(r => r.ReservedDates)
                 .Include(p => p.Photos)
                 .Include(r => r.Reservations)
                 .Include(c => c.Comments)
