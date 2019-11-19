@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Reservation } from '../_models/reservation';
 import { ApartmentService } from '../_services/apartment.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-apartmentreservations',
@@ -11,12 +13,15 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class ApartmentreservationsComponent implements OnInit {
   @Input() apartment: number;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   displayedColumns = [
     'position',
     'user',
     'date',
     'numofnights',
-    'totalprice',
+    'totalPrice',
     'status',
     'action'
   ];
@@ -32,6 +37,8 @@ export class ApartmentreservationsComponent implements OnInit {
   loadReservations() {
     this.apartmentService.getReservationsForApartment(this.apartment).subscribe((reservations) => {
       this.dataSource = new MatTableDataSource<Reservation>(reservations);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 

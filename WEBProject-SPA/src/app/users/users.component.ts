@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../_models/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '../_services/user.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-users',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   displayedColumns = [
     'position',
     'username',
@@ -36,6 +38,7 @@ export class UsersComponent implements OnInit {
   loadUsers() {
     this.userService.getUsers().subscribe((users) => {
       this.dataSource = new MatTableDataSource<User>(users);
+      this.dataSource.paginator = this.paginator;
     });
   }
 

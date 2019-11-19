@@ -56,6 +56,9 @@ import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AngularOpenlayersModule } from 'ngx-openlayers';
 import { ApartmentreservationsComponent } from './apartmentreservations/apartmentreservations.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -102,10 +105,13 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,
       PaginationModule.forRoot(),
+      MatTableModule, 
       ButtonsModule.forRoot(),
       MatCheckboxModule,
       MatCardModule,
       MatFormFieldModule,
+      MatPaginatorModule,
+      MatSortModule,
       MatDividerModule,
       MatInputModule,
       MatButtonModule,

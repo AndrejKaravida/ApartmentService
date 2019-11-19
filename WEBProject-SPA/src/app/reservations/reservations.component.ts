@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Reservation } from '../_models/reservation';
 import { ApartmentService } from '../_services/apartment.service';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-reservations',
@@ -11,6 +13,8 @@ import { AlertifyService } from '../_services/alertify.service';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   displayedColumns = [
     'position',
     'image',
@@ -20,7 +24,7 @@ export class ReservationsComponent implements OnInit {
     'timetoarrive',
     'timetoleave',
     'numofnights',
-    'totalprice',
+    'totalPrice',
     'status',
     'quit'
   ];
@@ -33,10 +37,12 @@ export class ReservationsComponent implements OnInit {
   ngOnInit() {
    this.loadReservations();
   }
-
+  
   loadReservations() {
-    this.apartmentService.getReservations(this.authService.decodedToken.nameid).subscribe((reservations) => {
+    this.apartmentService.getReservations(this.authService.decodedToken.nameid).subscribe((reservations: Reservation[]) => {
       this.dataSource = new MatTableDataSource<Reservation>(reservations);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
