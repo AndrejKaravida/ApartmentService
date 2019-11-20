@@ -6,6 +6,9 @@ import { PaginatedResult, Pagination } from '../_models/pagination';
 import { AlertifyService } from '../_services/alertify.service';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydialog.component';
+import { SelectamenitiesdialogComponent } from '../selectamenitiesdialog/selectamenitiesdialog.component';
 
 
 
@@ -27,7 +30,7 @@ export class ExploreComponent implements OnInit {
   type = '';
 
   constructor(private route: ActivatedRoute, private apartmentService: ApartmentService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService, public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -52,7 +55,8 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.maxRooms = 10;
     this.apartmentParams.filtertype = '';
     this.apartmentParams.filterstatus = '';
-  
+    this.apartmentParams.filteramenities = '';
+
     if (this.role === 'Admin') {
       this.loadApartmentsForAdmin();
     }
@@ -60,14 +64,24 @@ export class ExploreComponent implements OnInit {
 
   resetFilters2() {
     this.apartmentParams.filtertype = '';
-    this.apartmentParams.filterstatus = this.status;
+    this.apartmentParams.filterstatus = '';
+    this.apartmentParams.filteramenities = '';
 
     this.loadApartments();
-    
+
   }
 
   selectAmentities() {
+    const dialogRef = this.dialog.open(SelectamenitiesdialogComponent, {
+      width: '500px',
+      data: {}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.apartmentParams.filteramenities = result.data;
+      }
+    });
   }
 
   loadApartments() {
@@ -144,7 +158,7 @@ export class ExploreComponent implements OnInit {
     this.selected = null;
 
     this.loadApartments();
-    
+
   }
 
   pageChanged(event: any): void {

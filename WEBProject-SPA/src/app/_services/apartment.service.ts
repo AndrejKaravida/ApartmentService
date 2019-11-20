@@ -75,6 +75,7 @@ export class ApartmentService {
       params = params.append('endDate', apartmentParams.endDate);
       params = params.append('filterstatus', apartmentParams.filterstatus);
       params = params.append('filtertype', apartmentParams.filtertype);
+      params = params.append('filteramenities', apartmentParams.filteramenities);
     }
 
     return this.http.get<Apartment[]>(this.baseUrl + 'apartments/admin', {observe: 'response', params}).pipe(

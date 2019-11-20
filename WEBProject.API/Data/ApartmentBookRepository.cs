@@ -76,6 +76,25 @@ namespace WEBProject.API.Data
                     apartments = apartments.Where(a => a.Type.ToLower() == apartmentParams.filtertype);
                 }
 
+                if (apartmentParams.filteramenities != null && apartmentParams.filteramenities.Length > 0 && apartmentParams.filteramenities != "null" &&
+                    apartmentParams.filteramenities != "undefined")
+                {
+                    string[] amentitiesParsed = apartmentParams.filteramenities.Split(',');
+
+                    List<Amentity> amentities = new List<Amentity>();
+
+                    foreach (var str in amentitiesParsed)
+                    {
+                        Amentity amentity = new Amentity { Name = str };
+                        if (amentity.Name.Length > 0)
+                            amentities.Add(amentity);
+                    }
+
+                    var amentitiesFromRepo = GetAmentities(amentities);
+
+                   apartments = apartments.Where(a => a.Amentities.All(x => amentitiesFromRepo.Contains(x)));
+                }
+
                 if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
                     apartmentParams.startDate.Length > 0 && apartmentParams.endDate != "undefined" &&
                     apartmentParams.endDate != "null" && apartmentParams.endDate.Length > 0)

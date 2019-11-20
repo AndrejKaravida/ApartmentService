@@ -170,7 +170,6 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
                     .Take(10)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -193,7 +192,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(1).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                    
                     .Skip(5).Take(4)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -217,7 +216,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(2).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                   
                     .Skip(2).Take(8)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -241,7 +240,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(3).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                    
                     .Skip(6).Take(5)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -265,7 +264,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(4).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                    
                     .Skip(4).Take(6)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -289,7 +288,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(5).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                    
                     .Skip(4).Take(5)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -313,7 +312,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(6).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                    
                     .Skip(2).Take(5)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -337,7 +336,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(7).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                 
                     .Skip(4).Take(7)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -361,7 +360,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(8).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                  
                     .Skip(4).Take(3)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
@@ -385,7 +384,7 @@ namespace WEBProject.API.Data
                     .OrderBy(l => l.Id)
                     .Skip(9).Take(1).First(),
                     Amentities = new List<Amentity>(db.Amentities
-                    .OrderBy(a => a.Id)
+                  
                     .Skip(2).Take(5)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)

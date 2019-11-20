@@ -64,7 +64,7 @@ namespace WEBProject.API.Controllers
             string numNights = numberOfNightsdouble.ToString();
             int numberOfNights = Int32.Parse(numNights);
 
-            int totalPrice = numberOfNights * apartmentFromRepo.PricePerNight;
+            double totalPrice = numberOfNights * apartmentFromRepo.PricePerNight;
 
             int user_id = Int32.Parse(data["userid"].ToString());
 
@@ -81,19 +81,27 @@ namespace WEBProject.API.Controllers
                 Status = "Created"
             };
 
+            int numOfWeekendDays = 0;
+
             if( apartmentFromRepo.ReservedDates.Count == 0)
             {
                 for (var dt = start; dt <= end; dt = dt.AddDays(1))
                 {
                    ReservedDate date = new ReservedDate { Date = dt, CurrentNumberOfGuests = 1 };
                    apartmentFromRepo.ReservedDates.Add(date);
+                    if (dt.DayOfWeek == DayOfWeek.Friday || dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                        numOfWeekendDays++;
                     if (apartmentFromRepo.NumberOfGuests == date.CurrentNumberOfGuests)
                     {
                         BlockedDate bd = new BlockedDate { Date = date.Date };
                         apartmentFromRepo.BlockedDates.Add(bd);
                     }
-
                 }   
+                if(numOfWeekendDays > 0)
+                {
+                    var discount = apartmentFromRepo.PricePerNight * 0.1 * numOfWeekendDays;
+                    newReservation.TotalPrice -= discount;
+                }
             }
             else
             {
@@ -103,6 +111,8 @@ namespace WEBProject.API.Controllers
                 {
                     ReservedDate date = new ReservedDate { Date = dt };
                     reservedDates.Add(date);
+                    if (dt.DayOfWeek == DayOfWeek.Friday || dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                        numOfWeekendDays++;
                 }
 
                foreach (var rd in reservedDates)
@@ -130,6 +140,12 @@ namespace WEBProject.API.Controllers
                         }
                     }              
                }
+
+                if (numOfWeekendDays > 0)
+                {
+                    var discount = apartmentFromRepo.PricePerNight * 0.1 * numOfWeekendDays;
+                    newReservation.TotalPrice -= discount;
+                }
             }
              
               _repo.Add(newReservation);

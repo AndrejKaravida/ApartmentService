@@ -1,0 +1,19 @@
+.headline { 
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    line-height: 1.25em !important;
+    color: #484848 !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    margin: 0px !important;
+    word-wrap: break-word !important;
+}
+
+.headline2{
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.375em !important;
+    color: rgb(118, 118, 118) !important;
+    margin: 0px !important;
+    word-wrap: break-word !important;
+}

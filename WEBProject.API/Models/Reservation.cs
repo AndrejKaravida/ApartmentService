@@ -9,7 +9,7 @@ namespace WEBProject.API.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfNights { get; set; }
-        public int TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
         public User Guest { get; set; }
         public string Status { get; set; }
 

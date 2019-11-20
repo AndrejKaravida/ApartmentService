@@ -59,6 +59,7 @@ import { ApartmentreservationsComponent } from './apartmentreservations/apartmen
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatRadioModule} from '@angular/material/radio';
+import { SelectamenitiesdialogComponent } from './selectamenitiesdialog/selectamenitiesdialog.component';
 
 
 export function tokenGetter() {
@@ -87,7 +88,8 @@ export function tokenGetter() {
       DeleteapartmentdialogComponent,
       AddreviewdialogComponent,
       ApprovedPipe,
-      ApartmentreservationsComponent
+      ApartmentreservationsComponent,
+      SelectamenitiesdialogComponent
    ],
    imports: [
       BrowserModule,
@@ -154,6 +156,7 @@ export function tokenGetter() {
       BlockuserdialogComponent,
       DeleteapartmentdialogComponent, 
       DeleteuserdialogComponent,
+      SelectamenitiesdialogComponent,
       AddreviewdialogComponent]
 })
 export class AppModule { }

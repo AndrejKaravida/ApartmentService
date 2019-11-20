@@ -23,6 +23,7 @@ namespace WEBProject.API.Helpers
         public string endDate { get; set; } = "";
         public string filtertype { get; set; } = "";
         public string filterstatus { get; set; } = "";
+        public string filteramenities { get; set; } = "";
 
     }
 }

@@ -165,7 +165,8 @@ export class ApartmentDetailComponent implements OnInit {
     const usid = this.authService.decodedToken.nameid;
 
     this.alertify.confirm('Are you sure you want to make reservation from '
-    + startDate + ' until ' + endDate + ', number of nights: ' + numOfNights + ', total price: ' + totalPrice + '$' + ' ?', () => {
+    + startDate + ' until ' + endDate + ', number of nights: ' + numOfNights + ', total price: ' + totalPrice + '$' + ' ?' +
+    '---------------------------------------*Please note that possible price discount or increase will be visible on reservations page*', () => {
       this.apartmentService.makeReservation(apid, usid, startDate, endDate).subscribe(() => {
         this.alertify.success('Reservation has been made!');
         this.loadApartment();

@@ -14,7 +14,7 @@ namespace WEBProject.API.Dtos
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfNights { get; set; }
-        public int TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
         public string Status { get; set; }
     }
 }
