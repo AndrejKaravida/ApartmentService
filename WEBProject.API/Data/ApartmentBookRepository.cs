@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,8 +30,9 @@ namespace WEBProject.API.Data
         {
             var apartments = _context.Apartments
                 .Where(a => a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
-                .Include(p => p.Photos)
-                .Include(h => h.Host)
+                .Include(p => p.Photos)            
+                .Include(h => h.Host)    
+                .Include(b => b.BlockedDates)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
                 .AsQueryable();
@@ -62,7 +64,23 @@ namespace WEBProject.API.Data
                     apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
                 }
 
+                if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
+                    apartmentParams.startDate.Length > 0 && apartmentParams.endDate != "undefined" &&
+                    apartmentParams.endDate != "null" && apartmentParams.endDate.Length > 0)
+                {
+                    DateTime start = DateTime.Parse(apartmentParams.startDate);
+                    DateTime end = DateTime.Parse(apartmentParams.endDate);
 
+                    List<BlockedDate> blockedDates = new List<BlockedDate>();
+
+                    for (var dt = start; dt <= end; dt = dt.AddDays(1))
+                    {
+                        BlockedDate date = new BlockedDate { Date = dt };
+                        blockedDates.Add(date);
+                    }
+
+                    apartments = apartments.Where(a => !a.BlockedDates.Any(x => blockedDates.Contains(x)));
+                }
                 if (!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined")
                 {
                     switch (apartmentParams.orderby)
@@ -116,21 +134,21 @@ namespace WEBProject.API.Data
              if(apartmentParams.minPrice >= 0)
             {       
                apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
-            }   
-
-              if(!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined") 
-               { 
-                switch (apartmentParams.orderby) 
-                { 
-                    case "Ascending": 
-                        apartments = apartments.OrderBy(a => a.PricePerNight);
-                        break;
-                    default: 
-                        apartments = apartments.OrderByDescending(a => a.PricePerNight);
-                        break;
-                }
-
             }
+
+                if (!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined")
+                {
+                    switch (apartmentParams.orderby)
+                    {
+                        case "Ascending":
+                            apartments = apartments.OrderBy(a => a.PricePerNight);
+                            break;
+                        default:
+                            apartments = apartments.OrderByDescending(a => a.PricePerNight);
+                            break;
+                    }
+
+                }       
             }
 
             return await PagedList<Apartment>.CreateAsync(apartments, apartmentParams.PageNumber, apartmentParams.PageSize);
@@ -202,6 +220,7 @@ namespace WEBProject.API.Data
                 .Where(a => a.Status == "Active" && a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
                 .Include(a => a.Amentities)
                 .Include(h => h.Host)
+                .Include(b => b.BlockedDates)
                 .Include(r => r.ReservedDates)
                 .Include(p => p.Photos)
                 .Include(r => r.Reservations)
@@ -230,6 +249,7 @@ namespace WEBProject.API.Data
                 .Include(h => h.Host)
                 .Include(r => r.ReservedDates)
                 .Include(p => p.Photos)
+                .Include(b => b.BlockedDates)
                 .Include(r => r.Reservations)
                 .Include(c => c.Comments)
                 .Include(l => l.Location)

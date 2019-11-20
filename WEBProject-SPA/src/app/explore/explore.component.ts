@@ -4,6 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ApartmentService } from '../_services/apartment.service';
 import { PaginatedResult, Pagination } from '../_models/pagination';
 import { AlertifyService } from '../_services/alertify.service';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+
+
 
 @Component({
   selector: 'app-explore',
@@ -16,11 +20,18 @@ export class ExploreComponent implements OnInit {
   apartmentParams: any = {};
   options = ['Ascending', 'Descending'];
   role = '';
-  
+  selected: {startDate: Moment, endDate: Moment};
+  maxDate: moment.Moment;
+  minDate: moment.Moment;
+
   constructor(private route: ActivatedRoute, private apartmentService: ApartmentService,
               private alertify: AlertifyService) { }
 
   ngOnInit() {
+
+    this.maxDate = moment().add(1,  'years');
+    this.minDate = moment();
+
     this.route.data.subscribe(data => {
       const key = 'apartments';
       this.apartments = data[key].result;
@@ -30,7 +41,7 @@ export class ExploreComponent implements OnInit {
       this.role = this.role.substr(0, this.role.length - 1);
 
     });
-    
+
     this.apartmentParams.minPrice = 0;
     this.apartmentParams.maxPrice = 99;
     this.apartmentParams.city = '';
@@ -39,17 +50,42 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.minRooms = 1;
     this.apartmentParams.maxRooms = 10;
 
-    if(this.role === 'Admin') { 
+    if (this.role === 'Admin') {
       this.loadApartmentsForAdmin();
     }
   }
 
-  loadApartments() {
+  loadApartments() {  
+    if (this.selected != null) {
 
-    if(this.role === 'Admin') { 
-      this.loadApartmentsForAdmin();
+      if (this.selected.startDate != null) {
+
+        const starting: Date = this.selected.startDate.toDate();
+
+        const curr_date_st = starting.getDate();
+        const curr_month_st = starting.getMonth() + 1;
+        const curr_year_st = starting.getFullYear();
+
+        const startDate = curr_date_st + '-' + curr_month_st + '-' + curr_year_st;
+        this.apartmentParams.startDate = startDate;
+        
+      }
+      if (this.selected.endDate != null) {
+
+        const ending: Date = this.selected.endDate.toDate();
+
+        const curr_date_en = ending.getDate();
+        const curr_month_en = ending.getMonth() + 1;
+        const curr_year_en = ending.getFullYear();
+
+        const endDate = curr_date_en + '-' + curr_month_en + '-' + curr_year_en;
+        this.apartmentParams.endDate = endDate;
+      }
     }
-    else { 
+
+    if (this.role === 'Admin') {
+      this.loadApartmentsForAdmin();
+    } else {
       this.apartmentService.getApartments(this.pagination.currentPage, this.pagination.itemsPerPage, this.apartmentParams)
       .subscribe((res: PaginatedResult<Apartment[]>) => {
         this.apartments = res.result;
@@ -58,13 +94,14 @@ export class ExploreComponent implements OnInit {
         this.alertify.error(error);
       });
     }
+
   }
 
-  deleteApartment(event) { 
-    this.apartmentService.deleteApartment(event).subscribe(()=> { 
+  deleteApartment(event) {
+    this.apartmentService.deleteApartment(event).subscribe(() => {
       this.alertify.success('Successfully deleted apartment!');
-      this.loadApartments();  
-    }, error => { 
+      this.loadApartments();
+    }, error => {
       this.alertify.error('Error while deleting apartment');
     });
   }
@@ -87,11 +124,13 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.guests = 1;
     this.apartmentParams.minRooms = 1;
     this.apartmentParams.maxRooms = 10;
-
-    if(this.role === 'Admin') { 
+    this.apartmentParams.startDate = null;
+    this.apartmentParams.endDate = null;
+    this.selected = null;
+    
+    if (this.role === 'Admin') {
       this.loadApartmentsForAdmin();
-    }
-    else { 
+    } else {
       this.loadApartments();
     }
   }
@@ -99,10 +138,9 @@ export class ExploreComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
 
-    if(this.role === 'Admin') { 
+    if (this.role === 'Admin') {
       this.loadApartmentsForAdmin();
-    }
-    else { 
+    } else {
       this.loadApartments();
     }
   }

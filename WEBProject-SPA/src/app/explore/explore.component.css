@@ -7,3 +7,6 @@
     height: 100%;
   }
   
+input { 
+  max-width: 210px;
+}

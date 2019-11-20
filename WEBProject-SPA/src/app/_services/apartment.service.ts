@@ -69,6 +69,8 @@ export class ApartmentService {
       params = params.append('city', apartmentParams.city);
       params = params.append('country', apartmentParams.country);
       params = params.append('orderby', apartmentParams.orderby);
+      params = params.append('startDate', apartmentParams.startDate);
+      params = params.append('endDate', apartmentParams.endDate);
     }
 
     return this.http.get<Apartment[]>(this.baseUrl + 'apartments/admin', {observe: 'response', params}).pipe(

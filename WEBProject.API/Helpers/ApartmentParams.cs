@@ -19,5 +19,7 @@ namespace WEBProject.API.Helpers
         public string city { get; set; } = "";
         public string country { get; set; } = "";
         public string orderby { get; set; }
+        public string startDate { get; set; } = "";
+        public string endDate { get; set; } = "";
     }
 }

@@ -87,29 +87,49 @@ namespace WEBProject.API.Controllers
                 {
                    ReservedDate date = new ReservedDate { Date = dt, CurrentNumberOfGuests = 1 };
                    apartmentFromRepo.ReservedDates.Add(date);
+                    if (apartmentFromRepo.NumberOfGuests == date.CurrentNumberOfGuests)
+                    {
+                        BlockedDate bd = new BlockedDate { Date = date.Date };
+                        apartmentFromRepo.BlockedDates.Add(bd);
+                    }
 
                 }   
             }
             else
             {
+                List<ReservedDate> reservedDates = new List<ReservedDate>();
+
                 for (var dt = start; dt <= end; dt = dt.AddDays(1))
                 {
-                    foreach (var reservedDate in apartmentFromRepo.ReservedDates.ToList())
-                    {
-                        if (reservedDate.Date == dt)
-                        {
-                            reservedDate.CurrentNumberOfGuests++;
-                            
-                        }
-                        else
-                        {
-                            ReservedDate date = new ReservedDate { Date = dt, CurrentNumberOfGuests = 1 };
-                            apartmentFromRepo.ReservedDates.Add(date);
-                            
+                    ReservedDate date = new ReservedDate { Date = dt };
+                    reservedDates.Add(date);
+                }
 
+               foreach (var rd in reservedDates)
+               {
+                  var dateToChange = apartmentFromRepo.ReservedDates.FirstOrDefault(date => date.Date == rd.Date) ?? null;
+
+                    if(dateToChange != null)
+                    {
+                        dateToChange.CurrentNumberOfGuests++;
+                        if (apartmentFromRepo.NumberOfGuests == dateToChange.CurrentNumberOfGuests)
+                        {
+                            BlockedDate bd = new BlockedDate { Date = dateToChange.Date };
+                            apartmentFromRepo.BlockedDates.Add(bd);
                         }
                     }
-                }
+                    else
+                    {
+                        ReservedDate date = new ReservedDate { Date = rd.Date, CurrentNumberOfGuests = 1 };
+                        apartmentFromRepo.ReservedDates.Add(date);
+
+                        if (apartmentFromRepo.NumberOfGuests == date.CurrentNumberOfGuests)
+                        {
+                            BlockedDate bd = new BlockedDate { Date = date.Date };
+                            apartmentFromRepo.BlockedDates.Add(bd);
+                        }
+                    }              
+               }
             }
              
               _repo.Add(newReservation);

@@ -15,6 +15,8 @@ namespace WEBProject.API.Dtos
         public LocationToReturnDto Location { get; set; }
         public ICollection<PhotoToReturnDto> Photos { get; set; }
         public ICollection<ReservedDayFromToday> ReservedDaysFromToday { get; set; }
+        public ICollection<ReservedDate> ReservedDates { get; set; }
+        public ICollection<BlockedDate> BlockedDates { get; set; }
         public int PricePerNight { get; set; }
         public UserToReturnDto Host { get; set; }
         public string TimeToArrive { get; set; }
