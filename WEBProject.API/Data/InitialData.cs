@@ -15,6 +15,8 @@ namespace WEBProject.API.Data
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
+                LoadHolidays();
+                            
                 var context = serviceScope.ServiceProvider.GetService<DataContext>();
                 context.Database.EnsureCreated();
 
@@ -503,6 +505,66 @@ namespace WEBProject.API.Data
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
+        }
+
+        private static void LoadHolidays()
+        {
+            DateTime holiday1 = new DateTime(2019, 01, 01);
+            DateTime holiday2 = new DateTime(2019, 01, 02);
+            DateTime holiday3 = new DateTime(2019, 01, 07);
+            DateTime holiday4 = new DateTime(2019, 01, 27);
+            DateTime holiday5 = new DateTime(2019, 02, 15);
+            DateTime holiday6 = new DateTime(2019, 02, 16);
+            DateTime holiday7 = new DateTime(2019, 03, 31);
+            DateTime holiday8 = new DateTime(2019, 04, 19);
+            DateTime holiday9 = new DateTime(2019, 04, 20);
+            DateTime holiday10 = new DateTime(2019, 04, 21);
+            DateTime holiday11 = new DateTime(2019, 04, 22);
+            DateTime holiday12 = new DateTime(2019, 04, 26);
+            DateTime holiday13 = new DateTime(2019, 04, 27);
+            DateTime holiday14 = new DateTime(2019, 04, 28);
+            DateTime holiday15 = new DateTime(2019, 04, 29);
+            DateTime holiday16 = new DateTime(2019, 05, 01);
+            DateTime holiday17 = new DateTime(2019, 05, 02);
+            DateTime holiday18 = new DateTime(2019, 05, 09);
+            DateTime holiday19 = new DateTime(2019, 06, 04);
+            DateTime holiday20 = new DateTime(2019, 06, 28);
+            DateTime holiday21 = new DateTime(2019, 08, 11);
+            DateTime holiday22 = new DateTime(2019, 10, 09);
+            DateTime holiday23 = new DateTime(2019, 10, 21);
+            DateTime holiday24 = new DateTime(2019, 10, 27);
+            DateTime holiday25 = new DateTime(2019, 05, 09);
+            DateTime holiday26 = new DateTime(2019, 11, 11);
+            DateTime holiday27 = new DateTime(2019, 12, 25);
+
+            Helpers.Holidays.holidays.Add(holiday1);
+            Helpers.Holidays.holidays.Add(holiday2);
+            Helpers.Holidays.holidays.Add(holiday3); 
+            Helpers.Holidays.holidays.Add(holiday4);
+            Helpers.Holidays.holidays.Add(holiday5);
+            Helpers.Holidays.holidays.Add(holiday6);
+            Helpers.Holidays.holidays.Add(holiday7);
+            Helpers.Holidays.holidays.Add(holiday8);
+            Helpers.Holidays.holidays.Add(holiday9);
+            Helpers.Holidays.holidays.Add(holiday10);
+            Helpers.Holidays.holidays.Add(holiday11);
+            Helpers.Holidays.holidays.Add(holiday12);
+            Helpers.Holidays.holidays.Add(holiday13);
+            Helpers.Holidays.holidays.Add(holiday14);
+            Helpers.Holidays.holidays.Add(holiday15);
+            Helpers.Holidays.holidays.Add(holiday16);
+            Helpers.Holidays.holidays.Add(holiday17);
+            Helpers.Holidays.holidays.Add(holiday18);
+            Helpers.Holidays.holidays.Add(holiday19);
+            Helpers.Holidays.holidays.Add(holiday20);
+            Helpers.Holidays.holidays.Add(holiday21);
+            Helpers.Holidays.holidays.Add(holiday22);
+            Helpers.Holidays.holidays.Add(holiday23);
+            Helpers.Holidays.holidays.Add(holiday24);
+            Helpers.Holidays.holidays.Add(holiday25);
+            Helpers.Holidays.holidays.Add(holiday26);
+            Helpers.Holidays.holidays.Add(holiday27);
+            
         }
 
 

@@ -82,25 +82,37 @@ namespace WEBProject.API.Controllers
             };
 
             int numOfWeekendDays = 0;
+            int numOfHolidayDays = 0;
 
-            if( apartmentFromRepo.ReservedDates.Count == 0)
+            if ( apartmentFromRepo.ReservedDates.Count == 0)
             {
                 for (var dt = start; dt <= end; dt = dt.AddDays(1))
                 {
                    ReservedDate date = new ReservedDate { Date = dt, CurrentNumberOfGuests = 1 };
                    apartmentFromRepo.ReservedDates.Add(date);
-                    if (dt.DayOfWeek == DayOfWeek.Friday || dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    if (Helpers.Holidays.holidays.Contains(dt))
+                    {
+                        numOfHolidayDays++;
+                    }
+                    else if (dt.DayOfWeek == DayOfWeek.Friday || dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    {
                         numOfWeekendDays++;
+                    }
                     if (apartmentFromRepo.NumberOfGuests == date.CurrentNumberOfGuests)
                     {
                         BlockedDate bd = new BlockedDate { Date = date.Date };
                         apartmentFromRepo.BlockedDates.Add(bd);
                     }
                 }   
-                if(numOfWeekendDays > 0)
+                if (numOfWeekendDays > 0)
                 {
                     var discount = apartmentFromRepo.PricePerNight * 0.1 * numOfWeekendDays;
                     newReservation.TotalPrice -= discount;
+                }
+                if (numOfHolidayDays > 0)
+                {
+                    var priceIncrease = apartmentFromRepo.PricePerNight * 0.05 * numOfHolidayDays;
+                    newReservation.TotalPrice += priceIncrease;
                 }
             }
             else
@@ -111,8 +123,14 @@ namespace WEBProject.API.Controllers
                 {
                     ReservedDate date = new ReservedDate { Date = dt };
                     reservedDates.Add(date);
-                    if (dt.DayOfWeek == DayOfWeek.Friday || dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    if (Helpers.Holidays.holidays.Contains(dt))
+                    {
+                        numOfHolidayDays++;
+                    }
+                    else if (dt.DayOfWeek == DayOfWeek.Friday || dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday)
+                    {
                         numOfWeekendDays++;
+                    }    
                 }
 
                foreach (var rd in reservedDates)
@@ -145,6 +163,11 @@ namespace WEBProject.API.Controllers
                 {
                     var discount = apartmentFromRepo.PricePerNight * 0.1 * numOfWeekendDays;
                     newReservation.TotalPrice -= discount;
+                }
+                if (numOfHolidayDays > 0)
+                {
+                    var priceIncrease = apartmentFromRepo.PricePerNight * 0.05 * numOfHolidayDays;
+                    newReservation.TotalPrice += priceIncrease;
                 }
             }
              
