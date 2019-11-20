@@ -13,94 +13,130 @@
           </mat-card>
         </div>
 
-    <mat-card>
-      <h5 style="text-align: center">Search for apartment:</h5>   
-      <br />
-      <form #form="ngForm" (ngSubmit)="loadApartments()" novalidate>
-
-          <div class="form-inline">       
-                <label for="minPrice">Price:</label>
-                <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.minPrice"
-                 style="width: 70px" id="minPrice" name="minPrice">
-                 <span>&nbsp; $</span>
-
-                <label for="maxPrice" style="margin-left:15px; margin-right: 15px;"> To:</label>
-                <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.maxPrice"
-                 style="width: 70px" id="maxPrice" name="maxPrice">
-                 <span>&nbsp; $</span>
- 
-          </div>
-    
-          <div class="form-inline" style="margin-top: 10px;">
-              <label for="city">City:</label>
-              <input class="form-control ml-1"  [(ngModel)]="apartmentParams.city"
-              style="width: 120px" id="city" name="city">
-          </div>
-
-          <div class="form-inline" style="margin-top: 10px;">
-              <label for="city">Country:</label>
-              <input class="form-control ml-1"  [(ngModel)]="apartmentParams.country"
-              style="width: 120px" id="city" name="city">
-          </div>
-
-          <div class="form-inline" style="margin-top: 10px;">
-              <label for="guests">Number of Guests:</label>
-              <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.guests"
-               style="width: 70px" id="guests" name="guests">
-          </div>
-               
-          <div class="form-inline" style="margin-top: 10px;">
-              <label for="minRooms">Number of Rooms:</label>
-              <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.minRooms"
-               style="width: 70px" id="minRooms" name="minRooms">
-
-              <label for="maxRooms" style="margin-left:15px; margin-right: 15px;" > To</label>
-              <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.maxRooms"
-               style="width: 70px" id="maxRooms" name="maxRooms">
-          </div>
-
-          <div class="form-inline" style="margin-top: 10px;"> 
-              <label>Date:</label>
-              <input type="text" class="form-control ml-1" name="selected" [maxDate]="maxDate"
-              [minDate]="minDate" ngxDaterangepickerMd [(ngModel)]="selected"/>
-          </div>
-    
-        <div align="center" style="margin-top: 30px;">
-          <button type="submit" mat-raised-button color="primary">Search</button>
-        </div>
-
-        <div align="center" style="margin-top: 30px;">
-            <button type="button" (click)="resetFilters()" mat-raised-button color="warn">Reset</button>
-          </div>
-      </form>
-  </mat-card>
-
-    <mat-card style="min-width: 100%;">
-
-        <div class="row justify-content-end" style="margin-right: 10px;">
-
+        <div style="display: flex;">
           <div>
-            <mat-form-field>
-                <mat-label>Sort by price:</mat-label>
-                <mat-select [(value)]="apartmentParams.orderby">
-                    <mat-option>None</mat-option>
-                    <mat-option value="Ascending">Ascending</mat-option>
-                    <mat-option value="Descending">Descending</mat-option>
-                </mat-select>
-              </mat-form-field>
-                <button mat-raised-button (click)="loadApartments()" style="margin-left: 10px;">Sort</button>
-          </div>
-        </div>
-      
-        <div class="row">
-            <div *ngFor="let apartment of apartments" class="col-lg-3 col-md-6 col-sm-12">
+            <mat-card>
+              <h5 style="text-align: center">Search for apartment:</h5>   
+              <br />
+              <form #form="ngForm" (ngSubmit)="loadApartments()" novalidate>
+        
+                  <div class="form-inline">       
+                        <label for="minPrice">Price:</label>
+                        <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.minPrice"
+                         style="width: 70px" id="minPrice" name="minPrice">
+                         <span>&nbsp; $</span>
+        
+                        <label for="maxPrice" style="margin-left:15px; margin-right: 15px;"> To:</label>
+                        <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.maxPrice"
+                         style="width: 70px" id="maxPrice" name="maxPrice">
+                         <span>&nbsp; $</span>
+       
+                  </div>
+                    <div class="form-inline" style="margin-top: 10px;">
+                      <label for="city">City:</label>
+                      <input class="form-control ml-1"  [(ngModel)]="apartmentParams.city"
+                      style="width: 120px" id="city" name="city">
+                  </div>
+        
+                  <div class="form-inline" style="margin-top: 10px;">
+                      <label for="city">Country:</label>
+                      <input class="form-control ml-1"  [(ngModel)]="apartmentParams.country"
+                      style="width: 120px" id="city" name="city">
+                  </div>
+        
+                  <div class="form-inline" style="margin-top: 10px;">
+                      <label for="guests">Number of Guests:</label>
+                      <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.guests"
+                       style="width: 70px" id="guests" name="guests">
+                  </div>
+                       
+                  <div class="form-inline" style="margin-top: 10px;">
+                      <label for="minRooms">Number of Rooms:</label>
+                      <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.minRooms"
+                       style="width: 70px" id="minRooms" name="minRooms">
+        
+                      <label for="maxRooms" style="margin-left:15px; margin-right: 15px;" > To</label>
+                      <input type="number"  class="form-control ml-1" [(ngModel)]="apartmentParams.maxRooms"
+                       style="width: 70px" id="maxRooms" name="maxRooms">
+                  </div>
+        
+                  <div class="form-inline" style="margin-top: 10px;"> 
+                      <label>Date:</label>
+                      <input type="text" class="form-control ml-1" name="selected" [maxDate]="maxDate"
+                      [minDate]="minDate" ngxDaterangepickerMd [(ngModel)]="selected"/>
+                  </div>
             
-                <app-apartment-card (changed)="deleteApartment($event)" [apartment]="apartment"></app-apartment-card>
-              
-            </div>
+                <div align="center" style="margin-top: 30px;">
+                  <button type="submit" mat-raised-button color="primary">Search</button>
+                  <button type="button" style="margin-left:10px" (click)="resetFilters()" mat-raised-button color="warn">Reset</button>
+                </div>
+        
+              </form>
+          </mat-card>
           </div>
+          <div style="margin-left: 20px;">
+            <mat-card>
+              <h5 style="text-align: center">Filter apartments:</h5>   
+              <br />
+              <form #form="ngForm" (ngSubmit)="loadApartments()" novalidate>
+        
+                  <div class="form-inline">       
+                        <label for="status">Status:</label>
+                        <mat-radio-group style="margin-left:10px" aria-label="Select an option" color="primary" [(ngModel)]="apartmentParams.filterstatus" name="filterstatus">
+                            <mat-radio-button value="active">Active</mat-radio-button>
+                            <mat-radio-button value="inactive">Inactive</mat-radio-button>
+                        </mat-radio-group>
+                  </div>
+                 
+                  <div class="form-inline" style="margin-top:10px">       
+                      <label for="type">Type:</label>
+                      <mat-radio-group style="margin-left:10px" aria-label="Select an option" color="primary" [(ngModel)]="apartmentParams.filtertype" name="filtertype">
+                          <mat-radio-button value="room">Room</mat-radio-button>
+                          <mat-radio-button value="apartment">Apartment</mat-radio-button>
+                      </mat-radio-group>
+                </div>
+                  <div class="form-inline" style="margin-top: 10px;">
+                      <label for="city">Amentities:</label>
+                      <button style="margin-left:5px" type="button" (click)="selectAmentities()" mat-stroked-button color="primary">Select amentities</button>
+                  </div>
+                                             
+                <div align="center" style="margin-top: 30px;">
+                  <button type="submit" mat-raised-button color="primary" [disabled]="apartmentParams.filtertype.length == 0 && apartmentParams.filterstatus.length == 0">Filter</button>
+                  <button type="button" style="margin-left:10px" (click)="resetFilters2()" mat-raised-button color="warn">Reset</button>
+                </div>
+               
+              </form>
+          </mat-card>        
+          </div>     
+        </div>
 
-      </mat-card>
+        <div>           
+           <mat-card style="min-width: 100%;">
+               <div class="row justify-content-end" style="margin-right: 10px;">
+       
+                 <div>
+                   <mat-form-field>
+                       <mat-label>Sort by price:</mat-label>
+                       <mat-select [(value)]="apartmentParams.orderby">
+                           <mat-option>None</mat-option>
+                           <mat-option value="Ascending">Ascending</mat-option>
+                           <mat-option value="Descending">Descending</mat-option>
+                       </mat-select>
+                     </mat-form-field>
+                       <button mat-raised-button (click)="loadApartments()" style="margin-left: 10px;">Sort</button>
+                 </div>
+               </div>
+             
+               <div class="row">
+                   <div *ngFor="let apartment of apartments" class="col-lg-3 col-md-6 col-sm-12">
+                   
+                       <app-apartment-card (changed)="deleteApartment($event)" [apartment]="apartment"></app-apartment-card>
+                     
+                   </div>
+                 </div>
+       
+             </mat-card>
+        </div>
      
 
 

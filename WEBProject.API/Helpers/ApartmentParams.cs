@@ -21,5 +21,8 @@ namespace WEBProject.API.Helpers
         public string orderby { get; set; }
         public string startDate { get; set; } = "";
         public string endDate { get; set; } = "";
+        public string filtertype { get; set; } = "";
+        public string filterstatus { get; set; } = "";
+
     }
 }

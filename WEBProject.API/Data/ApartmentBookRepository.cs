@@ -64,6 +64,18 @@ namespace WEBProject.API.Data
                     apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
                 }
 
+                if (apartmentParams.filterstatus!= null && apartmentParams.filterstatus.Length > 0  && apartmentParams.filterstatus != "null" &&
+                    apartmentParams.filterstatus != "undefined")
+                {
+                    apartments = apartments.Where(a => a.Status.ToLower() == apartmentParams.filterstatus);
+                }
+
+                if (apartmentParams.filtertype != null &&  apartmentParams.filtertype.Length > 0 && apartmentParams.filtertype != "null" &&
+                    apartmentParams.filtertype != "undefined")
+                {
+                    apartments = apartments.Where(a => a.Type.ToLower() == apartmentParams.filtertype);
+                }
+
                 if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
                     apartmentParams.startDate.Length > 0 && apartmentParams.endDate != "undefined" &&
                     apartmentParams.endDate != "null" && apartmentParams.endDate.Length > 0)
@@ -134,6 +146,24 @@ namespace WEBProject.API.Data
              if(apartmentParams.minPrice >= 0)
             {       
                apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
+            }
+
+            if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
+                   apartmentParams.startDate.Length > 0 && apartmentParams.endDate != "undefined" &&
+                   apartmentParams.endDate != "null" && apartmentParams.endDate.Length > 0)
+            {
+                DateTime start = DateTime.Parse(apartmentParams.startDate);
+                DateTime end = DateTime.Parse(apartmentParams.endDate);
+
+                List<BlockedDate> blockedDates = new List<BlockedDate>();
+
+                for (var dt = start; dt <= end; dt = dt.AddDays(1))
+                {
+                    BlockedDate date = new BlockedDate { Date = dt };
+                    blockedDates.Add(date);
+                }
+
+                apartments = apartments.Where(a => !a.BlockedDates.Any(x => blockedDates.Contains(x)));
             }
 
                 if (!string.IsNullOrEmpty(apartmentParams.orderby) && apartmentParams.orderby != "undefined")

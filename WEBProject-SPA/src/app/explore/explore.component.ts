@@ -23,6 +23,8 @@ export class ExploreComponent implements OnInit {
   selected: {startDate: Moment, endDate: Moment};
   maxDate: moment.Moment;
   minDate: moment.Moment;
+  status = '';
+  type = '';
 
   constructor(private route: ActivatedRoute, private apartmentService: ApartmentService,
               private alertify: AlertifyService) { }
@@ -31,7 +33,6 @@ export class ExploreComponent implements OnInit {
 
     this.maxDate = moment().add(1,  'years');
     this.minDate = moment();
-
     this.route.data.subscribe(data => {
       const key = 'apartments';
       this.apartments = data[key].result;
@@ -49,13 +50,27 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.guests = 1;
     this.apartmentParams.minRooms = 1;
     this.apartmentParams.maxRooms = 10;
-
+    this.apartmentParams.filtertype = '';
+    this.apartmentParams.filterstatus = '';
+  
     if (this.role === 'Admin') {
       this.loadApartmentsForAdmin();
     }
   }
 
-  loadApartments() {  
+  resetFilters2() {
+    this.apartmentParams.filtertype = '';
+    this.apartmentParams.filterstatus = this.status;
+
+    this.loadApartments();
+    
+  }
+
+  selectAmentities() {
+
+  }
+
+  loadApartments() {
     if (this.selected != null) {
 
       if (this.selected.startDate != null) {
@@ -68,7 +83,7 @@ export class ExploreComponent implements OnInit {
 
         const startDate = curr_date_st + '-' + curr_month_st + '-' + curr_year_st;
         this.apartmentParams.startDate = startDate;
-        
+
       }
       if (this.selected.endDate != null) {
 
@@ -127,12 +142,9 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.startDate = null;
     this.apartmentParams.endDate = null;
     this.selected = null;
+
+    this.loadApartments();
     
-    if (this.role === 'Admin') {
-      this.loadApartmentsForAdmin();
-    } else {
-      this.loadApartments();
-    }
   }
 
   pageChanged(event: any): void {

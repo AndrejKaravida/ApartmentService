@@ -58,6 +58,7 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
 import { ApartmentreservationsComponent } from './apartmentreservations/apartmentreservations.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 export function tokenGetter() {
@@ -96,10 +97,12 @@ export function tokenGetter() {
       MatListModule,
       FileUploadModule,
       MatDialogModule,
+      MatRadioModule,
       NgxDaterangepickerMd.forRoot(),
       MatSliderModule,
       TabsModule.forRoot(),
       HttpClientModule,
+      MatButtonModule,
       NgxGalleryModule,
       AppRoutingModule,
       BsDropdownModule.forRoot(),

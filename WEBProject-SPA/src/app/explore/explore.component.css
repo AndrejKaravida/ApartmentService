@@ -4,9 +4,12 @@
     margin-top: 30px;
     margin-bottom: 30px;
     max-width: 400px;
-    height: 100%;
   }
   
 input { 
   max-width: 210px;
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
 }
