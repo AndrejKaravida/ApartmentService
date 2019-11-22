@@ -83,7 +83,7 @@ export class ApartmentDetailComponent implements OnInit {
     this.route.data.subscribe(data => {
       const key = 'apartment';
       this.apartment = data[key];
-      this.numOfAmentities = this.apartment.amentities.length;
+      this.numOfAmentities = this.apartment.apartmentAmentities.length;
       let totalGrade = 0;
       this.numOfGrades = this.apartment.comments.length;
       // tslint:disable-next-line: prefer-for-of
@@ -118,7 +118,7 @@ export class ApartmentDetailComponent implements OnInit {
       }
 
       this.apartmentService.getPermission(this.authService.decodedToken.nameid,
-        this.apartment.id).subscribe((result: boolean) => {
+        this.apartment.apartmentId).subscribe((result: boolean) => {
           this.postpermission = result;
         });
     });
@@ -161,7 +161,7 @@ export class ApartmentDetailComponent implements OnInit {
     const numOfNights = Math.floor(Math.abs( (ending as any) - (starting as any)) / 1000 / 60 / 60 / 24);
     const totalPrice = Math.abs(numOfNights * this.apartment.pricePerNight);
 
-    const apid = this.apartment.id;
+    const apid = this.apartment.apartmentId;
     const usid = this.authService.decodedToken.nameid;
 
     this.alertify.confirm('Are you sure you want to make reservation from '
@@ -206,7 +206,7 @@ export class ApartmentDetailComponent implements OnInit {
     if (this.apartment.pricePerNight >= 0 &&
        this.apartment.pricePerNight <= 99 &&
        this.apartment.pricePerNight !== this.oldPrice) {
-      this.apartmentService.changePrice(this.apartment.id, this.apartment.pricePerNight).subscribe(() => {
+      this.apartmentService.changePrice(this.apartment.apartmentId, this.apartment.pricePerNight).subscribe(() => {
         this.alertify.success('Price successfully changed!');
       }, () => {
         this.alertify.error('Error while saving new price');
@@ -221,7 +221,7 @@ export class ApartmentDetailComponent implements OnInit {
   }
 
   loadAgain() {
-      this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+      this.apartmentService.getApartment(this.apartment.apartmentId).subscribe(result => {
         this.apartment = result;
         this.galleryImages = this.getImages();
       });
@@ -230,7 +230,7 @@ export class ApartmentDetailComponent implements OnInit {
   applyArrivalChange() {
 
     if (this.apartment.timeToArrive != this.oldArrival) {
-      this.apartmentService.changeArrival(this.apartment.id, this.apartment.timeToArrive).subscribe(() => {
+      this.apartmentService.changeArrival(this.apartment.apartmentId, this.apartment.timeToArrive).subscribe(() => {
         this.alertify.success('Time to arrive successfully changed!');
       }, () => {
         this.alertify.error('Error while saving new time');
@@ -245,7 +245,7 @@ export class ApartmentDetailComponent implements OnInit {
   applyDepartureChange() {
 
     if (this.apartment.timeToLeave != this.oldDeparture) {
-      this.apartmentService.changeDeparture(this.apartment.id, this.apartment.timeToLeave).subscribe(() => {
+      this.apartmentService.changeDeparture(this.apartment.apartmentId, this.apartment.timeToLeave).subscribe(() => {
         this.alertify.success('Time to depart successfully changed!');
       }, () => {
         this.alertify.error('Error while saving new time');
@@ -262,7 +262,7 @@ export class ApartmentDetailComponent implements OnInit {
     if (this.apartment.numberOfGuests > 0 &&
        this.apartment.numberOfGuests <= 10 &&
        this.apartment.numberOfGuests !== this.oldGuests) {
-      this.apartmentService.changeGuests(this.apartment.id, this.apartment.numberOfGuests).subscribe(() => {
+      this.apartmentService.changeGuests(this.apartment.apartmentId, this.apartment.numberOfGuests).subscribe(() => {
         this.alertify.success('Number of guests successfully changed!');
       }, () => {
         this.alertify.error('Error while saving new guests number');
@@ -281,7 +281,7 @@ export class ApartmentDetailComponent implements OnInit {
     if (this.apartment.numberOfRooms > 0 &&
        this.apartment.numberOfRooms <= 10 &&
        this.apartment.numberOfRooms !== this.oldRooms) {
-      this.apartmentService.changeRooms(this.apartment.id, this.apartment.numberOfRooms).subscribe(() => {
+      this.apartmentService.changeRooms(this.apartment.apartmentIdd, this.apartment.numberOfRooms).subscribe(() => {
         this.alertify.success('Number of rooms successfully changed!');
       }, () => {
         this.alertify.error('Error while saving new rooms number');
@@ -304,9 +304,9 @@ export class ApartmentDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const amenities = result.data;
-        this.apartmentService.addAmenities(this.apartment.id, amenities).subscribe(() => {
+        this.apartmentService.addAmenities(this.apartment.apartmentId, amenities).subscribe(() => {
           this.alertify.success('Amenities updated!');
-          this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+          this.apartmentService.getApartment(this.apartment.apartmentId).subscribe(result => {
             this.apartment = result;
           });
         }, () => {
@@ -317,11 +317,11 @@ export class ApartmentDetailComponent implements OnInit {
   }
 
   removeAmentity(name: string) {
-    this.apartmentService.removeAmentity(this.apartment.id, name).subscribe(() => {
+    this.apartmentService.removeAmentity(this.apartment.apartmentId, name).subscribe(() => {
       this.alertify.success('Amenity removed!');
-      for (let i = 0; i < this.apartment.amentities.length; i++) {
-        if (this.apartment.amentities[i].name === name) {
-          this.apartment.amentities.splice(i, 1);
+      for (let i = 0; i < this.apartment.apartmentAmentities.length; i++) {
+        if (this.apartment.apartmentAmentities[i].amentity.name === name) {
+          this.apartment.apartmentAmentities.splice(i, 1);
           break;
         }
       }
@@ -335,7 +335,7 @@ export class ApartmentDetailComponent implements OnInit {
     this.alertify.confirm('Are you sure you want to approve this comment?', () => {
       this.apartmentService.approveComment(id).subscribe(() => {
         this.alertify.success('Comment approved!');
-        this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+        this.apartmentService.getApartment(this.apartment.apartmentId).subscribe(result => {
           this.apartment = result;
         });
       }, () => {
@@ -353,7 +353,7 @@ export class ApartmentDetailComponent implements OnInit {
     this.alertify.confirm('Are you sure you want do delete this comment?', () => {
       this.apartmentService.deleteComment(id).subscribe(() => {
         this.alertify.success('Comment deleted!');
-        this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+        this.apartmentService.getApartment(this.apartment.apartmentId).subscribe(result => {
           this.apartment = result;
         });
       }, () => {
@@ -377,11 +377,11 @@ export class ApartmentDetailComponent implements OnInit {
         const text = result.text;
 
         if (text.length >= 5 && grade) {
-          this.apartmentService.commentApartment(this.apartment.id,
+          this.apartmentService.commentApartment(this.apartment.apartmentId,
             this.authService.decodedToken.nameid, text, grade).subscribe(() => {
             this.alertify.success('Successfull!');
             this.alertify.confirm('Your comment has been sent for approval', () => {});
-            this.apartmentService.getApartment(this.apartment.id).subscribe(result => {
+            this.apartmentService.getApartment(this.apartment.apartmentId).subscribe(result => {
               this.apartment = result;
             });
           }, () => {

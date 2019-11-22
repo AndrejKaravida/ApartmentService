@@ -92,7 +92,7 @@ namespace WEBProject.API.Data
 
                     var amentitiesFromRepo = GetAmentities(amentities);
 
-                   apartments = apartments.Where(a => a.Amentities.All(x => amentitiesFromRepo.Contains(x)));
+               //    apartments = apartments.Where(a => a.Amentities.All(x => amentitiesFromRepo.Contains(x)));
                 }
 
                 if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
@@ -243,6 +243,14 @@ namespace WEBProject.API.Data
             return amentity;
         }
 
+        public ApartmentAmentity GetApartmentAmentity(string name)
+        {
+            var apartment_amentity = _context.ApartmentAmentities
+                .FirstOrDefault(a => a.Amentity.Name.ToLower() == name.ToLower()) ?? null;
+
+            return apartment_amentity;
+        }
+
         public Location GetLocation(int id)
         {
             var location = _context.Location.FirstOrDefault(l => l.Address.Id == id) ?? null;
@@ -266,8 +274,9 @@ namespace WEBProject.API.Data
         public async Task<Apartment> GetApartment(int id)
         {
             var apartment = await _context.Apartments
-                .Where(a => a.Status == "Active" && a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
-                .Include(a => a.Amentities)
+                .Where(a =>a.IsDeleted == false && a.Host.IsBlocked == false && a.Host.IsDeleted == false)
+                .Include(aa => aa.ApartmentAmentities)
+                    .ThenInclude(am => am.Amentity)
                 .Include(h => h.Host)
                 .Include(b => b.BlockedDates)
                 .Include(r => r.ReservedDates)
@@ -277,7 +286,7 @@ namespace WEBProject.API.Data
                 .ThenInclude(c => c.User)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .FirstOrDefaultAsync(a => a.Id == id && a.IsDeleted == false);   
+                .FirstOrDefaultAsync(a => a.ApartmentId == id && a.IsDeleted == false);   
 
                               
             return apartment;
@@ -294,7 +303,7 @@ namespace WEBProject.API.Data
         public Apartment GetApartmentSync(int id)
         {
             var apartment = _context.Apartments
-                .Include(a => a.Amentities)
+      //          .Include(a => a.Amentities)
                 .Include(h => h.Host)
                 .Include(r => r.ReservedDates)
                 .Include(p => p.Photos)
@@ -303,7 +312,7 @@ namespace WEBProject.API.Data
                 .Include(c => c.Comments)
                 .Include(l => l.Location)
                 .ThenInclude(a => a.Address)
-                .FirstOrDefault(a => a.Id == id && a.IsDeleted == false);
+                .FirstOrDefault(a => a.ApartmentId == id && a.IsDeleted == false);
 
             return apartment;
         }
@@ -311,10 +320,16 @@ namespace WEBProject.API.Data
         public async Task<IEnumerable<Reservation>> GetReservationsForApartment(int id)
         {
             var reservations = await _context.Reservations
-                .Where(a => a.Appartment.Id == id)
+                .Where(a => a.Appartment.ApartmentId == id)
                 .Include(g => g.Guest)
                 .ToListAsync();
             return reservations;
+        }
+
+        public async Task<IEnumerable<Amentity>> GetAllAmentities()
+        {
+            var amenities = await _context.Amentities.ToListAsync();
+            return amenities;
         }
 
         public async Task<IEnumerable<Reservation>> GetReservationsForUser(int id)
@@ -332,7 +347,7 @@ namespace WEBProject.API.Data
         public bool GetReservationsForUserForApartment(int us_id, int ap_id)
         {
             var reservations = _context.Reservations
-                .Where(r => r.Guest.Id == us_id && r.Appartment.Id == ap_id && (r.Status == "Finished" || r.Status == "Denied"))
+                .Where(r => r.Guest.Id == us_id && r.Appartment.ApartmentId == ap_id && (r.Status == "Finished" || r.Status == "Denied"))
                 .ToArray();
 
             if (reservations.Length > 0)
@@ -395,7 +410,7 @@ namespace WEBProject.API.Data
 
         public async Task<Photo> GetMainPhotoForApartment(int appId)
         {
-            return await _context.Photos.Where(p => p.Apartment.Id == appId)
+            return await _context.Photos.Where(p => p.Apartment.ApartmentId == appId)
                 .FirstOrDefaultAsync(ph => ph.IsMain);
         }
     }

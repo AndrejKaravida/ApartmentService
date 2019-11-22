@@ -7,7 +7,7 @@ namespace WEBProject.API.Dtos
 {
     public class ApartmanReservationsDto
     {
-        public int Id { get; set; }
+        public int ApartmentId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfNights { get; set; }

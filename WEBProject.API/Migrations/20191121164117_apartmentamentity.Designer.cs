@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEBProject.API.Data;
 
 namespace WEBProject.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191121164117_apartmentamentity")]
+    partial class apartmentamentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,7 +100,7 @@ namespace WEBProject.API.Migrations
 
                     b.HasIndex("AmentityId");
 
-                    b.ToTable("ApartmentAmentities");
+                    b.ToTable("ApartmentAmentity");
                 });
 
             modelBuilder.Entity("WEBProject.API.Models.BlockedDate", b =>

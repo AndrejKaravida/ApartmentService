@@ -34,7 +34,7 @@ export class PhotoEditorComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'upload/' + this.apartment.id,
+      url: this.baseUrl + 'upload/' + this.apartment.apartmentId,
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -59,7 +59,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   setMainPhoto(photo: Photo) {
-    this.apartmentService.setMainPhoto(this.apartment.id, photo.id).subscribe(() => {
+    this.apartmentService.setMainPhoto(this.apartment.apartmentId, photo.id).subscribe(() => {
       this.currentMain = this.photos.filter(p => p.isMain === true)[0];
       this.currentMain.isMain = false;
       photo.isMain = true;

@@ -8,7 +8,7 @@
         <span class="card-title">{{apartment.location.address.street}}, {{apartment.location.address.city}}, </span>
         <span class="card-title"> {{apartment.location.address.country}}</span>
         <span class="price">${{apartment.pricePerNight}}/night</span>
-        <button type="button" class="details" aria-busy="false" [routerLink]="['/explore/', apartment.id]">Details</button>
+        <button type="button" class="details" aria-busy="false" [routerLink]="['/explore/', apartment.apartmentId]">Details</button>
         <span *ngIf="apartment.status == 'Active' && (role == 'Admin' || username == apartment.host.username)" class="statusactive">{{apartment.status}}</span>
          <span *ngIf="apartment.status == 'Inactive' && (role == 'Admin' || username == apartment.host.username) " class="statusinactive">{{apartment.status}}</span>
          <button *ngIf="role == 'Admin' || username == apartment.host.username" type="button" class="delete" aria-busy="false" (click)="deleteApartment()">Delete</button>

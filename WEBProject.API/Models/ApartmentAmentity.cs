@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace WEBProject.API.Models
 {
-    public class Photo
+    public class ApartmentAmentity
     {
-        public int Id { get; set; }
-        public string Url { get; set; }
+        public int ApartmentId { get; set; }
         public virtual Apartment Apartment { get; set; }
-        public bool IsMain { get; set; }
-        public bool IsDeleted { get; set; }
-
+        public int AmentityId { get; set; }
+        public virtual Amentity Amentity { get; set; }
     }
 }

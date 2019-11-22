@@ -37,8 +37,8 @@ export class AddamentitydialogComponent implements OnInit {
 
   loadAmenities() {
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.apartment.apartment.amentities.length; i++) {
-      const name = this.apartment.apartment.amentities[i].name.toLowerCase();
+    for (let i = 0; i < this.apartment.apartment.apartmentAmentities.length; i++) {
+      const name = this.apartment.apartment.apartmentAmentities[i].amentity.name.toLowerCase();
       this.amentities[name] = true;
     }
   }

@@ -8,7 +8,7 @@ namespace WEBProject.API.Dtos
 {
     public class ApartmentForReturnDto
     {
-        public int Id { get; set; }
+        public int ApartmentId { get; set; }
         public string Type { get; set; }
         public int NumberOfRooms { get; set; }
         public int NumberOfGuests { get; set; }
@@ -23,6 +23,6 @@ namespace WEBProject.API.Dtos
         public string TimeToLeave { get; set; }
         public string Status { get; set; }
         public ICollection<CommentToReturnDto> Comments { get; set; }
-        public ICollection<AmentityToReturnDto> Amentities { get; set; }
+        public virtual ICollection<ApartmentAmentityDto> ApartmentAmentities { get; set; }
     }
 }

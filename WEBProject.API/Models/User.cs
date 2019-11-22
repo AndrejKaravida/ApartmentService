@@ -16,8 +16,8 @@ namespace WEBProject.API.Models
         public string Role { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsBlocked { get; set; }
-        public ICollection<Apartment> RentedApartments { get; set; }
-        public ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Apartment> RentedApartments { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
     }
 }

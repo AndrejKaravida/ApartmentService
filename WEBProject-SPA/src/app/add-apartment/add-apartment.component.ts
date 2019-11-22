@@ -156,7 +156,7 @@ export class AddApartmentComponent implements OnInit {
       const fd = new FormData();
   
       fd.append('file', this.selectedFile, this.selectedFile.name);
-      return this.http.post('http://localhost:5000/api/upload/' + data.id, fd)
+      return this.http.post('http://localhost:5000/api/upload/' + data.apartmentId, fd)
       .subscribe(res => {
         this.alertify.success('Successfully added apartment!');
         this.router.navigate(['myapps']);

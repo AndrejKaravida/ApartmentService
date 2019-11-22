@@ -29,5 +29,7 @@ namespace WEBProject.API.Data
          Task<IEnumerable<Reservation>> GetReservationsForUser(int id);
          Task<Reservation> GetReservation(int id);
          bool GetReservationsForUserForApartment(int us_id, int ap_id);
+        Task<IEnumerable<Amentity>> GetAllAmentities();
+        ApartmentAmentity GetApartmentAmentity(string name);
     }
 }

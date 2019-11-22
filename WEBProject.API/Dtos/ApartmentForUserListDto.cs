@@ -8,7 +8,7 @@ namespace WEBProject.API.Dtos
 {
     public class ApartmentForUserListDto
     {
-        public int Id { get; set; }
+        public int ApartmentId { get; set; }
         public string Type { get; set; }
         public int NumberOfGuests { get; set; }
         public string Status { get; set; }

@@ -15,14 +15,26 @@ namespace WEBProject.API.Data
             public DbSet<Address> Addresses { get; set; }
             public DbSet<Reservation> Reservations { get; set; }
             public DbSet<Photo> Photos { get; set; }
-         //   public DbSet<ReservedDate> ReservedDates { get; set; }
+            public DbSet<ApartmentAmentity> ApartmentAmentities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-        }
+
+            builder.Entity<ApartmentAmentity>()
+                .HasKey(aa => new { aa.ApartmentId, aa.AmentityId });
             
 
-         
+            builder.Entity<ApartmentAmentity>()
+                .HasOne(aa => aa.Apartment)
+                .WithMany(a => a.ApartmentAmentities)
+                .HasForeignKey(aa => aa.ApartmentId);
+            builder.Entity<ApartmentAmentity>()
+                .HasOne(aa => aa.Amentity)
+                .WithMany(a => a.ApartmentAmentities)
+                .HasForeignKey(aa => aa.AmentityId);
+
+    
+        }       
     }
 }

@@ -114,11 +114,13 @@ namespace WEBProject.API.Controllers
         public async Task<IActionResult> RemoveAmentity(int ap_id, string am_name)
         {
             var apartment = await _repo.GetApartment(ap_id);
-
-            var amentity = _repo.GetAmentity(am_name);
-
-            apartment.Amentities.Remove(amentity);
-
+            var apartmentAmentity = _repo.GetApartmentAmentity(am_name);
+            
+            if(apartmentAmentity != null)
+            {
+                apartment.ApartmentAmentities.Remove(apartmentAmentity);
+            }
+   
             if (await _repo.SaveAll())
                 return NoContent();
 
@@ -237,23 +239,28 @@ namespace WEBProject.API.Controllers
         public async Task<IActionResult> AddAmenities(int ap_id, [FromBody]JObject data)
         {
             var apartment = await _repo.GetApartment(ap_id);
+            var amentities = await _repo.GetAllAmentities();
 
             string amenities = data["amenities"].ToString();
 
             string[] amentitiesParsed = amenities.Split(',');
 
-            List<Amentity> amentities = new List<Amentity>();
+            List<ApartmentAmentity> apartmentAmentities = new List<ApartmentAmentity>();
 
             foreach (var str in amentitiesParsed)
             {
-                Amentity am = new Amentity { Name = str };
-                if (am.Name.Length > 0)
-                    amentities.Add(am);
+                if(str.Length > 0)
+                {
+                  int ament_id = amentities.Where(a => a.Name.ToLower() == str.ToLower()).FirstOrDefault().AmentityId;
+                    if(ament_id > 0)
+                    {
+                        ApartmentAmentity am = new ApartmentAmentity { AmentityId = ament_id, ApartmentId = ap_id };
+                        apartmentAmentities.Add(am);
+                    }     
+                }
             }
 
-            var amentitiesFromRepo = _repo.GetAmentities(amentities);
-
-            apartment.Amentities = amentitiesFromRepo;
+           apartment.ApartmentAmentities = apartmentAmentities;
 
             if (await _repo.SaveAll())
                 return NoContent();
@@ -308,26 +315,30 @@ namespace WEBProject.API.Controllers
                 newapartment.Location = locationFromRepo;
 
                 string[] amentitiesParsed = apartmentForCreationDto.Amentities.Split(',');
-
-                List<Amentity> amentities = new List<Amentity>();
-
-                foreach(var str in amentitiesParsed)
-                {
-                    Amentity amentity = new Amentity {Name = str};
-                    if(amentity.Name.Length > 0) 
-                    amentities.Add(amentity);
-                } 
-
-                var amentitiesFromRepo = _repo.GetAmentities(amentities);
-
-                newapartment.Amentities = amentitiesFromRepo;         
-                
+                var amentities = await _repo.GetAllAmentities();
                 _repo.Add(newapartment);
 
+                 List<ApartmentAmentity> apartmentAmentities = new List<ApartmentAmentity>();
+
+                 foreach (var str in amentitiesParsed)
+                 {
+                     if (str.Length > 0)
+                     {
+                         int ament_id = amentities.Where(a => a.Name.ToLower() == str.ToLower()).FirstOrDefault().AmentityId;
+                         if (ament_id > 0)
+                         {
+                             ApartmentAmentity am = new ApartmentAmentity { AmentityId = ament_id, ApartmentId = newapartment.ApartmentId };
+                             apartmentAmentities.Add(am);
+                         }
+                     }
+                 }
+
+                 newapartment.ApartmentAmentities = apartmentAmentities;
+      
                 if (await _repo.SaveAll())
                 {
                     var apartmentToReturn = _mapper.Map<ApartmentForReturnDto>(newapartment);
-                    return CreatedAtRoute("GetApartment", new { id = newapartment.Id }, apartmentToReturn);
+                    return CreatedAtRoute("GetApartment", new { id = newapartment.ApartmentId }, apartmentToReturn);
                 }
 
                 throw new Exception("Creating the apartment failed on save.");

@@ -55,6 +55,9 @@ namespace WEBProject.API.Data
                 context.Comments.AddRange(comments);
                 context.SaveChanges();
 
+                var apartmentAmentities = GetApartmentAmentities().ToArray();
+                context.ApartmentAmentities.AddRange(apartmentAmentities);
+                context.SaveChanges();
             }
 
         }
@@ -132,20 +135,71 @@ namespace WEBProject.API.Data
             return amentities;
         }
 
+        public static List<ApartmentAmentity> GetApartmentAmentities()
+        {
+            List<ApartmentAmentity> apartmentAmentities = new List<ApartmentAmentity>()
+            {
+                new ApartmentAmentity {AmentityId = 1, ApartmentId = 1},
+                new ApartmentAmentity {AmentityId = 2, ApartmentId = 1},
+                new ApartmentAmentity {AmentityId = 3, ApartmentId = 1},
+                new ApartmentAmentity {AmentityId = 4, ApartmentId = 1},
+                new ApartmentAmentity {AmentityId = 5, ApartmentId = 1},
+                new ApartmentAmentity {AmentityId = 6, ApartmentId = 2},
+                new ApartmentAmentity {AmentityId = 7, ApartmentId = 2},
+                new ApartmentAmentity {AmentityId = 8, ApartmentId = 2},
+                new ApartmentAmentity {AmentityId = 9, ApartmentId = 2},
+                new ApartmentAmentity {AmentityId = 10, ApartmentId = 3},
+                new ApartmentAmentity {AmentityId = 1, ApartmentId = 3},
+                new ApartmentAmentity {AmentityId = 2, ApartmentId = 3},
+                new ApartmentAmentity {AmentityId = 3, ApartmentId = 3},
+                new ApartmentAmentity {AmentityId = 4, ApartmentId = 4},
+                new ApartmentAmentity {AmentityId = 5, ApartmentId = 4},
+                new ApartmentAmentity {AmentityId = 6, ApartmentId = 4},
+                new ApartmentAmentity {AmentityId = 7, ApartmentId = 4},
+                new ApartmentAmentity {AmentityId = 8, ApartmentId = 4},
+                new ApartmentAmentity {AmentityId = 9, ApartmentId = 5},
+                new ApartmentAmentity {AmentityId = 10, ApartmentId = 5},
+                new ApartmentAmentity {AmentityId = 1, ApartmentId = 5},
+                new ApartmentAmentity {AmentityId = 3, ApartmentId = 5},
+                new ApartmentAmentity {AmentityId = 5, ApartmentId = 6},
+                new ApartmentAmentity {AmentityId = 7, ApartmentId = 6},
+                new ApartmentAmentity {AmentityId = 9, ApartmentId = 6},
+                new ApartmentAmentity {AmentityId = 11, ApartmentId = 6},
+                new ApartmentAmentity {AmentityId = 13, ApartmentId = 7},
+                new ApartmentAmentity {AmentityId = 2, ApartmentId = 7},
+                new ApartmentAmentity {AmentityId = 4, ApartmentId = 7},
+                new ApartmentAmentity {AmentityId = 6, ApartmentId = 7},
+                new ApartmentAmentity {AmentityId = 8, ApartmentId = 8},
+                new ApartmentAmentity {AmentityId = 10, ApartmentId = 8},
+                new ApartmentAmentity {AmentityId = 1, ApartmentId = 8},
+                new ApartmentAmentity {AmentityId = 2, ApartmentId = 8},
+                new ApartmentAmentity {AmentityId = 3, ApartmentId = 8},
+                new ApartmentAmentity {AmentityId = 4, ApartmentId = 9},
+                new ApartmentAmentity {AmentityId = 6, ApartmentId = 9},
+                new ApartmentAmentity {AmentityId = 8, ApartmentId = 9},
+                new ApartmentAmentity {AmentityId = 10, ApartmentId = 10},
+                new ApartmentAmentity {AmentityId = 1, ApartmentId = 10},
+                new ApartmentAmentity {AmentityId = 2, ApartmentId = 10},
+                new ApartmentAmentity {AmentityId = 3, ApartmentId = 10}
+            };
+
+            return apartmentAmentities;
+        }
+
         public static List<Photo> GetPhotos(DataContext db)
         {
             List<Photo> photos = new List<Photo>()
             {
-                new Photo {Url = "http://localhost:5000/apartment1.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment2.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(1).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment3.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment4.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(3).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment5.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment6.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(5).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment7.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment8.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(7).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment9.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First() },
-                new Photo {Url = "http://localhost:5000/apartment10.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.Id).Skip(9).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment1.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment2.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(1).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment3.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(2).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment4.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(3).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment5.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(4).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment6.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(5).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment7.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(6).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment8.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(7).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment9.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(8).Take(1).First() },
+                new Photo {Url = "http://localhost:5000/apartment10.jpg", IsMain=true, IsDeleted = false, Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(9).Take(1).First() },
             };
 
             return photos;
@@ -171,8 +225,6 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                    .Take(10)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Take(1))
@@ -193,9 +245,6 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(1).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                    
-                    .Skip(5).Take(4)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(1)
@@ -216,10 +265,7 @@ namespace WEBProject.API.Data
                     .Skip(5).Take(1).First(),
                     Location = db.Location
                     .OrderBy(l => l.Id)
-                    .Skip(2).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                   
-                    .Skip(2).Take(8)),
+                    .Skip(2).Take(1).First(),               
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(2)
@@ -241,9 +287,6 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(3).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                    
-                    .Skip(6).Take(5)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(3)
@@ -265,9 +308,6 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(4).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                    
-                    .Skip(4).Take(6)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(4)
@@ -289,9 +329,6 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(5).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                    
-                    .Skip(4).Take(5)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(5)
@@ -313,10 +350,7 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(6).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                    
-                    .Skip(2).Take(5)),
-                    Photos = new List<Photo>(db.Photos
+                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(6)
                     .Take(1))
@@ -337,9 +371,7 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(7).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                 
-                    .Skip(4).Take(7)),
+                  
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(7)
@@ -361,9 +393,6 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(8).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                  
-                    .Skip(4).Take(3)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(8)
@@ -385,9 +414,6 @@ namespace WEBProject.API.Data
                     Location = db.Location
                     .OrderBy(l => l.Id)
                     .Skip(9).Take(1).First(),
-                    Amentities = new List<Amentity>(db.Amentities
-                  
-                    .Skip(2).Take(5)),
                     Photos = new List<Photo>(db.Photos
                     .OrderBy(p => p.Id)
                     .Skip(9)
@@ -405,23 +431,23 @@ namespace WEBProject.API.Data
                 new Reservation {
                     NumberOfNights = 5, TotalPrice = 30, Status = "Accepted", 
                     Guest = db.Users.OrderBy(u => u.Id).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.Id).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Take(1).First()},
                 new Reservation {
                     NumberOfNights = 2, TotalPrice = 35, Status = "Created", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(2).Take(1).First()},
                 new Reservation {
                     NumberOfNights = 7, TotalPrice = 60, Status = "Accepted", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(4).Take(1).First()},
                 new Reservation {
                     NumberOfNights = 3, TotalPrice = 39, Status = "Finished", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(6).Take(1).First()},
                 new Reservation 
                 {NumberOfNights = 4, TotalPrice = 42, Status = "Rejected", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(8).Take(1).First()},
             };
 
             return reservations;
@@ -438,7 +464,7 @@ namespace WEBProject.API.Data
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.Id).Take(1).First()},
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Take(1).First()},
                  new Comment {Text = "Great location! Apartment is beautifully decorated and just enough space in the " +
                  "heart of the city. Jelena and Milan were very accommodating with arrival and check out. Highly recommend" +
                  " this space and would definitely come back again!!!!", 
@@ -446,14 +472,14 @@ namespace WEBProject.API.Data
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(2).Take(1).First()}, 
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(2).Take(1).First()}, 
                 new Comment {Text = "Super good location. From the balcony, the church is really close and you can see the " +
                 "church roof clearly.",
                 Grade = 4,
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(4).Take(1).First()},
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(4).Take(1).First()},
                 new Comment {Text = "As advertised, the location is amazing. With a balcony overlooking a public square," +
                 " I was initially unsure as to whether or not noise levels might make it difficult to sleep, but all was very" +
                 " quiet by 10pm every night. We loved the balcony. This was a great modern, apartment where it was easy to feel at ease. " +
@@ -462,14 +488,14 @@ namespace WEBProject.API.Data
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(6).Take(1).First()}, 
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(6).Take(1).First()}, 
                 new Comment {Text = "Very clean place with great facilities and in the middle of the city. Fantastic view from " +
                 "the terrace. We stayed only one night unfortunately but we would definetly stay longer next time.",
                 Grade = 4,
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.Id).Skip(8).Take(1).First()},
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(8).Take(1).First()},
 
             };
 

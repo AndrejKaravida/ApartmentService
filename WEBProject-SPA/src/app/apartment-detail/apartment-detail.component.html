@@ -98,21 +98,21 @@
             <strong>There are following amenities available:</strong>
           </div>
           <div style="margin-top: 10px;" align="center" *ngIf="role == 'Admin' || username == apartment.host.username">
-            <button mat-raised-button color="primary" [disabled]="apartment.amentities.length == 0" (click)="modifyToogle()" *ngIf="!modify">Remove amenities</button>
+            <button mat-raised-button color="primary" [disabled]="apartment.apartmentAmentities.length == 0" (click)="modifyToogle()" *ngIf="!modify">Remove amenities</button>
             <button mat-raised-button color="primary" (click)="modifyToogle()" *ngIf="modify">Cancel removal</button>
             <button style="margin-left: 10px;" mat-raised-button color="primary" (click)="addAmentity()">Add amenities</button>
           </div>
           <mat-list role="list">
-              <ng-container *ngFor="let amentity of apartment.amentities"> 
+              <ng-container *ngFor="let amentity of apartment.apartmentAmentities"> 
                   <mat-list-item role="listitem">
           
                     <i class="material-icons">
-                        {{amentity.icon}}
+                        {{amentity.amentity.icon}}
                         </i>
 
-                      <span>{{amentity.name}}</span>
+                      <span>{{amentity.amentity.name}}</span>
                   <span *ngIf="modify" style="cursor: pointer;"><i 
-                    (click)="removeAmentity(amentity.name)"
+                    (click)="removeAmentity(amentity.amentity.name)"
                     class="material-icons">
                     remove_circle
                     </i></span>
@@ -177,7 +177,7 @@
             <app-photo-editor [photos]="photos" [apartment]="apartment" (changed)="changeMain($event)" (changed2)="loadAgain($event)"></app-photo-editor>
         </tab>
         <tab heading="Reservations" *ngIf="role == 'Admin' || username == apartment.host.username">
-            <app-apartmentreservations [apartment]="apartment.id" ></app-apartmentreservations>
+            <app-apartmentreservations [apartment]="apartment.apartmentId" ></app-apartmentreservations>
        </tab>
       </tabset>
     </div>

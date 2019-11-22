@@ -5,6 +5,6 @@ namespace WEBProject.API.Models
         public int Id { get; set; }
         public double Latitude { get; set; }  
         public double Longitude { get; set; }
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

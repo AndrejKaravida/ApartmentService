@@ -35,7 +35,7 @@ export class ApartmentCardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.changed.emit(this.apartment.id);
+        this.changed.emit(this.apartment.apartmentId);
       }
     });
   }

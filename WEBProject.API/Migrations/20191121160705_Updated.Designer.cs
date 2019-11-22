@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEBProject.API.Data;
 
 namespace WEBProject.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191121160705_Updated")]
+    partial class Updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,22 +42,26 @@ namespace WEBProject.API.Migrations
 
             modelBuilder.Entity("WEBProject.API.Models.Amentity", b =>
                 {
-                    b.Property<int>("AmentityId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ApartmentId");
 
                     b.Property<string>("Icon");
 
                     b.Property<string>("Name");
 
-                    b.HasKey("AmentityId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
 
                     b.ToTable("Amentities");
                 });
 
             modelBuilder.Entity("WEBProject.API.Models.Apartment", b =>
                 {
-                    b.Property<int>("ApartmentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -79,26 +85,13 @@ namespace WEBProject.API.Migrations
 
                     b.Property<string>("Type");
 
-                    b.HasKey("ApartmentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("HostId");
 
                     b.HasIndex("LocationId");
 
                     b.ToTable("Apartments");
-                });
-
-            modelBuilder.Entity("WEBProject.API.Models.ApartmentAmentity", b =>
-                {
-                    b.Property<int>("ApartmentId");
-
-                    b.Property<int>("AmentityId");
-
-                    b.HasKey("ApartmentId", "AmentityId");
-
-                    b.HasIndex("AmentityId");
-
-                    b.ToTable("ApartmentAmentities");
                 });
 
             modelBuilder.Entity("WEBProject.API.Models.BlockedDate", b =>
@@ -187,7 +180,7 @@ namespace WEBProject.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AppartmentApartmentId");
+                    b.Property<int?>("AppartmentId");
 
                     b.Property<DateTime>("EndDate");
 
@@ -203,7 +196,7 @@ namespace WEBProject.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppartmentApartmentId");
+                    b.HasIndex("AppartmentId");
 
                     b.HasIndex("GuestId");
 
@@ -277,6 +270,13 @@ namespace WEBProject.API.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("WEBProject.API.Models.Amentity", b =>
+                {
+                    b.HasOne("WEBProject.API.Models.Apartment")
+                        .WithMany("Amentities")
+                        .HasForeignKey("ApartmentId");
+                });
+
             modelBuilder.Entity("WEBProject.API.Models.Apartment", b =>
                 {
                     b.HasOne("WEBProject.API.Models.User", "Host")
@@ -286,19 +286,6 @@ namespace WEBProject.API.Migrations
                     b.HasOne("WEBProject.API.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId");
-                });
-
-            modelBuilder.Entity("WEBProject.API.Models.ApartmentAmentity", b =>
-                {
-                    b.HasOne("WEBProject.API.Models.Amentity", "Amentity")
-                        .WithMany("ApartmentAmentities")
-                        .HasForeignKey("AmentityId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WEBProject.API.Models.Apartment", "Apartment")
-                        .WithMany("ApartmentAmentities")
-                        .HasForeignKey("ApartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WEBProject.API.Models.BlockedDate", b =>
@@ -337,7 +324,7 @@ namespace WEBProject.API.Migrations
                 {
                     b.HasOne("WEBProject.API.Models.Apartment", "Appartment")
                         .WithMany("Reservations")
-                        .HasForeignKey("AppartmentApartmentId");
+                        .HasForeignKey("AppartmentId");
 
                     b.HasOne("WEBProject.API.Models.User", "Guest")
                         .WithMany("Reservations")
