@@ -81,18 +81,18 @@ namespace WEBProject.API.Data
                 {
                     string[] amentitiesParsed = apartmentParams.filteramenities.Split(',');
 
-                    List<Amentity> amentities = new List<Amentity>();
+                    List<string> amenityNames = new List<string>();
+                    var amentities = GetAllAmentitiesSync();
 
                     foreach (var str in amentitiesParsed)
                     {
-                        Amentity amentity = new Amentity { Name = str };
-                        if (amentity.Name.Length > 0)
-                            amentities.Add(amentity);
+                        if (str.Length > 0)
+                        {
+                            amenityNames.Add(str.ToLower());
+                        }
                     }
-
-                    var amentitiesFromRepo = GetAmentities(amentities);
-
-               //    apartments = apartments.Where(a => a.Amentities.All(x => amentitiesFromRepo.Contains(x)));
+                    
+                    apartments = apartments.Where(a => a.ApartmentAmentities.All(x => amenityNames.Contains(x.Amentity.Name.ToLower())));
                 }
 
                 if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
@@ -329,6 +329,12 @@ namespace WEBProject.API.Data
         public async Task<IEnumerable<Amentity>> GetAllAmentities()
         {
             var amenities = await _context.Amentities.ToListAsync();
+            return amenities;
+        }
+
+        public IEnumerable<Amentity> GetAllAmentitiesSync()
+        {
+            var amenities = _context.Amentities.ToList();
             return amenities;
         }
 
