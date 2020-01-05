@@ -50,7 +50,7 @@ export class ApartmentreservationsComponent implements OnInit {
     this.apartmentService.acceptReservation(id).subscribe(() => {
       this.alertify.success('Reservation accepted!');
       this.loadReservations();
-    }, error => { 
+    }, error => {
       this.alertify.error('Problem accepting reservation.');
     });
   }
@@ -59,7 +59,7 @@ export class ApartmentreservationsComponent implements OnInit {
     this.apartmentService.denyReservation(id).subscribe(() => {
       this.alertify.warning('Reservation denied!');
       this.loadReservations();
-    }, error => { 
+    }, error => {
       this.alertify.error('Problem deniding reservation.');
     });
   }
@@ -68,7 +68,7 @@ export class ApartmentreservationsComponent implements OnInit {
     this.apartmentService.finishReservation(id).subscribe(() => {
       this.alertify.success('Reservation finished!');
       this.loadReservations();
-    }, error => { 
+    }, error => {
       this.alertify.error('You cannot set reservation to finished before its end date!');
     });
   }

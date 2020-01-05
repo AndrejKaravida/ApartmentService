@@ -7,9 +7,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
-import { AddamentitydialogComponent } from '../addamentitydialog/addamentitydialog.component';
 import { SelectamenitiesdialogComponent } from '../selectamenitiesdialog/selectamenitiesdialog.component';
-
 
 
 @Component({
@@ -33,7 +31,6 @@ export class ExploreComponent implements OnInit {
               private alertify: AlertifyService, public dialog: MatDialog) { }
 
   ngOnInit() {
-
     this.maxDate = moment().add(1,  'years');
     this.minDate = moment();
     this.route.data.subscribe(data => {
@@ -43,7 +40,6 @@ export class ExploreComponent implements OnInit {
       this.role = localStorage.getItem('role');
       this.role = this.role.substr(1);
       this.role = this.role.substr(0, this.role.length - 1);
-
     });
 
     this.apartmentParams.minPrice = 0;
@@ -55,7 +51,6 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.maxRooms = 10;
     this.apartmentParams.filtertype = '';
     this.apartmentParams.filterstatus = '';
-    this.apartmentParams.filteramenities = '';
 
     if (this.role === 'Admin') {
       this.loadApartmentsForAdmin();
@@ -65,23 +60,9 @@ export class ExploreComponent implements OnInit {
   resetFilters2() {
     this.apartmentParams.filtertype = '';
     this.apartmentParams.filterstatus = '';
-    this.apartmentParams.filteramenities = '';
 
     this.loadApartments();
 
-  }
-
-  selectAmentities() {
-    const dialogRef = this.dialog.open(SelectamenitiesdialogComponent, {
-      width: '500px',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.apartmentParams.filteramenities = result.data;
-      }
-    });
   }
 
   loadApartments() {
@@ -156,7 +137,6 @@ export class ExploreComponent implements OnInit {
     this.apartmentParams.startDate = null;
     this.apartmentParams.endDate = null;
     this.selected = null;
-
     this.loadApartments();
 
   }
@@ -170,6 +150,4 @@ export class ExploreComponent implements OnInit {
       this.loadApartments();
     }
   }
-
-
 }

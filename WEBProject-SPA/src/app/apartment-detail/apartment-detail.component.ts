@@ -229,7 +229,7 @@ export class ApartmentDetailComponent implements OnInit {
 
   applyArrivalChange() {
 
-    if (this.apartment.timeToArrive != this.oldArrival) {
+    if (this.apartment.timeToArrive !== this.oldArrival) {
       this.apartmentService.changeArrival(this.apartment.apartmentId, this.apartment.timeToArrive).subscribe(() => {
         this.alertify.success('Time to arrive successfully changed!');
       }, () => {
@@ -244,7 +244,7 @@ export class ApartmentDetailComponent implements OnInit {
 
   applyDepartureChange() {
 
-    if (this.apartment.timeToLeave != this.oldDeparture) {
+    if (this.apartment.timeToLeave !== this.oldDeparture) {
       this.apartmentService.changeDeparture(this.apartment.apartmentId, this.apartment.timeToLeave).subscribe(() => {
         this.alertify.success('Time to depart successfully changed!');
       }, () => {
@@ -281,7 +281,7 @@ export class ApartmentDetailComponent implements OnInit {
     if (this.apartment.numberOfRooms > 0 &&
        this.apartment.numberOfRooms <= 10 &&
        this.apartment.numberOfRooms !== this.oldRooms) {
-      this.apartmentService.changeRooms(this.apartment.apartmentIdd, this.apartment.numberOfRooms).subscribe(() => {
+      this.apartmentService.changeRooms(this.apartment.apartmentId, this.apartment.numberOfRooms).subscribe(() => {
         this.alertify.success('Number of rooms successfully changed!');
       }, () => {
         this.alertify.error('Error while saving new rooms number');

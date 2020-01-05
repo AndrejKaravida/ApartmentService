@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Apartment } from '../_models/apartment';
-import { ApartmentService } from '../_services/apartment.service';
-import { AlertifyService } from '../_services/alertify.service';
-import { AuthService } from '../_services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Apartment } from '../_models/apartment';
+import { AlertifyService } from '../_services/alertify.service';
+import { ApartmentService } from '../_services/apartment.service';
+import { AuthService } from '../_services/auth.service';
 
 
 @Component({
@@ -14,8 +14,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-apartment.component.css']
 })
 export class AddApartmentComponent implements OnInit {
-  lat = 51.678418;
-  lng = 7.809007;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -82,7 +80,7 @@ export class AddApartmentComponent implements OnInit {
     });
   }
 
-  onFileSelected(event){
+  onFileSelected(event) {
     this.selectedFile = event.target.files[0] as File;
   }
 
@@ -152,21 +150,22 @@ export class AddApartmentComponent implements OnInit {
     this.newApartment.city = this.thirdFormGroup.get('city').value;
     this.newApartment.amentities = amentities;
 
-    this.apartmentService.createApartment(this.authService.decodedToken.nameid, this.newApartment).subscribe((data: any) => {
-      const fd = new FormData();
-  
-      fd.append('file', this.selectedFile, this.selectedFile.name);
-      return this.http.post('http://localhost:5000/api/upload/' + data.apartmentId, fd)
-      .subscribe(res => {
-        this.alertify.success('Successfully added apartment!');
-        this.router.navigate(['myapps']);
-        
-      });
-
-     }, error => {
-       this.alertify.error('There was a problem saving new apartment, please try again');
-     });
-
+    if (this.selectedFile == null || this.selectedFile === undefined) {
+      alert('Please choose the photo!');
+    } else {
+        this.apartmentService.createApartment(this.authService.decodedToken.nameid, this.newApartment)
+        .subscribe((data: any) => {
+          const fd = new FormData();
+          fd.append('file', this.selectedFile, this.selectedFile.name);
+          return this.http.post('http://localhost:5000/api/upload/' + data.apartmentId, fd)
+          .subscribe(res => {
+            this.alertify.success('Successfully added apartment!');
+            this.router.navigate(['myapps']);
+          });
+        }, error => {
+          this.alertify.error('There was a problem saving new apartment, please try again');
+        });
+    }
   }
 
   increasePrice() {

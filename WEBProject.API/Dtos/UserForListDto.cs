@@ -15,7 +15,7 @@ namespace WEBProject.API.Dtos
         public string Role { get; set; }
         public bool IsBlocked { get; set; }
         public bool IsDeleted { get; set; }
-        public ICollection<ApartmentForUserReturnDto> RentedApartments { get; set; }
+ //       public ICollection<ApartmentForUserReturnDto> RentedApartments { get; set; }
         public ICollection<ReservationForReturnDto> Reservations { get; set; }   
        
     }

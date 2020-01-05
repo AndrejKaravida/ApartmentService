@@ -114,13 +114,16 @@ namespace WEBProject.API.Controllers
         public async Task<IActionResult> RemoveAmentity(int ap_id, string am_name)
         {
             var apartment = await _repo.GetApartment(ap_id);
-            var apartmentAmentity = _repo.GetApartmentAmentity(am_name);
-            
-            if(apartmentAmentity != null)
+  
+            foreach(var amenity in apartment.ApartmentAmentities)
             {
-                apartment.ApartmentAmentities.Remove(apartmentAmentity);
+                if(amenity.Amentity.Name.ToLower() == am_name.ToLower())
+                {
+                    apartment.ApartmentAmentities.Remove(amenity);
+                    break;
+                }
             }
-   
+           
             if (await _repo.SaveAll())
                 return NoContent();
 

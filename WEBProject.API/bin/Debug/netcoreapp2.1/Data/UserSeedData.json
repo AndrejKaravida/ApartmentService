@@ -1,0 +1,119 @@
+[
+  {
+    "Username": "johnjenkins",
+    "FirstName": "John",
+    "LastName": "Jenkins",
+    "City": "Apalachicola",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "jackyoung",
+    "FirstName": "Jack",
+    "LastName": "Young",
+    "City": "Liskeard",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "edwardbennet",
+    "FirstName": "Edward",
+    "LastName": "Bennett",
+    "City": "Beacon",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "danielcoleman",
+    "FirstName": "Daniel",
+    "LastName": "Coleman",
+    "City": "Shirebrook",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "harrisonmorales",
+    "FirstName": "Harrison",
+    "LastName": "Morales",
+    "City": "Belfast",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Guest"
+  },
+  {
+    "Username": "elizabethpalmer",
+    "FirstName": "Elizabeth",
+    "LastName": "Palmer",
+    "City": "Guis",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "miaroberts",
+    "FirstName": "Mia",
+    "LastName": "Roberts",
+    "City": "Charlottesville",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "marthathomas",
+    "FirstName": "Martha",
+    "LastName": "Thomas",
+    "City": "Stafford",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "florencemiller",
+    "FirstName": "Florence",
+    "LastName": "Miller",
+    "City": "Orangeburg",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "hannahgraham",
+    "FirstName": "Hannah",
+    "LastName": "Graham",
+    "City": "Altrincham",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Host"
+  },
+  {
+    "Username": "admin1",
+    "FirstName": "Liam",
+    "LastName": "Morgan",
+    "City": "Lough",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Admin"
+  },
+  {
+    "Username": "admin2",
+    "FirstName": "Christopher",
+    "LastName": "Phillips",
+    "City": "Alameda",
+    "Gender": "male",
+    "Password": "password",
+    "Role": "Admin"
+  },
+  {
+    "Username": "admin3",
+    "FirstName": "Phoebe",
+    "LastName": "O'Connor",
+    "City": "Valdez",
+    "Gender": "female",
+    "Password": "password",
+    "Role": "Admin"
+  }
+]

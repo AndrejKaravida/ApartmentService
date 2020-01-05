@@ -2,7 +2,7 @@
   <mat-card class="card">
     <h5 align="center">Please enter the details below:</h5>
 
-      <mat-horizontal-stepper [linear]="false" #stepper>
+      <mat-horizontal-stepper [linear]="true" #stepper>
           <mat-step [stepControl]="firstFormGroup">
               <form [formGroup]="firstFormGroup">
                   <ng-template matStepLabel>Kind of place</ng-template>
@@ -171,20 +171,6 @@
                                 </mat-form-field>
                               </div>
                           </div>
-                        </div>
-
-                        <div style="margin-left: 90px">
-                            <!-- Maps go here -->
-
-                            <aol-map [width]="'600px'" [height]="'400'">
-                                <aol-view [zoom]="2">
-                                    <aol-coordinate [x]="15.795122" [y]="45.210225" [srid]="'EPSG:4326'"></aol-coordinate>
-                                </aol-view>
-                                <aol-layer-tile>
-                                    <aol-source-osm></aol-source-osm>
-                                </aol-layer-tile>
-                            </aol-map>
-
                         </div>
 
                         </div>
@@ -357,7 +343,7 @@
                         <span class="headline">Upload apartment main photo</span>
                         <br/><br/>
                         <div>
-                          <input #fileInput style="display: none;" type="file" (change)="onFileSelected($event)">
+                          <input #fileInput style="display: none;" type="file" required (change)="onFileSelected($event)">
                           <button type="button" (click)=fileInput.click()>
                             Pick File
                           </button>
@@ -369,10 +355,10 @@
                         <br/>
                         <div class="buttons">
                             <button mat-raised-button matStepperPrevious>Back</button>
-                            <button mat-raised-button color="primary" matStepperNext>Next</button>
+                            <button mat-raised-button color="primary" matStepperNext [disabled]="!selectedFile">Next</button>
                           </div>    
                                                  
-                        </mat-step>
+                      </mat-step>
                         
 
               <mat-step>
