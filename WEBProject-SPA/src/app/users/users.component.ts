@@ -89,4 +89,10 @@ export class UsersComponent implements OnInit {
 
   }
 
+   onUserDetails(id: number) {
+     const url = '/myapps/' + id;
+
+     this.router.navigateByUrl(url);
+   }
+
 }

@@ -6,6 +6,7 @@ import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservations',
@@ -26,13 +27,14 @@ export class ReservationsComponent implements OnInit {
     'numofnights',
     'totalPrice',
     'status',
-    'quit'
+    'quit',
+    'details'
   ];
 
   dataSource = new MatTableDataSource<Reservation>();
 
   constructor(private apartmentService: ApartmentService, private authService: AuthService,
-              private alertify: AlertifyService) {}
+              private alertify: AlertifyService, private router: Router) {}
 
   ngOnInit() {
    this.loadReservations();
@@ -57,6 +59,12 @@ export class ReservationsComponent implements OnInit {
 
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onDetails(id: number) {
+    const url = '/explore/' + id;
+
+    this.router.navigateByUrl(url);
   }
 
 }

@@ -38,8 +38,10 @@ export class ExploreComponent implements OnInit {
       this.apartments = data[key].result;
       this.pagination = data[key].pagination;
       this.role = localStorage.getItem('role');
-      this.role = this.role.substr(1);
-      this.role = this.role.substr(0, this.role.length - 1);
+      if(this.role != null) {
+        this.role = this.role.substr(1);
+        this.role = this.role.substr(0, this.role.length - 1);
+      }
     });
 
     this.apartmentParams.minPrice = 0;

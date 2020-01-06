@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from '../_services/alertify.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../_services/user.service';
-import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,13 +24,12 @@ export class ProfileComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService,
-              private userService: UserService, private authService: AuthService,
-              private activatedRoute: ActivatedRoute) { }
+              private userService: UserService) { }
 
   ngOnInit() {
 
     // tslint:disable-next-line: deprecation
-    this.activatedRoute.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       const key = 'id';
       if (params[key]) {
         this.admin = true;
@@ -57,6 +55,4 @@ export class ProfileComponent implements OnInit {
       this.alertify.error(error);
     });
   } 
-
- 
 }

@@ -15,7 +15,10 @@ namespace WEBProject.API.Data
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                LoadHolidays();
+                if(Helpers.Holidays.holidays.Count == 0)
+                {
+                    LoadHolidays();
+                }
                             
                 var context = serviceScope.ServiceProvider.GetService<DataContext>();
                 context.Database.EnsureCreated();
@@ -115,8 +118,8 @@ namespace WEBProject.API.Data
             List<Amentity> amentities = new List<Amentity>()
             {
                 new Amentity {Name = "Essential", Icon="king_bed"},
-                new Amentity {Name = "AirConditioning", Icon="local_parking"},
-                new Amentity {Name = "Heat", Icon="call"},
+                new Amentity {Name = "PrivateParking", Icon="local_parking"},
+                new Amentity {Name = "Telephone", Icon="call"},
                 new Amentity {Name = "HairDryer", Icon="face"},
                 new Amentity {Name = "Closet", Icon="table_chart"},
                 new Amentity {Name = "Iron", Icon="local_laundry_service"},
@@ -426,28 +429,53 @@ namespace WEBProject.API.Data
          
         public static List<Reservation> GetReservations(DataContext db)
         {
+            DateTime startDate1 = DateTime.Today.AddDays(-10);
+            DateTime endDate1 = DateTime.Today.AddDays(-2);
+
+            DateTime startDate2 = DateTime.Today.AddDays(-15);
+            DateTime endDate2 = DateTime.Today.AddDays(-13);
+
+            DateTime startDate3 = DateTime.Today.AddDays(-18);
+            DateTime endDate3 = DateTime.Today.AddDays(-11);
+
+            DateTime startDate4 = DateTime.Today.AddDays(-26);
+            DateTime endDate4 = DateTime.Today.AddDays(-19);
+
+            DateTime startDate5 = DateTime.Today.AddDays(-36);
+            DateTime endDate5 = DateTime.Today.AddDays(-22);
+
             List<Reservation> reservations = new List<Reservation>()
             {
                 new Reservation {
-                    NumberOfNights = 5, TotalPrice = 30, Status = "Accepted", 
+                    StartDate = startDate1, EndDate = endDate1,
+                    NumberOfNights = 5, TotalPrice = 30, Status = "Finished", 
                     Guest = db.Users.OrderBy(u => u.Id).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Take(1).First()
+                },
                 new Reservation {
-                    NumberOfNights = 2, TotalPrice = 35, Status = "Created", 
+                    StartDate = startDate2, EndDate = endDate2,
+                    NumberOfNights = 2, TotalPrice = 35, Status = "Finished", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(2).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(2).Take(1).First()
+                },
                 new Reservation {
-                    NumberOfNights = 7, TotalPrice = 60, Status = "Accepted", 
+                    StartDate = startDate3, EndDate = endDate3,
+                    NumberOfNights = 7, TotalPrice = 60, Status = "Finished", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(4).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(4).Take(1).First()
+                },
                 new Reservation {
+                    StartDate = startDate4, EndDate = endDate4,
                     NumberOfNights = 3, TotalPrice = 39, Status = "Finished", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(6).Take(1).First()},
-                new Reservation 
-                {NumberOfNights = 4, TotalPrice = 42, Status = "Rejected", 
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(6).Take(1).First()
+                },
+                new Reservation {
+                    StartDate = startDate5, EndDate = endDate5,
+                    NumberOfNights = 4, TotalPrice = 42, Status = "Finished", 
                     Guest = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(), 
-                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(8).Take(1).First()},
+                    Appartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(8).Take(1).First()
+                },
             };
 
             return reservations;
@@ -464,22 +492,25 @@ namespace WEBProject.API.Data
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Take(1).First()},
-                 new Comment {Text = "Great location! Apartment is beautifully decorated and just enough space in the " +
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Take(1).First()
+                },
+                new Comment {Text = "Great location! Apartment is beautifully decorated and just enough space in the " +
                  "heart of the city. Jelena and Milan were very accommodating with arrival and check out. Highly recommend" +
                  " this space and would definitely come back again!!!!", 
                 Grade = 5,
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(1).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(2).Take(1).First()}, 
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(2).Take(1).First()
+                }, 
                 new Comment {Text = "Super good location. From the balcony, the church is really close and you can see the " +
                 "church roof clearly.",
                 Grade = 4,
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(2).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(4).Take(1).First()},
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(4).Take(1).First()
+                },
                 new Comment {Text = "As advertised, the location is amazing. With a balcony overlooking a public square," +
                 " I was initially unsure as to whether or not noise levels might make it difficult to sleep, but all was very" +
                 " quiet by 10pm every night. We loved the balcony. This was a great modern, apartment where it was easy to feel at ease. " +
@@ -488,14 +519,16 @@ namespace WEBProject.API.Data
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(3).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(6).Take(1).First()}, 
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(6).Take(1).First()
+                }, 
                 new Comment {Text = "Very clean place with great facilities and in the middle of the city. Fantastic view from " +
                 "the terrace. We stayed only one night unfortunately but we would definetly stay longer next time.",
                 Grade = 4,
                 Approved = true,
                 Deleted = false,
                 User = db.Users.OrderBy(u => u.Id).Skip(4).Take(1).First(),
-                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(8).Take(1).First()},
+                Apartment = db.Apartments.OrderBy(a => a.ApartmentId).Skip(8).Take(1).First()
+                },
 
             };
 

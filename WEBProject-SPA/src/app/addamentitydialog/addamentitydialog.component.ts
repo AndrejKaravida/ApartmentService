@@ -9,8 +9,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddamentitydialogComponent implements OnInit {
   amentities = {
     essential: false,
-    airconditioning: false,
-    heat: false,
+    privateparking: false,
+    telephone: false,
     hairdryer: false,
     closet: false,
     iron: false,
@@ -47,8 +47,8 @@ export class AddamentitydialogComponent implements OnInit {
 
     let amentities = '';
 
-    if (this.amentities.airconditioning) {
-      amentities += 'airconditioning,';
+    if (this.amentities.privateparking) {
+      amentities += 'privateparking,';
     }
     if (this.amentities.breakfast) {
       amentities += 'breakfast,';
@@ -74,8 +74,8 @@ export class AddamentitydialogComponent implements OnInit {
     if (this.amentities.hairdryer) {
       amentities += 'hairdryer,';
     }
-    if (this.amentities.heat) {
-      amentities += 'heat,';
+    if (this.amentities.telephone) {
+      amentities += 'telephone,';
     }
     if (this.amentities.iron) {
       amentities += 'iron,';

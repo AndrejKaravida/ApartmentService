@@ -42,6 +42,11 @@ const routes: Routes = [
     resolve: {apartments: ApartmentForUserResolver}
   },
   {
+    path: 'myapps/:id',
+    component: MyAppartmentsComponent,
+    canActivate: [AdminGuard]
+  },
+  {
     path: 'addnew',
     component: AddApartmentComponent,
     canActivate: [HostGuard]

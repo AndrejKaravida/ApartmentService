@@ -120,7 +120,7 @@
                 </ng-container> 
           </mat-list>
         </tab>
-        <tab heading="Availability">
+        <tab heading="Availability" *ngIf="this.role">
           <div align="center" style="margin-top: 10px;">
             <div>
                 <span>The host offers discount of 10% during weekends, including friday.</span>
@@ -164,7 +164,7 @@
                   <span *ngIf="!review.approved" class="approve" (click)="approveComment(review.id)">Approve</span>
                 </div>
                 <div>
-                    <span class="cancel" (click)="deleteComment(review.id)">Delete</span>
+                    <span *ngIf="role" class="cancel" (click)="deleteComment(review.id)">Delete</span>
                 </div>
                  <br/>
                   {{review.text}}

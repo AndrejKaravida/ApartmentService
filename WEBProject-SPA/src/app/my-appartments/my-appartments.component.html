@@ -1,5 +1,6 @@
 <div class="container mt-5">
 
+  <ng-container *ngIf="!admin">
     <div align="center">
         <mat-card>
             <h5>My apartments:</h5>
@@ -10,8 +11,21 @@
               </div>
           </mat-card>
      </div>
+    </ng-container>
 
-  <mat-card style="min-width: 100%;" *ngIf="pagination.totalItems > 0">
+    <ng-container *ngIf="admin">
+      <div align="center">
+          <mat-card>
+              <h5>{{currentUser.firstName}}'s apartments:</h5>
+              <div *ngIf="pagination?.totalItems == 0" class="text-center mt-4">
+                User does not host any apartment at the moment.
+              </div>
+            </mat-card>
+       </div>
+      </ng-container>
+
+
+  <mat-card style="min-width: 100%;" *ngIf="pagination?.totalItems > 0">
 
     <div class="row justify-content-end" style="margin-right: 10px;">
   
@@ -39,7 +53,7 @@
 
 
 
-  <div class="d-flex justify-content-center" *ngIf="pagination.totalItems > 0">
+  <div class="d-flex justify-content-center" *ngIf="pagination?.totalItems > 0">
     <pagination [boundaryLinks]="true" 
                 [totalItems]="pagination.totalItems"
                 [(ngModel)]="pagination.currentPage"

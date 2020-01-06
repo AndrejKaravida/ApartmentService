@@ -67,11 +67,15 @@ export class ApartmentDetailComponent implements OnInit {
   ];
     this.galleryImages = this.getImages();
     this.role = localStorage.getItem('role');
-    this.role = this.role.substr(1);
-    this.role = this.role.substr(0, this.role.length - 1);
+    if(this.role != null) { 
+      this.role = this.role.substr(1);
+      this.role = this.role.substr(0, this.role.length - 1);
+    }
     this.username = localStorage.getItem('username');
-    this.username = this.username.substr(1);
-    this.username = this.username.substr(0, this.username.length - 1);
+    if(this.username != null) {
+      this.username = this.username.substr(1);
+      this.username = this.username.substr(0, this.username.length - 1);
+    }
   }
 
   isInvalidDate = (m: moment.Moment) =>  {
@@ -117,10 +121,12 @@ export class ApartmentDetailComponent implements OnInit {
         this.invalidDates.push(moment().add(invaliddate, 'days'));
       }
 
-      this.apartmentService.getPermission(this.authService.decodedToken.nameid,
-        this.apartment.apartmentId).subscribe((result: boolean) => {
-          this.postpermission = result;
-        });
+      if(this.authService.decodedToken != null) {
+        this.apartmentService.getPermission(this.authService.decodedToken.nameid,
+          this.apartment.apartmentId).subscribe((result: boolean) => {
+            this.postpermission = result;
+          });
+      }
     });
   }
 
@@ -306,8 +312,8 @@ export class ApartmentDetailComponent implements OnInit {
         const amenities = result.data;
         this.apartmentService.addAmenities(this.apartment.apartmentId, amenities).subscribe(() => {
           this.alertify.success('Amenities updated!');
-          this.apartmentService.getApartment(this.apartment.apartmentId).subscribe(result => {
-            this.apartment = result;
+          this.apartmentService.getApartment(this.apartment.apartmentId).subscribe(res => {
+            this.apartment = res;
           });
         }, () => {
           this.alertify.error('Failed to add new amenities');
