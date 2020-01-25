@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteapartmentdialogComponent } from '../deleteapartmentdialog/deleteapartmentdialog.component';
 import { AuthService } from '../_services/auth.service';
+import { ApartmentService } from '../_services/apartment.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 
 @Component({
@@ -16,7 +18,8 @@ export class ApartmentCardComponent implements OnInit {
   username = '';
   photoUrl = '';
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public apartmentService: ApartmentService,
+              public alertify: AlertifyService) { }
 
   ngOnInit() {
     this.role = localStorage.getItem('role');
@@ -51,6 +54,15 @@ export class ApartmentCardComponent implements OnInit {
       if (result) {
         this.changed.emit(this.apartment.apartmentId);
       }
+    });
+  }
+
+  activate(id: number) {
+    this.apartmentService.makeActive(id).subscribe(() => {
+      this.apartment.status = 'Active';
+      this.alertify.success('Apartment successfully activated!');
+    }, error => {
+      this.alertify.error(error);
     });
   }
 }

@@ -77,11 +77,7 @@ namespace WEBProject.API
                         }
                     });
                 });
-              //  app.UseHsts();
-            }
-
-           // app.UseHttpsRedirection();
-                           
+             }                   
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()

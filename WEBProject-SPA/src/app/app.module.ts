@@ -48,7 +48,6 @@ import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AddamentitydialogComponent } from './addamentitydialog/addamentitydialog.component';
 import { BlockuserdialogComponent } from './blockuserdialog/blockuserdialog.component';
-import { DeleteuserdialogComponent } from './deleteuserdialog/deleteuserdialog.component';
 import { DeleteapartmentdialogComponent } from './deleteapartmentdialog/deleteapartmentdialog.component';
 import { AddreviewdialogComponent } from './addreviewdialog/addreviewdialog.component';
 import { ApprovedPipe } from './approved.pipe';
@@ -83,7 +82,6 @@ export function tokenGetter() {
       AddApartmentComponent,
       AddamentitydialogComponent,
       BlockuserdialogComponent,
-      DeleteuserdialogComponent,
       PhotoEditorComponent,
       DeleteapartmentdialogComponent,
       AddreviewdialogComponent,
@@ -154,8 +152,7 @@ export function tokenGetter() {
    entryComponents: [
       AddamentitydialogComponent,
       BlockuserdialogComponent,
-      DeleteapartmentdialogComponent, 
-      DeleteuserdialogComponent,
+      DeleteapartmentdialogComponent,
       SelectamenitiesdialogComponent,
       AddreviewdialogComponent]
 })

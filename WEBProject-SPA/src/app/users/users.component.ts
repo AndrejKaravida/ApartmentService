@@ -47,20 +47,26 @@ export class UsersComponent implements OnInit {
   }
 
   blockUser(id: number) {
-    this.userService.blockUser(id).subscribe(() => {
-      this.alertify.success('User blocked successfully!');
-      this.loadUsers();
-    }, error => {
-      this.alertify.error('Error when trying to block user!');
+    this.alertify.confirm('Are you sure you want to block this user?', () => {
+      this.userService.blockUser(id).subscribe(() => {
+        this.alertify.success('User blocked successfully!');
+        this.loadUsers();
+      }, error => {
+        this.alertify.error('Error when trying to block user!');
+      });
     });
   }
 
+ 
+
   unblockUser(id: number) {
-    this.userService.unblockUser(id).subscribe(() => {
-      this.alertify.success('User unblocked successfully!');
-      this.loadUsers();
-    }, error => {
-      this.alertify.error('Error when trying to unblock user!');
+    this.alertify.confirm('Are you sure you want to unblock this user?', () => {
+      this.userService.unblockUser(id).subscribe(() => {
+        this.alertify.success('User unblocked successfully!');
+        this.loadUsers();
+      }, error => {
+        this.alertify.error('Error when trying to unblock user!');
+      });
     });
   }
 
@@ -74,11 +80,13 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe(() => {
-      this.alertify.success('User deleted successfully!');
-      this.loadUsers();
-    }, error => {
-      this.alertify.error('Error when trying to delete user!');
+    this.alertify.confirm('Are you sure you want to delete this user?', () => {
+      this.userService.deleteUser(id).subscribe(() => {
+        this.alertify.success('User deleted successfully!');
+        this.loadUsers();
+      }, error => {
+        this.alertify.error('Error when trying to delete user!');
+      });
     });
   }
 

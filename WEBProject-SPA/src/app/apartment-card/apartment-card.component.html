@@ -11,6 +11,7 @@
         <button type="button" class="details" aria-busy="false" [routerLink]="['/explore/', apartment.apartmentId]">Details</button>
         <span *ngIf="apartment.status == 'Active' && (role == 'Admin' || username == apartment.host.username)" class="statusactive">{{apartment.status}}</span>
          <span *ngIf="apartment.status == 'Inactive' && (role == 'Admin' || username == apartment.host.username) " class="statusinactive">{{apartment.status}}</span>
+         <span *ngIf="apartment.status == 'Inactive' && role == 'Admin'" class="statusactive" style="cursor: pointer" (click)="activate(apartment.apartmentId)">Activate</span>
          <button *ngIf="role == 'Admin' || username == apartment.host.username" type="button" class="delete" aria-busy="false" (click)="deleteApartment()">Delete</button>
       </div>
 
