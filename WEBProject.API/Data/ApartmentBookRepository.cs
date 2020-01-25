@@ -149,7 +149,13 @@ namespace WEBProject.API.Data
                apartments = apartments.Where(a => a.PricePerNight >= apartmentParams.minPrice && a.PricePerNight <= apartmentParams.maxPrice);
             }
 
-            if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
+                if (apartmentParams.filtertype != null && apartmentParams.filtertype.Length > 0 && apartmentParams.filtertype != "null" &&
+                     apartmentParams.filtertype != "undefined")
+                {
+                    apartments = apartments.Where(a => a.Type.ToLower() == apartmentParams.filtertype);
+                }
+
+                if (apartmentParams.startDate != "null" && apartmentParams.startDate != "undefined" &&
                    apartmentParams.startDate.Length > 0 && apartmentParams.endDate != "undefined" &&
                    apartmentParams.endDate != "null" && apartmentParams.endDate.Length > 0)
             {

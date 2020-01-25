@@ -84,14 +84,11 @@ export class UsersComponent implements OnInit {
 
   onProfileEdit(id: number) {
     const url = '/profile/' + id;
-
     this.router.navigateByUrl(url);
-
   }
 
    onUserDetails(id: number) {
      const url = '/myapps/' + id;
-
      this.router.navigateByUrl(url);
    }
 

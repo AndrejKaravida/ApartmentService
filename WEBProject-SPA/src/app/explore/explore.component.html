@@ -80,7 +80,7 @@
               <br />
               <form #form="ngForm" (ngSubmit)="loadApartments()" novalidate>
         
-                  <div class="form-inline">       
+                  <div class="form-inline" *ngIf="role == 'Admin'">       
                         <label for="status">Status:</label>
                         <mat-radio-group style="margin-left:10px" aria-label="Select an option" color="primary" [(ngModel)]="apartmentParams.filterstatus" name="filterstatus">
                             <mat-radio-button value="active">Active</mat-radio-button>

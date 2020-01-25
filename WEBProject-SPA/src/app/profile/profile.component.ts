@@ -14,7 +14,6 @@ export class ProfileComponent implements OnInit {
   selectedValue = '';
   currentUser: any = {};
   admin = false;
- 
   @ViewChild('editForm', {static: false}) editForm: NgForm;
   @HostListener('window:beforeunload', ['$event'])
    unloadNotification($event: any) {
@@ -22,7 +21,6 @@ export class ProfileComponent implements OnInit {
        $event.returnValue = true;
      }
   }
-
   constructor(private route: ActivatedRoute, private alertify: AlertifyService,
               private userService: UserService) { }
 
